@@ -21,8 +21,8 @@
 | 
 |
 */
-Route::group(['prefix' => 'api', 'namespace' => 'API'], function(){
-	Route::resource('listings', 'APIListingController');
+Route::group(['prefix' => 'api'], function(){
+	Route::get('listings', 'ListingFEController@indexAPI');
 });
 
 /*
