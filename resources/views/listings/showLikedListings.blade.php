@@ -22,18 +22,20 @@
 		<hr>
 
 		<div class="uk-grid">
-		@if(Auth::check())
+		@if(Auth::check() && count($likes) > 0)
 			@foreach($likes as $like)
 				<?php 	$listing 		= $like->listing; 
 						$mosaicClass 	= "uk-width-medium-1-3 uk-width-large-1-3 uk-margin-small-bottom"; 
 				?>
 				@include('listings.mosaic')
 			@endforeach
-		@else
+		@elseif(count($likes))
 			@foreach($likes as $listing)
 				<?php $mosaicClass = "uk-width-medium-1-3 uk-width-large-1-3 uk-margin-small-bottom"; ?>
 				@include('listings.mosaic')
 			@endforeach
+		@else
+			<h3>{{ trans('frontend.no_favorites') }}</h3>
 		@endif
 		</div>
 	</div>

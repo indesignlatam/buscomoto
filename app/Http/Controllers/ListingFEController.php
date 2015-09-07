@@ -47,6 +47,50 @@ class ListingFEController extends Controller {
 		$query 			= Listing::remember(Settings::get('query_cache_time_extra_short'))->active();
 		$take 			= Settings::get('pagination_objects');
 
+		// Only if not mobile
+		$featuredTop = null;
+		$view 		= 'listings.index';
+
+		if(!$mobile){
+			// Featured Listings Top
+			$fTopQuery 	= null;
+			$fTopQuery = Listing::remember(Settings::get('query_cache_time_extra_short', 1))->where('featured_expires_at', '>', DB::raw('now()'));
+			if($request->has('listing_type_id')){
+				$fTopQuery = $fTopQuery->where('listing_type', $request->get('listing_type_id'));
+			}
+			$featuredTop = $fTopQuery->take(8)
+								  	 ->orderByRaw("RAND()")
+								  	 ->with('listingType', 'featuredType')
+								  	 ->get();
+			// Featured Listings Top End
+	  	}else{ // If is mobile
+	  		// Set the view to mobile view
+	  		$view = 'listings.mobile.index';
+	  	}
+
+	  	$engineSizes 	= EngineSize::remember(Settings::get('query_cache_time'))->get();
+		$listingTypes 	= ListingType::remember(Settings::get('query_cache_time'))->get();
+		$manufacturers 	= Manufacturer::selectRaw('id, name AS text')->remember(Settings::get('query_cache_time'))->get();
+		$cities 		= City::selectRaw('id, name AS text')->remember(Settings::get('query_cache_time'))->orderBy('ordering')->get();
+
+		return view($view, ['featuredListings' 	=> $featuredTop,
+							'listingTypes' 		=> $listingTypes,
+							'cities' 			=> $cities, 
+							'engineSizes' 		=> $engineSizes ,
+							'manufacturers'		=> $manufacturers,
+							]);
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function indexAPI(Request $request){
+		$query 			= Listing::remember(Settings::get('query_cache_time_extra_short'))->active();
+		$take 			= Settings::get('pagination_objects');
+		$listings 		= null;
+
 		// If there are search params set
 		if(count($request->all()) > 0){
 			// If user knows the listing code
@@ -99,7 +143,9 @@ class ListingFEController extends Controller {
 				// If user input category_id - casas, apartamentos...
 				if($request->has('year_min') && $request->has('year_max')){
 					// If user set price_max at the input max dont limit max price
-					if($request->get('year_max') >= 2016){
+					if($request->get('year_min') <= 1970){
+						$query = $query->whereBetween('year', [1, $request->get('year_max')]);
+					}elseif($request->get('year_max') >= 2016){
 						$query = $query->where('year', '>=', $request->get('year_min'));
 					}else{// Else limit by min and max price
 						$query = $query->whereBetween('year', [$request->get('year_min')-1, $request->get('year_max')]);
@@ -120,19 +166,19 @@ class ListingFEController extends Controller {
 				if($request->has('order_by')){
 					if($request->get('order_by') == 'price_min'){
 						session(['listings_order_by' => 'price_min']);
-						$query = $query->orderBy('price', 'ASC');
+						$query = $query->orderBy('price', 'ASC')->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 					}else if($request->get('order_by') == 'price_max'){
 						session(['listings_order_by' => 'price_max']);
-						$query = $query->orderBy('price', 'DESC');
+						$query = $query->orderBy('price', 'DESC')->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 					}else if($request->get('order_by') == 'id_desc'){
 						session(['listings_order_by' => 'id_desc']);
-						$query = $query->orderBy('id', 'DESC');
+						$query = $query->orderBy('id', 'DESC')->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 					}else if($request->get('order_by') == 'id_asc'){
 						session(['listings_order_by' => 'id_asc']);
-						$query = $query->orderBy('id', 'ASC');
+						$query = $query->orderBy('id', 'ASC')->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 					}else if($request->get('order_by') == '0'){
 						session()->forget('listings_order_by');
-						$query = $query->orderBy('featured_type', 'DESC');
+						$query = $query->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 					}
 				}
 
@@ -149,13 +195,13 @@ class ListingFEController extends Controller {
 		// Order the query by cookie
 		if(!$request->has('order_by') && $request->session()->has('listings_order_by')){
 			if(session('listings_order_by') == 'price_min'){
-				$query = $query->orderBy('price', 'ASC');
+				$query = $query->orderBy('price', 'ASC')->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 			}else if(session('listings_order_by') == 'price_max'){
-				$query = $query->orderBy('price', 'DESC');
+				$query = $query->orderBy('price', 'DESC')->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 			}else if(session('listings_order_by') == 'id_desc'){
-				$query = $query->orderBy('id', 'DESC');
+				$query = $query->orderBy('id', 'DESC')->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 			}else if(session('listings_order_by') == 'id_asc'){
-				$query = $query->orderBy('id', 'ASC');
+				$query = $query->orderBy('id', 'ASC')->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 			}
 		}else{
 			$query = $query->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
@@ -169,43 +215,9 @@ class ListingFEController extends Controller {
 		}
 
 		if(!$request->has('listing_code')){
-			$listings = $query->orderBy('id', 'DESC')->with('listingType', 'featuredType')->paginate($take);
+			$listings = $query->orderBy('id', 'DESC')->with('featuredType')->paginate($take);
 		}
-
-
-		// Only if not mobile
-		$featuredTop = null;
-		$view 		= 'listings.index';
-
-		if(!$mobile){
-			// Featured Listings Top
-			$fTopQuery 	= null;
-			$fTopQuery = Listing::remember(Settings::get('query_cache_time_extra_short', 1))->where('featured_expires_at', '>', DB::raw('now()'));
-			if($request->has('listing_type_id')){
-				$fTopQuery = $fTopQuery->where('listing_type', $request->get('listing_type_id'));
-			}
-			$featuredTop = $fTopQuery->take(8)
-								  	 ->orderByRaw("RAND()")
-								  	 ->with('listingType', 'featuredType')
-								  	 ->get();
-			// Featured Listings Top End
-	  	}else{ // If is mobile
-	  		// Set the view to mobile view
-	  		$view = 'listings.mobile.index';
-	  	}
-
-	  	$engineSizes 	= EngineSize::remember(Settings::get('query_cache_time'))->get();
-		$listingTypes 	= ListingType::remember(Settings::get('query_cache_time'))->get();
-		$manufacturers 	= Manufacturer::selectRaw('id, name AS text')->remember(Settings::get('query_cache_time'))->get();
-		$cities 		= City::selectRaw('id, name AS text')->remember(Settings::get('query_cache_time'))->orderBy('ordering')->get();
-
-		return view($view, ['listings' 			=> $listings,
-							'featuredListings' 	=> $featuredTop,
-							'listingTypes' 		=> $listingTypes,
-							'cities' 			=> $cities, 
-							'engineSizes' 		=> $engineSizes ,
-							'manufacturers'		=> $manufacturers,
-							]);
+		return $listings;
 	}
 	
 	/**

@@ -25,80 +25,14 @@
 
 <div class="uk-container uk-container-center uk-margin-top uk-margin-bottom">
 	<div class="uk-panel">
-		<div class="uk-panel">
-			<h1 class="uk-display-inline">{{ trans('frontend.search_listings') }} <h3 id="listings_number" class="uk-display-inline"></h3></h1>
-
-			<div class="uk-form uk-float-right uk-hidden-small">
-    			<select form="search_form" name="take" onchange="getListings()" id="take">
-			    	<option value="">{{ trans('admin.elements_amount') }}</option>
-			    	@if(Request::get('take') == 50)
-			    		<option value="50" selected>{{ trans('admin.elements_50') }}</option>
-			    	@elseif(session('listings_take') == 50)
-			    		<option value="50" selected>{{ trans('admin.elements_50') }}</option>
-			    	@else
-			    		<option value="50">{{ trans('admin.elements_50') }}</option>
-			    	@endif
-
-			    	@if(Request::get('take') == 30)
-			    		<option value="30" selected>{{ trans('admin.elements_30') }}</option>
-			    	@elseif(session('listings_take') == 30)
-			    		<option value="30" selected>{{ trans('admin.elements_30') }}</option>
-			    	@else
-			    		<option value="30">{{ trans('admin.elements_30') }}</option>
-			    	@endif
-
-			    	@if(Request::get('take') == 10)
-			    		<option value="10" selected>{{ trans('admin.elements_10') }}</option>
-			    	@elseif(session('listings_take') == 10)
-			    		<option value="10" selected>{{ trans('admin.elements_10') }}</option>
-			    	@else
-			    		<option value="10">{{ trans('admin.elements_10') }}</option>
-			    	@endif
-			    </select>
-
-			    <select form="search_form" name="order_by" onchange="getListings()" id="order_by">
-			    	<option value="0">{{ trans('admin.order_by') }}</option>
-			    	@if(Request::get('order_by') && Request::get('order_by') == 'id_desc')
-			    		<option value="id_desc" selected>{{ trans('admin.order_newer_first')}}</option>
-			    	@elseif(session('listings_order_by') == 'id_desc')
-			    		<option value="id_desc" selected>{{ trans('admin.order_newer_first')}}</option>
-			    	@else
-			    		<option value="id_desc">{{ trans('admin.order_newer_first')}}</option>
-			    	@endif
-
-			    	@if(Request::get('order_by') && Request::get('order_by') == 'id_asc')
-			    		<option value="id_asc" selected>{{ trans('admin.order_older_first')}}</option>
-			    	@elseif(session('listings_order_by') == 'id_asc')
-			    		<option value="id_asc" selected>{{ trans('admin.order_older_first')}}</option>
-			    	@else
-			    		<option value="id_asc">{{ trans('admin.order_older_first')}}</option>
-			    	@endif
-
-			    	@if(Request::get('order_by') && Request::get('order_by') == 'price_max')
-			    		<option value="price_max" selected>{{ trans('admin.order_expensive_first') }}</option>
-			    	@elseif(session('listings_order_by') == 'price_max')
-			    		<option value="price_max" selected>{{ trans('admin.order_expensive_first') }}</option>
-			    	@else
-			    		<option value="price_max">{{ trans('admin.order_expensive_first') }}</option>
-			    	@endif
-
-			    	@if(Request::get('order_by') && Request::get('order_by') == 'price_min')
-			    		<option value="price_min" selected>{{ trans('admin.order_cheaper_first') }}</option>
-			    	@elseif(session('listings_order_by') == 'price_min')
-			    		<option value="price_min" selected>{{ trans('admin.order_cheaper_first') }}</option>
-			    	@else
-			    		<option value="price_min">{{ trans('admin.order_cheaper_first') }}</option>
-			    	@endif
-			    </select>
-			</div>
-		</div>
+		<h1>{{ trans('frontend.search_listings') }}</h1>
 	    
 	    <hr>
 
-	    <div class="uk-flex uk-margin-top">
+	    <div class="uk-flex uk-margin-top" id="secondContent">
 	    	<!-- Search bar for pc -->
 	    	<div class="uk-width-large-1-4 uk-visible-large" style="margin-right:15px; padding-right:20px; border-right-style:solid; border-right: 1px solid #dddddd;">
-				<form id="search_form" class="uk-form uk-form-stacked">
+				<form id="search_form" class="uk-form uk-form-stacked" method="GET" action="{{ url(Request::path()) }}">
 
 					<input class="uk-width-large-10-10 uk-margin-bottom uk-form-large" type="text" name="listing_code" placeholder="{{ trans('frontend.search_code') }}" value>
 
@@ -174,17 +108,139 @@
 			                <option value>{{ trans('frontend.search_select_option') }}</option>
 			            </select>
 			        </div>
+
+                	<button type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1 uk-margin-top">{{ trans('frontend.search_button') }}</button>
 				</form>
 	    	</div>
 	    	<!-- End search bar -->
 	    	
-	    	<!-- Listings space -->
 	    	<div class="uk-width-large-3-4 uk-width-small-1-1">
-	    		<div class="uk-panel">
-					<div class="uk-grid" id="listings"></div>
-				</div>
+	    		@if(count($listings) > 0)
+	    			<div class="uk-form uk-align-right uk-hidden-small">
+		    			<select form="search_form" name="take" onchange="this.form.submit()">
+					    	<option value="">{{ trans('admin.elements_amount') }}</option>
+					    	@if(Request::get('take') == 50)
+					    		<option value="50" selected>{{ trans('admin.elements_50') }}</option>
+					    	@elseif(session('listings_take') == 50)
+					    		<option value="50" selected>{{ trans('admin.elements_50') }}</option>
+					    	@else
+					    		<option value="50">{{ trans('admin.elements_50') }}</option>
+					    	@endif
+
+					    	@if(Request::get('take') == 30)
+					    		<option value="30" selected>{{ trans('admin.elements_30') }}</option>
+					    	@elseif(session('listings_take') == 30)
+					    		<option value="30" selected>{{ trans('admin.elements_30') }}</option>
+					    	@else
+					    		<option value="30">{{ trans('admin.elements_30') }}</option>
+					    	@endif
+
+					    	@if(Request::get('take') == 10)
+					    		<option value="10" selected>{{ trans('admin.elements_10') }}</option>
+					    	@elseif(session('listings_take') == 10)
+					    		<option value="10" selected>{{ trans('admin.elements_10') }}</option>
+					    	@else
+					    		<option value="10">{{ trans('admin.elements_10') }}</option>
+					    	@endif
+					    </select>
+
+					    <select form="search_form" name="order_by" onchange="this.form.submit()">
+					    	<option value="0">{{ trans('admin.order_by') }}</option>
+					    	@if(Request::get('order_by') && Request::get('order_by') == 'id_desc')
+					    		<option value="id_desc" selected>{{ trans('admin.order_newer_first')}}</option>
+					    	@elseif(session('listings_order_by') == 'id_desc')
+					    		<option value="id_desc" selected>{{ trans('admin.order_newer_first')}}</option>
+					    	@else
+					    		<option value="id_desc">{{ trans('admin.order_newer_first')}}</option>
+					    	@endif
+
+					    	@if(Request::get('order_by') && Request::get('order_by') == 'id_asc')
+					    		<option value="id_asc" selected>{{ trans('admin.order_older_first')}}</option>
+					    	@elseif(session('listings_order_by') == 'id_asc')
+					    		<option value="id_asc" selected>{{ trans('admin.order_older_first')}}</option>
+					    	@else
+					    		<option value="id_asc">{{ trans('admin.order_older_first')}}</option>
+					    	@endif
+
+					    	@if(Request::get('order_by') && Request::get('order_by') == 'price_max')
+					    		<option value="price_max" selected>{{ trans('admin.order_expensive_first') }}</option>
+					    	@elseif(session('listings_order_by') == 'price_max')
+					    		<option value="price_max" selected>{{ trans('admin.order_expensive_first') }}</option>
+					    	@else
+					    		<option value="price_max">{{ trans('admin.order_expensive_first') }}</option>
+					    	@endif
+
+					    	@if(Request::get('order_by') && Request::get('order_by') == 'price_min')
+					    		<option value="price_min" selected>{{ trans('admin.order_cheaper_first') }}</option>
+					    	@elseif(session('listings_order_by') == 'price_min')
+					    		<option value="price_min" selected>{{ trans('admin.order_cheaper_first') }}</option>
+					    	@else
+					    		<option value="price_min">{{ trans('admin.order_cheaper_first') }}</option>
+					    	@endif
+					    </select>
+					</div>
+					
+		    		<!-- This is the container of the toggling elements -->
+					<ul class="uk-tab" data-uk-switcher="{connect:'#my-id'}">
+						@if(true)
+					    	<li class="uk-tab-active uk-active" onclick="setListingView(1)"><a href=""><i class="uk-icon-th-large"></i> {{ trans('frontend.tab_mosaic') }}</a></li>
+					    	<li class="uk-hidden" onclick="setListingView(2)"><a href=""><i class="uk-icon-map-marker"></i> {{ trans('frontend.tab_map') }}</a></li>
+						@elseif(Cookie::get('listings_view') == 1)
+					    	<li class="uk-hidden-small uk-tab-active uk-active" onclick="setListingView(1)"><a href=""><i class="uk-icon-th-large"></i> {{ trans('frontend.tab_mosaic') }}</a></li>
+					    	<li class="uk-hidden" onclick="setListingView(2)"><a href=""><i class="uk-icon-map-marker"></i> {{ trans('frontend.tab_map') }}</a></li>
+					    @elseif(Cookie::get('listings_view') == 2)
+					    	<li class="uk-hidden-small" onclick="setListingView(1)"><a href=""><i class="uk-icon-th-large"></i> {{ trans('frontend.tab_mosaic') }}</a></li>
+					    	<li class="uk-hidden uk-tab-active uk-active" onclick="setListingView(2)"><a href=""><i class="uk-icon-map-marker"></i> {{ trans('frontend.tab_map') }}</a></li>
+						@endif
+					</ul>
+					<!-- This is the container of the content items -->
+					<ul id="my-id" class="uk-switcher uk-margin-top">
+					    <!-- Image Mosaic -->
+					    <li>
+					    	@if(count($featuredListings) > 0)
+					    	<!-- Featured listings top -->
+							<div class="uk-slidenav-position" data-uk-slideset="{small: 1, medium: 4, large: 4, autoplay: true}">
+				                <ul class="uk-grid uk-slideset">
+				                    @foreach($featuredListings as $listing)
+				                    <li>
+				                        <a href="{{ url($listing->path()) }}">
+				                            <img src="{{ asset(Image::url($listing->image_path(),['mini_front'])) }}" class="uk-margin-small-bottom" style="max-width=150px">
+				                        </a>
+				                        <a href="{{ url($listing->path()) }}">{{ $listing->title }}</a>
+				                        <p class="uk-text-muted" style="font-size:10px;margin-top:-4px">{{ $listing->area }} mt2 - {{ money_format('$%!.0i', $listing->price) }}</p>
+				                    </li>
+				                    @endforeach
+				                </ul>
+				                <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-previous uk-slidenav-contrast" data-uk-slideset-item="previous"></a>
+				                <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-next uk-slidenav-contrast" data-uk-slideset-item="next"></a>
+				            </div>
+							<!-- Featured listings top -->
+							@endif
+					    	<div class="uk-grid uk-margin-top-remove" data-uk-grid-match="{target:'.uk-panel'}">
+					    	@foreach($listings as $listing)
+					    		<!-- Listing list view -->
+					    		@include('listings.mosaic')
+					    		<!-- Listing list view -->
+						    @endforeach
+						    </div>
+						    <div class="uk-margin-small-top">
+						    	<?php echo $listings->appends(Request::all())->render(); ?>
+						    </div>
+					    </li>
+
+					    <!-- Map -->
+					    <li>
+					    	<div id="map" style="height:550px" class="uk-width-1-1"></div>
+					    </li>
+					</ul>
+		    		
+			    @else
+			    	<div class="uk-text-center">
+			    		<h3 class="uk-text-primary">{{ trans('frontend.sorry') }}<br>{{ trans('frontend.no_listings_found') }}</h3>
+			    		<h4>{{ trans('frontend.try_other_parameters') }}</h4>
+			    	</div>
+			    @endif
 	    	</div>
-	    	<!-- Listings space -->
 	    </div>
 	</div>
 </div>
@@ -265,13 +321,13 @@
 
 		    $( "#slider_year_range" ).slider({
 		      	range: true,
-		      	min: 1970,// TODO get from settings
+		      	min: 1900,// TODO get from settings
 		      	max: 2016,// TODO get from settings
 
 		      	@if(Request::has('year_min') && Request::has('year_max'))
 					values: [{{Request::get('year_min')}}, {{Request::get('year_max')}}],
 				@else
-					values: [1970, 2016],// TODO get from settings
+					values: [1900, 2016],// TODO get from settings
 		      	@endif
 		      	slide: function( event, ui ) {
 		      		tag = "";
@@ -343,16 +399,9 @@
 
 	  	});
 
-		var page = 1;
-
-		function getListings(paginate){
-			paging = null;
-			if(paginate){
-				paging = page;
-			}else{
-				page = 1;
-			}
-			$.get("{{ url('/api/listings') }}", {   manufacturers: $('#search_manufacturer').val(),
+		function getListings(){
+			$.get("{{ url('/api/listings') }}", {  _token: "{{ csrf_token() }}", 
+													manufacturers: $('#search_manufacturer').val(),
 													models: $('#search_models').val(),
 													listing_type: $('#listing_type').val(),
 													price_min: $('#price_min').val(),
@@ -364,37 +413,12 @@
 													odometer_min: $('#odometer_min').val(),
 													odometer_max: $('#odometer_max').val(),
 													city_id: $('#search_cities').val(),
-													take:  $('#take').val(),
-													order_by: $('#order_by').val(),
-													page: paging,
-													_token: "{{ csrf_token() }}", 
 												}, 
 			function(response){
-				if(response && !paginate){
-					$('#listings').html('');
-				}else{
-					$('#load_button').remove();
-				}
-				if(response.data.length > 0){
-					$('#listings_number').html("("+response.total+" encontrados)")
-					jQuery.each(response.data , function(index, listing){
-						var view = '<div class="uk-width-medium-1-2 uk-width-large-1-2 uk-margin-small-bottom"><a href="{{ url('/buscar') }}/'+listing.slug+'" style="text-decoration:none"><div class="uk-panel uk-panel-hover uk-margin-remove"><img src="'+listing.image_path+'" style="width:380px; float:left" class="uk-margin-right"><div class=""><p class=""><strong class="uk-text-primary">'+listing.title+'</strong><br><b class="uk-text-bold">$'+accounting.formatNumber(listing.price)+'</b> | <i class="uk-text-muted">'+accounting.formatNumber(listing.odometer)+' kms</i></p></div></div></a></div>'
-					    $('#listings').append(view);
-					});
-					if(response.total > response.to){
-						loadMore = '<div class="uk-width-1-1"><button onclick="page++;getListings(true);" class="uk-button uk-button-large uk-button-primary uk-align-center" id="load_button">{{ trans("frontend.load_more") }}</button></div>';
-						$('#listings').append(loadMore);
-					}else{
-						var view = '<div class="uk-text-center uk-width-1-1"><h3 class="uk-text-muted">{{ trans('frontend.no_listings_left') }}</h3></div>'
-						$('#listings').append(view);
-					}
-				}else if(paginate){
-					var view = '<div class="uk-text-center uk-width-1-1"><h3 class="uk-text-muted">{{ trans('frontend.no_listings_left') }}</h3></div>'
-					$('#listings').append(view);
-				}else{
-					var view = '<div class="uk-text-center uk-width-1-1"><h3 class="uk-text-primary">{{ trans('frontend.sorry') }}<br>{{ trans('frontend.no_listings_found') }}</h3><h4>{{ trans('frontend.try_other_parameters') }}</h4></div>'
-					$('#listings').append(view);
-				}
+				jQuery.each(response.data , function(index, listing){
+					view = '<div class="uk-width-medium-1-2 uk-width-large-1-2 uk-margin-small-bottom"><a href="{{ url('/') }}/buscar/'+listing.slug+'" style="text-decoration:none"><div class="uk-panel uk-panel-hover uk-margin-remove"><img src="'+listing.image_url+'" style="width:380px; float:left" class="uk-margin-right"><div class=""><p class=""><strong class="uk-text-primary">'+listing.title+'</strong><br><b class="uk-text-bold">$'+accounting.formatNumber(listing.price)+'</b> | <i class="uk-text-muted">'+accounting.formatNumber(listing.odometer)+' kms</i></p></div></div></a></div>'
+				    $('listings').append(view);
+				});
             });
 		}
 	</script>

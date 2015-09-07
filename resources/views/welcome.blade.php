@@ -77,22 +77,22 @@
                 </form>
                 <div class="uk-grid uk-margin-top uk-margin-bottom-remove uk-grid-small">
                     <div class="uk-width-1-6">
-                        <a href=""><img src="{{ asset('images/logos/mvagusta.jpg') }}" class="uk-align-center uk-margin-remove"></a>
+                        <a href="{{ url('/buscar?manufacturers[]=73') }}"><img src="{{ asset('images/logos/mvagusta.jpg') }}" class="uk-align-center uk-margin-remove"></a>
                     </div>
                     <div class="uk-width-1-6">
-                        <a href=""><img src="{{ asset('images/logos/bmw.jpg') }}" class="uk-align-center uk-margin-remove"></a>
+                        <a href="{{ url('/buscar?manufacturers[]=12') }}"><img src="{{ asset('images/logos/bmw.jpg') }}" class="uk-align-center uk-margin-remove"></a>
                     </div>
                     <div class="uk-width-1-6">
-                        <a href=""><img src="{{ asset('images/logos/ktm.jpg') }}" class="uk-align-center uk-margin-remove"></a>
+                        <a href="{{ url('/buscar?manufacturers[]=51') }}"><img src="{{ asset('images/logos/ktm.jpg') }}" class="uk-align-center uk-margin-remove"></a>
                     </div>
                     <div class="uk-width-1-6">
-                        <a href=""><img src="{{ asset('images/logos/yamaha.jpg') }}" class="uk-align-center uk-margin-remove"></a>
+                        <a href="{{ url('/buscar?manufacturers[]=110') }}"><img src="{{ asset('images/logos/yamaha.jpg') }}" class="uk-align-center uk-margin-remove"></a>
                     </div>
                     <div class="uk-width-1-6">
-                        <a href=""><img src="{{ asset('images/logos/kawasaki.jpg') }}" class="uk-align-center uk-margin-remove"></a>
+                        <a href="{{ url('/buscar?manufacturers[]=48') }}"><img src="{{ asset('images/logos/kawasaki.jpg') }}" class="uk-align-center uk-margin-remove"></a>
                     </div>
                     <div class="uk-width-1-6">
-                        <a href=""><img src="{{ asset('images/logos/honda.jpg') }}" class="uk-align-center uk-margin-remove"></a>
+                        <a href="{{ url('/buscar?manufacturers[]=73') }}"><img src="{{ asset('images/logos/honda.jpg') }}" class="uk-align-center uk-margin-remove"></a>
                     </div>
                 </div>
             </div>
