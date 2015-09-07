@@ -119,7 +119,7 @@ Route::get('/privacy', function () {
 Route::resource('models', 'ModelController');
 
 
-Route::get('listings/liked', 'ListingFEController@showLikedListings');
+Route::get('favoritos', 'ListingFEController@showLikedListings');
 Route::post('listings/bounds', 'ListingFEController@indexBounds');
 Route::post('listings/{id}/like', 'ListingFEController@like');
 Route::get('compare', 'ListingFEController@compare');

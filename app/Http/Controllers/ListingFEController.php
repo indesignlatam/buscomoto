@@ -166,19 +166,19 @@ class ListingFEController extends Controller {
 				if($request->has('order_by')){
 					if($request->get('order_by') == 'price_min'){
 						session(['listings_order_by' => 'price_min']);
-						$query = $query->orderBy('price', 'ASC');
+						$query = $query->orderBy('price', 'ASC')->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 					}else if($request->get('order_by') == 'price_max'){
 						session(['listings_order_by' => 'price_max']);
-						$query = $query->orderBy('price', 'DESC');
+						$query = $query->orderBy('price', 'DESC')->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 					}else if($request->get('order_by') == 'id_desc'){
 						session(['listings_order_by' => 'id_desc']);
-						$query = $query->orderBy('id', 'DESC');
+						$query = $query->orderBy('id', 'DESC')->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 					}else if($request->get('order_by') == 'id_asc'){
 						session(['listings_order_by' => 'id_asc']);
-						$query = $query->orderBy('id', 'ASC');
+						$query = $query->orderBy('id', 'ASC')->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 					}else if($request->get('order_by') == '0'){
 						session()->forget('listings_order_by');
-						$query = $query->orderBy('featured_type', 'DESC');
+						$query = $query->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 					}
 				}
 
@@ -195,13 +195,13 @@ class ListingFEController extends Controller {
 		// Order the query by cookie
 		if(!$request->has('order_by') && $request->session()->has('listings_order_by')){
 			if(session('listings_order_by') == 'price_min'){
-				$query = $query->orderBy('price', 'ASC');
+				$query = $query->orderBy('price', 'ASC')->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 			}else if(session('listings_order_by') == 'price_max'){
-				$query = $query->orderBy('price', 'DESC');
+				$query = $query->orderBy('price', 'DESC')->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 			}else if(session('listings_order_by') == 'id_desc'){
-				$query = $query->orderBy('id', 'DESC');
+				$query = $query->orderBy('id', 'DESC')->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 			}else if(session('listings_order_by') == 'id_asc'){
-				$query = $query->orderBy('id', 'ASC');
+				$query = $query->orderBy('id', 'ASC')->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
 			}
 		}else{
 			$query = $query->orderBy('featured_type', 'DESC')->orderBy('featured_expires_at', 'DESC');
@@ -215,7 +215,7 @@ class ListingFEController extends Controller {
 		}
 
 		if(!$request->has('listing_code')){
-			$listings = $query->orderBy('id', 'DESC')->with('listingType', 'featuredType')->paginate($take);
+			$listings = $query->orderBy('id', 'DESC')->with('featuredType')->paginate($take);
 		}
 		return $listings;
 	}

@@ -554,7 +554,7 @@
 						$('#like_button').addClass('uk-text-primary');
 						UIkit.modal.confirm('<h3 class="uk-text-center">{{ trans('frontend.goto_favorites') }}</h3>', function(){
 						    // will be executed on confirm.
-							window.location.href = "{{ url('/listings/liked') }}";
+							window.location.href = "{{ url('/favoritos') }}";
 						}, {labels:{Ok:'{{trans("admin.yes")}}', Cancel:'{{trans("admin.cancel")}}'}, center: true});
 		    		}else{
 		    			liked = false;

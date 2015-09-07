@@ -26,7 +26,7 @@
 <div class="uk-container uk-container-center uk-margin-top uk-margin-bottom">
 	<div class="uk-panel">
 		<div class="uk-panel">
-			<h1 class="uk-display-inline">{{ trans('frontend.search_listings') }}</h1>
+			<h1 class="uk-display-inline">{{ trans('frontend.search_listings') }} <h3 id="listings_number" class="uk-display-inline"></h3></h1>
 
 			<div class="uk-form uk-float-right uk-hidden-small">
     			<select form="search_form" name="take" onchange="getListings()" id="take">
@@ -344,11 +344,15 @@
 	  	});
 
 		var page = 1;
-		var init = true;
 
 		function getListings(paginate){
-			$.get("{{ url('/api/listings') }}", {  _token: "{{ csrf_token() }}", 
-													manufacturers: $('#search_manufacturer').val(),
+			paging = null;
+			if(paginate){
+				paging = page;
+			}else{
+				page = 1;
+			}
+			$.get("{{ url('/api/listings') }}", {   manufacturers: $('#search_manufacturer').val(),
 													models: $('#search_models').val(),
 													listing_type: $('#listing_type').val(),
 													price_min: $('#price_min').val(),
@@ -362,7 +366,8 @@
 													city_id: $('#search_cities').val(),
 													take:  $('#take').val(),
 													order_by: $('#order_by').val(),
-													page: page,
+													page: paging,
+													_token: "{{ csrf_token() }}", 
 												}, 
 			function(response){
 				if(response && !paginate){
@@ -371,15 +376,20 @@
 					$('#load_button').remove();
 				}
 				if(response.data.length > 0){
+					$('#listings_number').html("("+response.total+" encontrados)")
 					jQuery.each(response.data , function(index, listing){
-						var view = '<div class="uk-width-medium-1-2 uk-width-large-1-2 uk-margin-small-bottom"><a href="{{ url('/') }}/buscar/'+listing.slug+'" style="text-decoration:none"><div class="uk-panel uk-panel-hover uk-margin-remove"><img src="'+listing.image_path+'" style="width:380px; float:left" class="uk-margin-right"><div class=""><p class=""><strong class="uk-text-primary">'+listing.title+'</strong><br><b class="uk-text-bold">$'+accounting.formatNumber(listing.price)+'</b> | <i class="uk-text-muted">'+accounting.formatNumber(listing.odometer)+' kms</i></p></div></div></a></div>'
+						var view = '<div class="uk-width-medium-1-2 uk-width-large-1-2 uk-margin-small-bottom"><a href="{{ url('/buscar') }}/'+listing.slug+'" style="text-decoration:none"><div class="uk-panel uk-panel-hover uk-margin-remove"><img src="'+listing.image_path+'" style="width:380px; float:left" class="uk-margin-right"><div class=""><p class=""><strong class="uk-text-primary">'+listing.title+'</strong><br><b class="uk-text-bold">$'+accounting.formatNumber(listing.price)+'</b> | <i class="uk-text-muted">'+accounting.formatNumber(listing.odometer)+' kms</i></p></div></div></a></div>'
 					    $('#listings').append(view);
 					});
-
-					loadMore = '<button onclick="page++;getListings(true);" class="uk-button uk-button-large uk-button-primary uk-align-center" id="load_button">Cargar más</button>';
-					$('#listings').append(loadMore);
+					if(response.total > response.to){
+						loadMore = '<div class="uk-width-1-1"><button onclick="page++;getListings(true);" class="uk-button uk-button-large uk-button-primary uk-align-center" id="load_button">{{ trans("frontend.load_more") }}</button></div>';
+						$('#listings').append(loadMore);
+					}else{
+						var view = '<div class="uk-text-center uk-width-1-1"><h3 class="uk-text-muted">{{ trans('frontend.no_listings_left') }}</h3></div>'
+						$('#listings').append(view);
+					}
 				}else if(paginate){
-					var view = '<div class="uk-text-center uk-width-1-1"><h3 class="uk-text-primary">{{ trans('frontend.no_listings_left') }}</h3></div>'
+					var view = '<div class="uk-text-center uk-width-1-1"><h3 class="uk-text-muted">{{ trans('frontend.no_listings_left') }}</h3></div>'
 					$('#listings').append(view);
 				}else{
 					var view = '<div class="uk-text-center uk-width-1-1"><h3 class="uk-text-primary">{{ trans('frontend.sorry') }}<br>{{ trans('frontend.no_listings_found') }}</h3><h4>{{ trans('frontend.try_other_parameters') }}</h4></div>'

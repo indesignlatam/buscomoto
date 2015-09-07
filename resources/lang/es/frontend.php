@@ -61,6 +61,7 @@ return [
     'no_listings_found' 		=> 'No encontramos ninguna publicación para ti en este momento.',
     'try_other_parameters'      => 'Intenta en otra categoría o con otros parámetros de búsqueda.',
     'no_listings_left'          => 'No encontramos mas publicaciones.',
+    'load_more'                 => 'Cargar más',
 
     // Listings show -------------------------------------------------------------------
     'oops'                      => 'Whoops!.',
@@ -95,6 +96,7 @@ return [
     // Favorite listings
     'liked_listings'            => 'Publicaciones favoritas',
     'goto_favorites'            => '¿Deseas ir a ver tus favoritos?',
+    'no_favorites'              => 'Aun no tienes ningun favorito.',
 
     'new'                       => 'Nuevo',
 
