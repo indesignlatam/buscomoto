@@ -59,7 +59,8 @@ return [
     'tab_map'                   => 'Mapa',
     'sorry' 					=> 'Lo sentimos.',
     'no_listings_found' 		=> 'No encontramos ninguna publicación para ti en este momento.',
-    'try_other_parameters' 		=> 'Intenta en otra categoría o con otros parámetros de búsqueda.',
+    'try_other_parameters'      => 'Intenta en otra categoría o con otros parámetros de búsqueda.',
+    'no_listings_left'          => 'No encontramos mas publicaciones.',
 
     // Listings show -------------------------------------------------------------------
     'oops'                      => 'Whoops!.',

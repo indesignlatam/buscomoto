@@ -29,7 +29,7 @@
 			<h1 class="uk-display-inline">{{ trans('frontend.search_listings') }}</h1>
 
 			<div class="uk-form uk-float-right uk-hidden-small">
-    			<select form="search_form" name="take" onchange="this.form.submit()">
+    			<select form="search_form" name="take" onchange="getListings()" id="take">
 			    	<option value="">{{ trans('admin.elements_amount') }}</option>
 			    	@if(Request::get('take') == 50)
 			    		<option value="50" selected>{{ trans('admin.elements_50') }}</option>
@@ -56,7 +56,7 @@
 			    	@endif
 			    </select>
 
-			    <select form="search_form" name="order_by" onchange="this.form.submit()">
+			    <select form="search_form" name="order_by" onchange="getListings()" id="order_by">
 			    	<option value="0">{{ trans('admin.order_by') }}</option>
 			    	@if(Request::get('order_by') && Request::get('order_by') == 'id_desc')
 			    		<option value="id_desc" selected>{{ trans('admin.order_newer_first')}}</option>
@@ -98,7 +98,7 @@
 	    <div class="uk-flex uk-margin-top">
 	    	<!-- Search bar for pc -->
 	    	<div class="uk-width-large-1-4 uk-visible-large" style="margin-right:15px; padding-right:20px; border-right-style:solid; border-right: 1px solid #dddddd;">
-				<form id="search_form" class="uk-form uk-form-stacked" method="GET" action="{{ url(Request::path()) }}">
+				<form id="search_form" class="uk-form uk-form-stacked">
 
 					<input class="uk-width-large-10-10 uk-margin-bottom uk-form-large" type="text" name="listing_code" placeholder="{{ trans('frontend.search_code') }}" value>
 
@@ -174,25 +174,17 @@
 			                <option value>{{ trans('frontend.search_select_option') }}</option>
 			            </select>
 			        </div>
-
-                	<button type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1 uk-margin-top">{{ trans('frontend.search_button') }}</button>
 				</form>
 	    	</div>
 	    	<!-- End search bar -->
 	    	
+	    	<!-- Listings space -->
 	    	<div class="uk-width-large-3-4 uk-width-small-1-1">
-	    		@if(count($listings) > 0)					
-					<!-- This is the container of the content items -->
-					<div class="uk-panel">
-						<div class="uk-grid" id="listings"></div>
-					</div>		    		
-			    @else
-			    	<div class="uk-text-center">
-			    		<h3 class="uk-text-primary">{{ trans('frontend.sorry') }}<br>{{ trans('frontend.no_listings_found') }}</h3>
-			    		<h4>{{ trans('frontend.try_other_parameters') }}</h4>
-			    	</div>
-			    @endif
+	    		<div class="uk-panel">
+					<div class="uk-grid" id="listings"></div>
+				</div>
 	    	</div>
+	    	<!-- Listings space -->
 	    </div>
 	</div>
 </div>
@@ -273,13 +265,13 @@
 
 		    $( "#slider_year_range" ).slider({
 		      	range: true,
-		      	min: 1900,// TODO get from settings
+		      	min: 1970,// TODO get from settings
 		      	max: 2016,// TODO get from settings
 
 		      	@if(Request::has('year_min') && Request::has('year_max'))
 					values: [{{Request::get('year_min')}}, {{Request::get('year_max')}}],
 				@else
-					values: [1900, 2016],// TODO get from settings
+					values: [1970, 2016],// TODO get from settings
 		      	@endif
 		      	slide: function( event, ui ) {
 		      		tag = "";
@@ -351,7 +343,10 @@
 
 	  	});
 
-		function getListings(){
+		var page = 1;
+		var init = true;
+
+		function getListings(paginate){
 			$.get("{{ url('/api/listings') }}", {  _token: "{{ csrf_token() }}", 
 													manufacturers: $('#search_manufacturer').val(),
 													models: $('#search_models').val(),
@@ -365,19 +360,31 @@
 													odometer_min: $('#odometer_min').val(),
 													odometer_max: $('#odometer_max').val(),
 													city_id: $('#search_cities').val(),
+													take:  $('#take').val(),
+													order_by: $('#order_by').val(),
+													page: page,
 												}, 
 			function(response){
-				if(response.data.length > 0){
+				if(response && !paginate){
 					$('#listings').html('');
+				}else{
+					$('#load_button').remove();
+				}
+				if(response.data.length > 0){
 					jQuery.each(response.data , function(index, listing){
 						var view = '<div class="uk-width-medium-1-2 uk-width-large-1-2 uk-margin-small-bottom"><a href="{{ url('/') }}/buscar/'+listing.slug+'" style="text-decoration:none"><div class="uk-panel uk-panel-hover uk-margin-remove"><img src="'+listing.image_path+'" style="width:380px; float:left" class="uk-margin-right"><div class=""><p class=""><strong class="uk-text-primary">'+listing.title+'</strong><br><b class="uk-text-bold">$'+accounting.formatNumber(listing.price)+'</b> | <i class="uk-text-muted">'+accounting.formatNumber(listing.odometer)+' kms</i></p></div></div></a></div>'
 					    $('#listings').append(view);
 					});
+
+					loadMore = '<button onclick="page++;getListings(true);" class="uk-button uk-button-large uk-button-primary uk-align-center" id="load_button">Cargar más</button>';
+					$('#listings').append(loadMore);
+				}else if(paginate){
+					var view = '<div class="uk-text-center uk-width-1-1"><h3 class="uk-text-primary">{{ trans('frontend.no_listings_left') }}</h3></div>'
+					$('#listings').append(view);
 				}else{
-					var view = '<div class="uk-text-center"><h3 class="uk-text-primary">{{ trans('frontend.sorry') }}<br>{{ trans('frontend.no_listings_found') }}</h3><h4>{{ trans('frontend.try_other_parameters') }}</h4></div>'
+					var view = '<div class="uk-text-center uk-width-1-1"><h3 class="uk-text-primary">{{ trans('frontend.sorry') }}<br>{{ trans('frontend.no_listings_found') }}</h3><h4>{{ trans('frontend.try_other_parameters') }}</h4></div>'
 					$('#listings').append(view);
 				}
-				
             });
 		}
 	</script>
