@@ -22,7 +22,7 @@ class Listing extends IndesignModel {
      *
      * @var array
      */
-    protected $appends = ['tag'];
+    protected $appends = ['url', 'tag', 'image_url'];
 
 	/**
 	 * The name of the table.
@@ -136,6 +136,18 @@ class Listing extends IndesignModel {
         }
         return '';
     }
+
+    /**
+	 * Resolve the image path to show
+	 *
+	 * @var string
+	 */
+	public function getImageUrlAttribute(){
+		if($this->image_path || $this->image_path != ''){
+			return $this->image_path;
+		}
+		return '/images/defaults/listing.jpg';
+	}
 
 	/**
 	 * Resolve the image path to show
