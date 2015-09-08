@@ -12,7 +12,7 @@
 	@parent
     <script type="text/javascript">
         loadCSS("{{ asset('/css/jquery/jquery-slider.min.css') }}");
-        loadCSS("{{ asset('/css/select2front.min.css') }}");
+        loadCSS("{{ asset('/css/select2.min.css') }}");
         loadCSS("{{ asset('/css/components/slidenav.almost-flat.min.css') }}");
     </script>
 @endsection
@@ -30,7 +30,7 @@
 	    <div class="uk-position-cover uk-hidden-small">
             <div class="uk-panel uk-panel-box uk-panel-box-primary uk-width-3-10" style="position:absolute; top: 5%; left:10%">
                 <h1 class="uk-text-primary uk-text-bold">{{ strtoupper(trans('frontend.search_intro')) }}</h1>
-                <form id="search_form" class="uk-form uk-form-stacked" method="GET" action="{{ url('/buscar') }}">
+                <form id="search_form" class="uk-form" method="GET" action="{{ url('/buscar') }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="engine_size_min" value id="engine_size_min">
                     <input type="hidden" name="engine_size_max" value id="engine_size_max">
@@ -56,10 +56,10 @@
                     </select>
 
                     <div>
-                        <label for="price_range" class="uk-form-label">{{ trans('frontend.search_price') }}</label>
-                        <input type="text" id="price_range" class="uk-width-large-10-10 uk-text-primary" readonly style="border:0; font-weight:bold; background-color:#fff; font-size:12px; margin-top: -10px;">
+                        <label for="price_range" class="uk-text-bold">{{ trans('frontend.search_price') }} entre</label>
+                        <input type="text" id="price_range" class="uk-text-primary" readonly style="border:0; font-weight:bold; background-color:#fff; font-size:12px;">
                     </div>
-                    <div id="slider-range-price" class="uk-margin-bottom"></div>
+                    <div id="slider-range-price" class="uk-margin-small-bottom"></div>
                     <input type="hidden" id="price_min" name="price_min" value="{{Request::get('price_min')}}">
                     <input type="hidden" id="price_max" name="price_max" value="{{Request::get('price_max')}}">
 
@@ -157,18 +157,21 @@
 
         <!-- latest listings on turism-->
         @if(count($turism))
-            <h1 class="uk-text-bold">{{ trans('frontend.latest_listings_turism') }}</h1>
+            <div>
+                <h1 class="uk-text-bold uk-display-inline">{{ trans('frontend.latest_listings_turism') }}</h1>
+                <a href="{{ url('/buscar?listing_type=2') }}"> ({{ trans('admin.view_more_listings') }})</a>
+            </div>
 
             <div class="uk-slidenav-position" data-uk-slideset="{small: 1, medium: 4, large: 4, autoplay: true}">
                 <ul class="uk-grid uk-slideset">
                     @foreach($turism as $bike)
-                    <li>
+                    <li class="uk-margin-top">
                         <a href="{{ url($bike->path()) }}">
-                            <img src="{{ asset(Image::url($bike->image_path(),['mini_front'])) }}" class="uk-margin-small-bottom" style="max-width=150px">
+                            <img src="{{ asset(Image::url($bike->image_path(),['mini_front_2x'])) }}">
                         </a>
                         <div>
                             <a href="{{ url($bike->path()) }}">{{ $bike->title }}</a>
-                            <p class="uk-text-muted" style="font-size:10px;margin-top:-4px">{{ $bike->area }} mt2 - {{ money_format('$%!.0i', $bike->price) }}</p>
+                            <p class="uk-text-muted" style="font-size:10px;margin-top:-4px; margin-bottom:0px">{{ $bike->area }} mt2 - {{ money_format('$%!.0i', $bike->price) }}</p>
                         </div>
                     </li>
                     @endforeach
@@ -176,23 +179,24 @@
                 <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-previous uk-slidenav-contrast" data-uk-slideset-item="previous"></a>
                 <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-next uk-slidenav-contrast" data-uk-slideset-item="next"></a>
             </div>
-            <div class="uk-panel">
-                <a href="{{ url('ventas') }}" class="uk-button uk-float-right">{{ trans('admin.view_more_listings') }}</a>
-            </div>
+            
             <hr>
         @endif
         <!-- latest listings on turism -->
 
         <!-- latest listings on sport/naked -->
         @if(count($sport))
-            <h1 class="uk-text-bold">{{ trans('frontend.latest_listings_naked') }}</h1>
+            <div>
+                <h1 class="uk-text-bold uk-display-inline">{{ trans('frontend.latest_listings_naked') }}</h1>
+                <a href="{{ url('buscar?listing_type=3') }}">({{ trans('admin.view_more_listings') }})</a>
+            </div>
 
             <div class="uk-slidenav-position" data-uk-slideset="{small: 1, medium: 4, large: 4, autoplay: true}">
                 <ul class="uk-grid uk-slideset">
                     @foreach($sport as $bike)
-                    <li>
+                    <li class="uk-margin-top">
                         <a href="{{ url($bike->path()) }}">
-                            <img src="{{ asset(Image::url($bike->image_path(),['mini_front'])) }}" class="uk-margin-small-bottom" style="max-width=150px">
+                            <img src="{{ asset(Image::url($bike->image_path(),['mini_front_2x'])) }}" class="uk-margin-small-bottom">
                         </a>
                         <div>
                             <a href="{{ url($bike->path()) }}">{{ $bike->title }}</a>
@@ -204,23 +208,24 @@
                 <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-previous uk-slidenav-contrast" data-uk-slideset-item="previous"></a>
                 <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-next uk-slidenav-contrast" data-uk-slideset-item="next"></a>
             </div>
-            <div class="uk-panel">
-                <a href="{{ url('ventas') }}" class="uk-button uk-float-right">{{ trans('admin.view_more_listings') }}</a>
-            </div>
+            
             <hr>
         @endif
         <!-- latest listings on sport/naked -->
 
         <!-- latest listings on street -->
         @if(count($street))
-            <h1 class="uk-text-bold">{{ trans('frontend.latest_listings_street') }}</h1>
+            <div>
+                <h1 class="uk-text-bold uk-display-inline">{{ trans('frontend.latest_listings_street') }}</h1>
+                <a href="{{ url('buscar?listing_type=1') }}">({{ trans('admin.view_more_listings') }})</a>
+            </div>
 
             <div class="uk-slidenav-position" data-uk-slideset="{small: 1, medium: 4, large: 4, autoplay: true}">
                 <ul class="uk-grid uk-slideset">
                     @foreach($street as $bike)
-                    <li>
+                    <li class="uk-margin-top">
                         <a href="{{ url($bike->path()) }}">
-                            <img src="{{ asset(Image::url($bike->image_path(),['mini_front'])) }}" class="uk-margin-small-bottom" style="max-width=150px">
+                            <img src="{{ asset(Image::url($bike->image_path(),['mini_front_2x'])) }}" class="uk-margin-small-bottom">
                         </a>
                         <div>
                             <a href="{{ url($bike->path()) }}">{{ $bike->title }}</a>
@@ -232,23 +237,24 @@
                 <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-previous uk-slidenav-contrast" data-uk-slideset-item="previous"></a>
                 <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-next uk-slidenav-contrast" data-uk-slideset-item="next"></a>
             </div>
-            <div class="uk-panel">
-                <a href="{{ url('ventas') }}" class="uk-button uk-float-right">{{ trans('admin.view_more_listings') }}</a>
-            </div>
+            
             <hr>
         @endif
         <!-- latest listings on street -->
 
         <!-- latest listings on cross -->
         @if(count($cross))
-            <h1 class="uk-text-bold">{{ trans('frontend.latest_listings_cross') }}</h1>
+            <div>
+                <h1 class="uk-text-bold uk-display-inline">{{ trans('frontend.latest_listings_cross') }}</h1>
+                <a href="{{ url('buscar?listing_type=5') }}">({{ trans('admin.view_more_listings') }})</a>
+            </div>
 
             <div class="uk-slidenav-position" data-uk-slideset="{small: 1, medium: 4, large: 4, autoplay: true}">
                 <ul class="uk-grid uk-slideset">
                     @foreach($cross as $bike)
-                    <li>
+                    <li class="uk-margin-top">
                         <a href="{{ url($bike->path()) }}">
-                            <img src="{{ asset(Image::url($bike->image_path(),['mini_front'])) }}" class="uk-margin-small-bottom" style="max-width=150px">
+                            <img src="{{ asset(Image::url($bike->image_path(),['mini_front_2x'])) }}" class="uk-margin-small-bottom">
                         </a>
                         <div>
                             <a href="{{ url($bike->path()) }}">{{ $bike->title }}</a>
@@ -259,9 +265,6 @@
                 </ul>
                 <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-previous uk-slidenav-contrast" data-uk-slideset-item="previous"></a>
                 <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-next uk-slidenav-contrast" data-uk-slideset-item="next"></a>
-            </div>
-            <div class="uk-panel">
-                <a href="{{ url('ventas') }}" class="uk-button uk-float-right">{{ trans('admin.view_more_listings') }}</a>
             </div>
             <hr>
         @endif
@@ -319,7 +322,7 @@
                 @else
                 <div class="uk-width-medium-1-3 uk-width-large-1-3 featured">
                     <div class="uk-overlay uk-overlay-hover uk-margin-small">
-                        <img src="{{ asset(Image::url( $featuredListing->image_path(), ['featured_mosaic']) ) }}" alt="{{$featuredListing->title}}" data-uk-scrollspy="{cls:'uk-animation-fade'}">
+                        <img src="{{ asset(Image::url( $featuredListing->image_path(), ['mini_front_2x']) ) }}" alt="{{$featuredListing->title}}" data-uk-scrollspy="{cls:'uk-animation-fade'}">
                 @endif
                         <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade uk-vertical-align">
                             <div class="uk-vertical-align-middle">

@@ -132,7 +132,7 @@ class Listing extends IndesignModel {
      */
     public function getTagAttribute(){
         if($this->featured_type && $this->featured_expires_at > Carbon::now()){
-	    	return 	'<div style="background-color:'.$this->featuredType->color.'; position:absolute;" class="uk-text-center uk-text-contrast"><p class="uk-margin-small-bottom uk-margin-small-top uk-margin-left uk-margin-right"><i class="'.$this->featuredType->uk_class.'"></i></p></div>';
+	    	return '<div style="position:absolute; margin-top: 5px; margin-left: 5px" class="uk-text-contrast"><i class="uk-icon-medium '.$this->featuredType->uk_class.'"></i></div>';
         }
         return '';
     }
@@ -144,9 +144,9 @@ class Listing extends IndesignModel {
 	 */
 	public function getImageUrlAttribute(){
 		if($this->image_path || $this->image_path != ''){
-			return $this->image_path;
+			return url($this->image_path);
 		}
-		return '/images/defaults/listing.jpg';
+		return url('/images/defaults/listing.jpg');
 	}
 
 	/**

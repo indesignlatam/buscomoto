@@ -154,23 +154,15 @@ class ListingController extends Controller {
 
 	    $listing->code 	= str_random(3).$listing->id;
 
-		$unwanted_array = [ 'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
-                            'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
-                            'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
-                            'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
-                            'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' ];
-
 		// Create the title and slug of the listing
 		$title 				= ucwords(strtolower($listing->manufacturer->name . 
 				 			  ' ' . 
 				 			  $listing->model->name .
 				 			  ' ' .
-				 			  $listing->year .
-				 			  ' - ' )).
-				 			  $listing->listingType->name;
+				 			  $listing->year));
 							  
 		$listing->title 	= str_limit($title, $limit = 245, $end = '');
-		$listing->slug 		= str_limit(str_slug($listing->title. '-' .$listing->city->name.'-'.$listing->code, '-'), $limit = 245, $end = '');
+		$listing->slug 		= str_limit(str_slug($listing->title.'-'.$listing->listingType->name.'-'.$listing->city->name.'-'.$listing->code, '-'), $limit = 245, $end = '');
 
 		// Set expiring date
 		$listing->expires_at = Carbon::now()->addDays(Settings::get('listing_expiring'));
@@ -279,24 +271,16 @@ class ListingController extends Controller {
 	    if(!$listing->code){
 	    	$listing->code = str_random(3).$listing->id;
 	    }
-
-	    $unwanted_array = [ 'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
-                            'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
-                            'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
-                            'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
-                            'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' ];
 		
 		// Create the title and slug of the listing
 		$title 				= ucwords(strtolower($listing->manufacturer->name . 
 				 			  ' ' . 
 				 			  $listing->model->name .
 				 			  ' ' .
-				 			  $listing->year .
-				 			  ' - ' )).
-				 			  $listing->listingType->name;
+				 			  $listing->year));
 							  
 		$listing->title 	= str_limit($title, $limit = 245, $end = '');
-		$listing->slug 		= str_limit(str_slug($listing->title. '-' .$listing->city->name.'-'.$listing->code, '-'), $limit = 245, $end = '');
+		$listing->slug 		= str_limit(str_slug($listing->title.'-'.$listing->listingType->name.'-'.$listing->city->name.'-'.$listing->code, '-'), $limit = 245, $end = '');
 
 		// Set listing features
 	    $features = Feature::all();
