@@ -23,7 +23,7 @@
 @section('content')
 	@include('includes.navbarHome')
 
-	<div class="uk-cover-background uk-position-relative" style="background-image:url('{{ asset('/images/fp/search_bg.jpg') }}'); height: 550px">
+	<div class="uk-cover-background uk-position-relative" style="background-image:url('{{ asset('/images/fp/search_bg.jpg') }}'); height: 500px">
         <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle uk-visible-small">
             <h1 class="uk-text-contrast uk-text-bold">{{ trans('frontend.mobile_greeting') }}</h1>
         </div>
@@ -271,7 +271,7 @@
     </div>
 
     <!-- Register and publish -->
-    <div class="uk-block uk-block-secondary" style="background-color:#00a99d; background-image: url('{{ asset('images/fp/icons_bg.png') }}');">
+    <div class="uk-block uk-block-secondary" style="background-color:#00a26a;">
         <div class="uk-container uk-container-center">
             <h1 class="uk-text-bold uk-text-contrast uk-text-center" style="margin-top:-10px; margin-bottom:30px;">{{ trans('frontend.register_publish_title') }}</h1>
 
@@ -295,7 +295,7 @@
             
             <div class="uk-text-center uk-margin-top">
                 @if(!Auth::check())
-                    <a href="{{ url('/auth/register') }}" class="uk-button uk-button-primary uk-button-large" style="background-color:#444">{{ trans('admin.register_publish_free') }}</a>
+                    <a href="{{ url('/auth/register') }}" class="uk-button uk-button-link uk-button-large" style="text-decoration: none"><h1 class="uk-text-contrast uk-text-bold">{{ trans('admin.register_publish_free') }}</h1></a>
                 @else
                     <a href="{{ url('/admin/listings/create') }}" class="uk-button uk-button-primary uk-button-large" style="background-color:#444">{{ trans('admin.publish_listing') }}</a>
                 @endif
