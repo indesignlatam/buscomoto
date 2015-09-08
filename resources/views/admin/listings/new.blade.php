@@ -80,10 +80,11 @@
 						        <label class="uk-form-label" for="">{{ trans('admin.fuel') }} <i class="uk-text-danger">*</i> <i class="uk-icon-info-circle" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.fuel_tooltip') }}"></i></label>
 						        <div class="uk-form-controls">
 						        	<select class="uk-width-large-10-10 uk-form-large" type="text" name="fuel_type">
-						                <option>{{ trans('admin.select_option') }}</option>
 						                @foreach($fuels as $fuel)
 						                	@if(old('fuel_type') == $fuel->id)
 												<option value="{{ $fuel->id }}" selected>{{ $fuel->name }}</option>
+						                	@elseif(1 == $fuel->id)
+						                		<option value="{{ $fuel->id }}" selected>{{ $fuel->name }}</option>
 						                	@else
 						                		<option value="{{ $fuel->id }}">{{ $fuel->name }}</option>
 						                	@endif	
@@ -124,6 +125,8 @@
 						                @foreach($transmissions as $transmission)
 						                	@if(old('transmission_type') == $transmission->id)
 												<option value="{{ $transmission->id }}" selected>{{ $transmission->name }}</option>
+						                	@elseif(2 == $transmission->id)
+						                		<option value="{{ $transmission->id }}" selected>{{ $transmission->name }}</option>
 						                	@else
 						                		<option value="{{ $transmission->id }}">{{ $transmission->name }}</option>
 						                	@endif	
