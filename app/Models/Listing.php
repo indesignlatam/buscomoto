@@ -132,7 +132,7 @@ class Listing extends IndesignModel {
      */
     public function getTagAttribute(){
         if($this->featured_type && $this->featured_expires_at > Carbon::now()){
-	    	return '<div style="position:absolute; margin-top: 5px; margin-left: 5px" class="uk-text-contrast"><i class="uk-icon-medium '.$this->featuredType->uk_class.'"></i></div>';
+	    	return '<div style="position:absolute; margin-top: 5px; margin-left: 5px;" class="uk-text-contrast"><i class="uk-icon-large uk-icon-check" data-uk-tooltip title="'.trans("frontend.listing_featured").'"></i></div>';
         }
         return '';
     }

@@ -27,13 +27,16 @@
                     <a href="{{ url('/favoritos') }}">{{ trans('frontend.menu_liked_listings') }}</a>
                 </li>
 
+                <li class="uk-parent" data-uk-dropdown="">
+                    <a href="{{ url('/comparar') }}">{{ trans('frontend.menu_compare_listings') }}</a>
+                </li>
+
                 <li class="uk-nav-divider"></li>
 
                 @if (!Auth::check())
                     <li><a href="{{ url('/auth/login') }}">{{ trans('frontend.menu_login') }}</a></li>
                     <li><a href="{{ url('/auth/register') }}">{{ trans('frontend.menu_register') }}</a></li>
                 @else
-                    <li><a href="{{ url('/favoritos') }}">{{ trans('frontend.menu_liked_listings') }}</a></li>
                     <li><a href="{{ url('/admin/user/'.Auth::user()->id.'/edit') }}">{{ Auth::user()->name }}</a></li>
                     <li><a href="{{ url('/admin') }}">{{ trans('frontend.menu_my_listings') }}</a></li>
                     <li><a href="{{ url('/admin/user/'.Auth::user()->id.'/edit') }}">{{ trans('frontend.menu_user_data') }}</a></li>
@@ -75,6 +78,14 @@
         @endif
                 <a href="{{ url('favoritos') }}">{{ trans('frontend.menu_liked_listings') }}</a>
             </li>
+
+        @if(Request::is('comparar') || Request::is('comparar/*'))
+            <li class="uk-active">
+        @else
+            <li>
+        @endif
+                <a href="{{ url('comparar') }}">{{ trans('frontend.menu_compare_listings') }}</a>
+            </li>
         </ul>
 
         <div class="uk-navbar-flip uk-hidden-small">
@@ -87,7 +98,6 @@
                         <a href="{{ url('/admin/listings') }}">{{ Auth::user()->name }}<b class="uk-icon-caret-down uk-margin-small-left"></b></a>
                         <div class="uk-dropdown uk-dropdown-navbar">
                             <ul class="uk-nav uk-nav-navbar">
-                                <li><a href="{{ url('/favoritos') }}">{{ trans('frontend.menu_liked_listings') }}</a></li>
                                 <li><a href="{{ url('/admin') }}">{{ trans('admin.dashboard') }}</a></li>
                                 <li><a href="{{ url('/admin/listings') }}">{{ trans('admin.my_listings_menu') }}</a></li>
                                 <li><a href="{{ url('/admin/messages') }}">{{ trans('admin.my_messages_menu') }}</a></li>

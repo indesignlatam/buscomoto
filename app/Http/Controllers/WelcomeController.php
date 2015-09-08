@@ -26,50 +26,6 @@ class WelcomeController extends Controller {
 	 * @return Response
 	 */
 	public function index(){
-		$turism = Listing::remember(Settings::get('query_cache_time_extra_short'))
-						 ->active()
-						 ->where('listing_type', 2)
-						 ->whereNotNull('image_path')
-						 ->where('image_path', '<>', '')
-						 ->with('listingType')
-						 ->orderBy('featured_type', 'DESC')
-						 ->orderBy('featured_expires_at', 'DESC')
-						 ->take(12)
-						 ->get();
-
-		$sport 	= Listing::remember(Settings::get('query_cache_time_extra_short'))
-						 ->active()
-						 ->where('listing_type', 3)
-						 ->whereNotNull('image_path')
-						 ->where('image_path', '<>', '')
-						 ->with('listingType')
-						 ->orderBy('featured_type', 'DESC')
-						 ->orderBy('featured_expires_at', 'DESC')
-						 ->take(12)
-						 ->get();
-
-		$street = Listing::remember(Settings::get('query_cache_time_extra_short'))
-						 ->active()
-						 ->where('listing_type', 1)
-						 ->whereNotNull('image_path')
-						 ->where('image_path', '<>', '')
-						 ->with('listingType')
-						 ->orderBy('featured_type', 'DESC')
-						 ->orderBy('featured_expires_at', 'DESC')
-						 ->take(12)
-						 ->get();
-
-		$cross 	= Listing::remember(Settings::get('query_cache_time_extra_short'))
-						 ->active()
-						 ->where('listing_type', 5)
-						 ->whereNotNull('image_path')
-						 ->where('image_path', '<>', '')
-						 ->with('listingType')
-						 ->orderBy('featured_type', 'DESC')
-						 ->orderBy('featured_expires_at', 'DESC')
-						 ->take(12)
-						 ->get();
-
 		$featured 	= Listing::remember(Settings::get('query_cache_time_extra_short'))
 							 ->active()
 							 ->where('featured_type', '>', 2)
@@ -80,13 +36,23 @@ class WelcomeController extends Controller {
 							 ->take(8)
 							 ->get();
 
+		$newBikes 	= Listing::remember(Settings::get('query_cache_time_extra_short'))
+							 ->active()
+							 ->whereNotNull('image_path')
+							 ->where('image_path', '<>', '')
+							 ->with('listingType')
+							 ->orderBy('featured_type', 'DESC')
+							 ->orderBy('featured_expires_at', 'DESC')
+							 ->take(20)
+							 ->get();
+
 		$engineSizes 	= EngineSize::remember(Settings::get('query_cache_time'))->get();
 		$listingTypes 	= ListingType::remember(Settings::get('query_cache_time'))->get();
-		$priceRanges 	= [	['id' => 1, 'name' => '0 - 3,000,000'],
-							['id' => 2, 'name' => '3,000,000 - 5,000,000'],
-							['id' => 3, 'name' => '5,000,000 - 10,000,000'],
-							['id' => 4, 'name' => '10,000,000 - 30,000,000'],
-							['id' => 5, 'name' => '30,000,000 o +']
+		$priceRanges 	= [	['id' => 3000000, 'name' => '3,000,000'],
+							['id' => 5000000, 'name' => '5,000,000'],
+							['id' => 10000000, 'name' => '10,000,000'],
+							['id' => 30000000, 'name' => '30,000,000'],
+							['id' => 50000000, 'name' => '50,000,000 o más']
 							];
 		$manufacturers 	= Manufacturer::selectRaw('id, name AS text')->remember(Settings::get('query_cache_time'))->get();
 
@@ -94,10 +60,7 @@ class WelcomeController extends Controller {
 								'priceRanges' 			=> $priceRanges,
 								'listingTypes' 			=> $listingTypes,
 								'manufacturers' 		=> $manufacturers,
-								'turism' 				=> $turism,
-								'sport'					=> $sport,
-								'cross'					=> $cross,
-								'street'				=> $street,
+								'newBikes' 				=> $newBikes,
 								'featured'				=> $featured,
 								]);
 	}

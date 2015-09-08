@@ -11,6 +11,10 @@
 
 @section('css')
 	@parent
+	<script type="text/javascript">
+		loadCSS("{{ asset('/css/components/sticky.min.css') }}");
+	    loadCSS("{{ asset('/css/components/tooltip.min.css') }}");
+   	</script>
 @endsection
 
 @section('content')
@@ -18,80 +22,90 @@
 <div class="uk-container uk-container-center uk-margin-top" id="secondContent">
 	<div class="uk-panel">
 		<div>
-			<h1 style="display:inline">Comparar inmuebles</h1>
-			<button class="uk-button uk-button-large uk-button-danger uk-float-right" onclick="forget()">Eliminar inmuebles seleccionados</button>
+			<h1 class="uk-display-inline">{{ trans('frontend.compare_title') }}</h1>
+			<button class="uk-button uk-button-link" onclick="forget()">({{ trans('frontend.compare_forget_listings') }})</button>
 		</div>
 		
-		<h3>En esta sección encontraras los ultimos 4 inmuebles que hayas seleccionado para comparar.</h3>
+		<h3>{{ trans('frontend.compare_intro') }}</h3>
 
-		<div class="uk-flex uk-flex-space-between uk-margin-top uk-margin-large-bottom">
+		<div class="uk-grid uk-grid-small uk-margin-top uk-margin-large-bottom">
 			@if($listings && count($listings) > 0)
 				@foreach($listings as $listing)
-					<div class="uk-panel uk-panel-box uk-panel-box-secondary uk-width-1-4" style="border-top:none;border-left:none;border-bottom:none;border-radius:0">
+					<div class="uk-panel uk-panel-box uk-panel-box-primary uk-width-1-4" style="border-top:none;border-left:none;border-bottom:none;border-radius:0">
 						<div style="height:60px; background-color:white;" data-uk-sticky="{boundary: true}">
-							<a href="{{ $listing->path() }}" style="text-decoration:none"><h3>{{ $listing->title }}</h3></a>
+							<a class="uk-modal-close uk-close uk-close-alt uk-text-danger" onclick="forgetListing({{ $listing->id }})" style="position:absolute; top:0px; right: 15px;"></a>
+							<a href="{{ $listing->path() }}" style="text-decoration:none">
+								<h3>{{ $listing->title }}</h3>
+							</a>
 						</div>
-						<div style="height:180px" class="uk-panel">
-							<div class="uk-panel-badge uk-badge uk-badge-notification" id="points-{{ $listing->id }}">-</div>
+						<div class="uk-panel">
+							<div class="uk-panel-badge uk-badge uk-badge-notification">{{ $listing->points }}</div>
 							<a href="{{ $listing->path() }}"><img src="{{ $listing->image_path }}"></a>
 						</div>
 
 		    			<ul class="uk-list uk-list-line">
-	    					<li><i class="uk-text-muted">{{ trans('admin.price') }}</i> <b class="uk-text-right uk-float-right">{{ money_format('$%!.0i', $listing->price) }}</b></li>
+	    					<li>
+	    						<i class="uk-text-muted">{{ trans('admin.price') }}</i> 
+	    						<b class="uk-text-right uk-float-right">{{ money_format('$%!.0i', $listing->price) }}</b>
+	    					</li>
 
-	    					@if($listing->area > 0)
-								<li><i class="uk-text-muted">{{ trans('frontend.price_mt') }}</i> <b class="uk-text-right uk-float-right">{{ money_format('$%!.0i', ($listing->price/$listing->area)) }}</b></li>
-							@elseif($listing->lot_area > 0)
-								<li><i class="uk-text-muted">{{ trans('frontend.price_mt') }}</i> <b class="uk-text-right uk-float-right">{{ money_format('$%!.0i', ($listing->price/$listing->lot_area)) }}</b></li>
-							@else
-								-
-							@endif
-
-							@if($listing->stratum)
-								<li><i class="uk-text-muted">{{ trans('admin.stratum') }}</i> <b class="uk-text-right uk-float-right">{{ $listing->stratum }}</b></li>
+							@if($listing->manufacturer)
+								<li>
+									<i class="uk-text-muted">{{ trans('admin.manufacturer') }}</i> 
+									<b class="uk-text-right uk-float-right">
+										{{ $listing->manufacturer->name }}
+										<i class="uk-icon-info-circle" data-uk-tooltip title="{{ trans('frontend.origin') . $listing->manufacturer->country->name }}"></i>
+									</b>
+								</li>
 		    				@else
-								<li><i class="uk-text-muted">{{ trans('admin.stratum') }}</i> <b class="uk-text-right uk-float-right">-</b></li>
+								<li><i class="uk-text-muted">{{ trans('admin.manufacturer') }}</i> <b class="uk-text-right uk-float-right">-</b></li>
 		    				@endif
 
-		    				@if($listing->area)
-								<li><i class="uk-text-muted">{{ trans('admin.area') }}</i> <b class="uk-text-right uk-float-right">{{ number_format($listing->area, 0) }} mt2</b></li>
+		    				@if($listing->engine_size)
+								<li><i class="uk-text-muted">{{ trans('admin.engine_size') }}</i> <b class="uk-text-right uk-float-right">{{ $listing->engine_size }} cc</b></li>
 		    				@else
-								<li><i class="uk-text-muted">{{ trans('admin.area') }}</i> <b class="uk-text-right uk-float-right">-</b></li>
+								<li><i class="uk-text-muted">{{ trans('admin.engine_size') }}</i> <b class="uk-text-right uk-float-right">-</b></li>
 		    				@endif
 
-		    				@if($listing->lot_area)
-								<li><i class="uk-text-muted">{{ trans('admin.lot_area') }}</i> <b class="uk-text-right uk-float-right">{{ number_format($listing->lot_area, 0) }} mt2</b></li>
+		    				@if(!is_null($listing->odometer))
+								<li><i class="uk-text-muted">{{ trans('admin.odometer') }}</i> <b class="uk-text-right uk-float-right">{{ number_format($listing->odometer) }} kms</b></li>
 		    				@else
-								<li><i class="uk-text-muted">{{ trans('admin.lot_area') }}</i> <b class="uk-text-right uk-float-right">-</b></li>
+								<li><i class="uk-text-muted">{{ trans('admin.odometer') }}</i> <b class="uk-text-right uk-float-right">-</b></li>
 		    				@endif
 
-		    				@if($listing->rooms)
-								<li><i class="uk-text-muted">{{ trans('admin.rooms') }}</i> <b class="uk-text-right uk-float-right">{{ $listing->rooms }}</b></li>
+		    				@if($listing->year)
+								<li><i class="uk-text-muted">{{ trans('admin.year') }}</i> <b class="uk-text-right uk-float-right">{{ $listing->year }}</b></li>
 		    				@else
-								<li><i class="uk-text-muted">{{ trans('admin.rooms') }}</i> <b class="uk-text-right uk-float-right">-</b></li>
+								<li><i class="uk-text-muted">{{ trans('admin.year') }}</i> <b class="uk-text-right uk-float-right">-</b></li>
 		    				@endif
 
-		    				@if($listing->bathrooms)
-								<li><i class="uk-text-muted">{{ trans('admin.bathrooms') }}</i> <b class="uk-text-right uk-float-right">{{ $listing->bathrooms }}</b></li>
+		    				@if($listing->color)
+								<li><i class="uk-text-muted">{{ trans('admin.color') }}</i> <b class="uk-text-right uk-float-right">{{ $listing->color }}</b></li>
 		    				@else
-								<li><i class="uk-text-muted">{{ trans('admin.bathrooms') }}</i> <b class="uk-text-right uk-float-right">-</b></li>
+								<li><i class="uk-text-muted">{{ trans('admin.color') }}</i> <b class="uk-text-right uk-float-right">-</b></li>
 		    				@endif
 
-		    				@if($listing->garages)
-								<li><i class="uk-text-muted">{{ trans('admin.garages') }}</i> <b class="uk-text-right uk-float-right">{{ $listing->garages }}</b></li>
+		    				@if($listing->listingType)
+								<li><i class="uk-text-muted">{{ trans('admin.listing_type') }}</i> <b class="uk-text-right uk-float-right">{{ $listing->listingType->name }}</b></li>
 		    				@else
-								<li><i class="uk-text-muted">{{ trans('admin.garages') }}</i> <b class="uk-text-right uk-float-right">-</b></li>
+								<li><i class="uk-text-muted">{{ trans('admin.listing_type') }}</i> <b class="uk-text-right uk-float-right">-</b></li>
 		    				@endif
 
-		    				@if($listing->administration > 0)
-								<li><i class="uk-text-muted">{{ trans('admin.administration_fees') }}</i> <b class="uk-text-right uk-float-right">{{ money_format('$%!.0i', $listing->administration) }}</b></li>
+		    				@if($listing->license_number)
+								<li><i class="uk-text-muted">{{ trans('admin.license_number') }}</i> <b class="uk-text-right uk-float-right">{{ $listing->license_number }}</b></li>
 		    				@else
-								<li><i class="uk-text-muted">{{ trans('admin.administration_fees') }}</i> <b class="uk-text-right uk-float-right">-</b></li>
+								<li><i class="uk-text-muted">{{ trans('admin.license_number') }}</i> <b class="uk-text-right uk-float-right">-</b></li>
+		    				@endif
+
+		    				@if($listing->city)
+								<li><i class="uk-text-muted">{{ trans('admin.city') }}</i> <b class="uk-text-right uk-float-right">{{ $listing->city->name }}</b></li>
+		    				@else
+								<li><i class="uk-text-muted">{{ trans('admin.city') }}</i> <b class="uk-text-right uk-float-right">-</b></li>
 		    				@endif
 	    				</ul>
 
 	    				<div class="uk-h3">
-	    					<i>{{ trans('admin.interior') }}</i>
+	    					<i>{{ trans('admin.security') }}</i>
 	    					<button class="uk-button uk-button-link interior" style="text-decoration:none;" data-uk-toggle="{target:'.interior'}">Ver</button>
 	    					<button class="uk-button uk-button-link uk-hidden interior" style="text-decoration:none;" data-uk-toggle="{target:'.interior'}">Cerrar</button>
 	    				</div>
@@ -114,34 +128,11 @@
 	    				</ul>
 
 	    				<div class="uk-h3">
-	    					<i>{{ trans('admin.exterior') }}</i>
+	    					<i>{{ trans('admin.generals') }}</i>
 	    					<button class="uk-button uk-button-link exterior" style="text-decoration:none;" data-uk-toggle="{target:'.exterior'}">Ver</button>
 	    					<button class="uk-button uk-button-link uk-hidden exterior" style="text-decoration:none;" data-uk-toggle="{target:'.exterior'}">Cerrar</button>
 	    				</div>
 		    			<ul class="uk-list uk-list-line uk-hidden exterior">
-	    					@foreach($features as $feature)
-								@if($feature->category->id == 2)
-									<?php $featureChecked = false; ?>
-									@foreach($listing->features as $listingFeature)
-										@if($feature->id == $listingFeature->id)
-											<?php $featureChecked = true; break; ?>
-										@endif
-									@endforeach
-									@if($featureChecked)
-										<li><i class="uk-icon-check uk-text-success"></i> {{ $feature->name }}</li>
-									@else
-										<li><i class="uk-icon-minus-circle uk-text-muted"> {{ $feature->name }}</i></li>
-									@endif
-								@endif
-							@endforeach
-	    				</ul>
-
-	    				<div class="uk-h3">
-	    					<i>{{ trans('admin.sector') }}</i>
-	    					<button class="uk-button uk-button-link sector" style="text-decoration:none;" data-uk-toggle="{target:'.sector'}">Ver</button>
-	    					<button class="uk-button uk-button-link uk-hidden sector" style="text-decoration:none;" data-uk-toggle="{target:'.sector'}">Cerrar</button>
-	    				</div>
-		    			<ul class="uk-list uk-list-line uk-hidden sector">
 	    					@foreach($features as $feature)
 								@if($feature->category->id == 3)
 									<?php $featureChecked = false; ?>
@@ -159,7 +150,30 @@
 							@endforeach
 	    				</ul>
 
-	    				<h3 id="points2-{{ $listing->id }}" class="uk-text-bold uk-text-center">- puntos</h3>
+	    				<div class="uk-h3">
+	    					<i>{{ trans('admin.accesories') }}</i>
+	    					<button class="uk-button uk-button-link sector" style="text-decoration:none;" data-uk-toggle="{target:'.sector'}">Ver</button>
+	    					<button class="uk-button uk-button-link uk-hidden sector" style="text-decoration:none;" data-uk-toggle="{target:'.sector'}">Cerrar</button>
+	    				</div>
+		    			<ul class="uk-list uk-list-line uk-hidden sector">
+	    					@foreach($features as $feature)
+								@if($feature->category->id == 4)
+									<?php $featureChecked = false; ?>
+									@foreach($listing->features as $listingFeature)
+										@if($feature->id == $listingFeature->id)
+											<?php $featureChecked = true; break; ?>
+										@endif
+									@endforeach
+									@if($featureChecked)
+										<li><i class="uk-icon-check uk-text-success"></i> {{ $feature->name }}</li>
+									@else
+										<li><i class="uk-icon-minus-circle uk-text-muted"> {{ $feature->name }}</i></li>
+									@endif
+								@endif
+							@endforeach
+	    				</ul>
+
+	    				<h3 id="points2-{{ $listing->id }}" class="uk-text-bold uk-text-center">{{ $listing->points . trans('frontend.points') }}</h3>
 					</div>
 				@endforeach
 			@else
@@ -172,189 +186,13 @@
 
 @section('js')
 	@parent
-	<link href="{{ asset('/css/components/sticky.almost-flat.min.css') }}" rel="stylesheet">
+	<noscript><link href="{{ asset('/css/components/sticky.almost-flat.min.css') }}" rel="stylesheet"></noscript>
+	<noscript><link href="{{ asset('/css/components/tooltip.almost-flat.min.css') }}" rel="stylesheet"></noscript>
+
 	<script src="{{ asset('/js/components/sticky.min.js') }}"></script>
+	<script src="{{ asset('/js/components/tooltip.min.js') }}"></script>
 
 	<script type="text/javascript">
-		$(function (){
-		@if($listings && count($listings) > 0)
-			calculatePoints();
-		@endif
-		});
-
-		function calculatePoints(){
-			var listings = {!! $listings !!};
-			var points = [];
-			var totalPoints = 0;
-			
-			// Price points
-			var lowest = Number.POSITIVE_INFINITY;
-			var highest = Number.NEGATIVE_INFINITY;
-			var tmp;
-			for (var i=listings.length-1; i>=0; i--) {
-			    tmp = listings[i].price;
-			    if (tmp < lowest) lowest = tmp;
-			}
-			listings.forEach(function(listing) {
-				points[listing.id] = 50 * (lowest/listing.price);
-			});
-			console.log(points);
-
-			// mt2 price points
-			lowest = Number.POSITIVE_INFINITY;
-			tmp = null;
-			var lowestI;
-			for (var i=listings.length-1; i>=0; i--) {
-			    tmp = listings[i].area;
-			    if (tmp < lowest){
-			    	lowest = tmp;
-			    	lowestI = i;
-			    }
-			}
-			listings.forEach(function(listing) {
-				if(listing.area > 0){
-					points[listing.id] += 100 * (listings[lowestI].price/lowest)/(listing.price/listing.area);
-				}
-			});
-			console.log(points);
-
-			// Stratum points
-			highest = Number.NEGATIVE_INFINITY;
-			tmp = null;
-			for (var i=listings.length-1; i>=0; i--) {
-			    tmp = listings[i].stratum;
-			    if (tmp > highest){
-			    	highest = tmp;
-			    }
-			}
-			listings.forEach(function(listing) {
-				points[listing.id] += 10 * (listing.stratum/highest);
-			});
-			console.log(points);
-
-			// Area points
-			highest = Number.NEGATIVE_INFINITY;
-			tmp = null;
-			for (var i=listings.length-1; i>=0; i--) {
-			    tmp = listings[i].area;
-			    if (tmp > highest){
-			    	highest = tmp;
-			    }
-			}
-			listings.forEach(function(listing) {
-				if(highest > 0){
-					points[listing.id] += 20 * (listing.area/highest);
-				}
-			});
-			console.log(points);
-
-			// Lot area points
-			highest = Number.NEGATIVE_INFINITY;
-			tmp = null;
-			for (var i=listings.length-1; i>=0; i--) {
-			    tmp = listings[i].lot_area;
-			    if (tmp > highest){
-			    	highest = tmp;
-			    }
-			}
-			listings.forEach(function(listing) {
-				if(highest > 0){
-					points[listing.id] += 20 * (listing.lot_area/highest);
-				}
-			});
-			console.log(points);
-
-			// Rooms points
-			highest = Number.NEGATIVE_INFINITY;
-			tmp = null;
-			for (var i=listings.length-1; i>=0; i--) {
-			    tmp = listings[i].rooms;
-			    if (tmp > highest){
-			    	highest = tmp;
-			    }
-			}
-			listings.forEach(function(listing) {
-				if(highest > 0){
-					points[listing.id] += 20 * (listing.rooms/highest);
-				}
-			});
-			console.log(points);
-
-			// Bathrooms points
-			highest = Number.NEGATIVE_INFINITY;
-			tmp = null;
-			for (var i=listings.length-1; i>=0; i--) {
-			    tmp = listings[i].bathrooms;
-			    if (tmp > highest){
-			    	highest = tmp;
-			    }
-			}
-			listings.forEach(function(listing) {
-				if(highest > 0){
-					points[listing.id] += 20 * (listing.bathrooms/highest);
-				}
-			});
-			console.log(points);
-
-			// Garages points
-			highest = Number.NEGATIVE_INFINITY;
-			tmp = null;
-			for (var i=listings.length-1; i>=0; i--) {
-			    tmp = listings[i].garages;
-			    if (tmp > highest){
-			    	highest = tmp;
-			    }
-			}
-			listings.forEach(function(listing) {
-				if(highest > 0){
-					
-					points[listing.id] += 20 * (listing.garages/highest);
-				}
-			});
-			console.log(points);
-
-			// Admin fees points
-			lowest = Number.POSITIVE_INFINITY;
-			tmp = null;
-			for (var i=listings.length-1; i>=0; i--) {
-			    tmp = listings[i].administration;
-			    if (tmp < lowest){
-			    	lowest = tmp;
-			    }
-			}
-			if(lowest == 0){
-				lowest = 1;
-			}
-			listings.forEach(function(listing) {
-				if(listing.administration == 0){
-					listing.administration = 1;
-				}
-				points[listing.id] += 20 * (lowest/listing.administration);
-			});
-			console.log(points);
-
-
-			listings.forEach(function(listing) {
-				$('#points-'+listing.id).html(parseInt((points[listing.id]/280)*100)+'/100');
-				$('#points2-'+listing.id).html(parseInt((points[listing.id]/280)*100)+'/100 puntos');
-			});
-		}
-
-		window.fbAsyncInit = function() {
-        	FB.init({
-         		appId      : {{ Settings::get('facebook_app_id') }},
-          		xfbml      : true,
-          		version    : 'v2.3'
-        	});
-      	};
-      	(function(d, s, id){
-         	var js, fjs = d.getElementsByTagName(s)[0];
-         	if (d.getElementById(id)) {return;}
-         	js = d.createElement(s); js.id = id;
-         	js.src = "//connect.facebook.net/en_US/sdk.js";
-         	fjs.parentNode.insertBefore(js, fjs);
-       	}(document, 'script', 'facebook-jssdk'));
-
        	function share(path, id){
        		FB.ui({
 			  	method: 'share_open_graph',
@@ -386,10 +224,17 @@
        	function forget(){
        		UIkit.modal.confirm("{{ trans('frontend.listing_selected') }}", function(){
        			$.post("{{ url('/cookie/forget') }}", {_token: "{{ csrf_token() }}", key: "selected_listings"}, function(result){
-				 	window.location.replace("{{ url('/compare') }}");
+				 	window.location.href = "{{ url('/comparar') }}";
             	});
 			}, {labels:{Ok:'{{trans("admin.yes")}}', Cancel:'{{trans("admin.cancel")}}'}, center:true});
-			
+		}
+
+		function forgetListing(id){
+       		UIkit.modal.confirm("{{ trans('frontend.compare_remove_listing') }}", function(){
+       			$.post("{{ url('/cookie/forgetlisting') }}", {_token: "{{ csrf_token() }}", listing_id: id}, function(result){
+				 	window.location.href = "{{ url('/comparar') }}";
+            	});
+			}, {labels:{Ok:'{{trans("admin.yes")}}', Cancel:'{{trans("admin.cancel")}}'}, center:true});
 		}
 	</script>
 @endsection

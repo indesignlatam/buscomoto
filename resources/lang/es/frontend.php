@@ -10,7 +10,8 @@ return [
     'menu_my_listings' 		    => 'Mis publicaciones',
     'menu_user_data' 			=> 'Datos de usuario',
     'menu_logout' 				=> 'Cerrar sesión',
-    'menu_liked_listings'       => 'Mis favoritos',
+    'menu_liked_listings'       => 'Favoritos',
+    'menu_compare_listings'     => 'Comparar',
 
     // Welcome -------------------------------------------------------------------
     // Mobile greeting
@@ -19,12 +20,12 @@ return [
     'search_intro'              => '¿Que moto estas buscando?',
     'search_listing_type'       => 'Tipo de moto',
     'search_engine_size'        => 'Cilindraje',
-    'search_price' 				=> 'Valor',
     'search_manufacturer' 		=> 'Marcas (Puedes seleccionar varias)',
     'search_button' 			=> 'Buscar',
     'search_select_option'      => 'Seleccione una opción',
     'search_model'              => 'Referencia',
     'search_city'               => 'Ciudad',
+    'search_price_max'          => 'Precio maximo',
     'search_price'              => 'Precio',
     'search_code'               => 'Codigo',
     'search_year'               => 'Modelo',
@@ -41,13 +42,15 @@ return [
     'efective_text'             => 'Vende tu moto en poco tiempo en BuscoMoto.co',
 
     //Latest listings
-    'latest_listings_turism' 	=> 'Nuevas motos de turismo',
+    'latest_listings'           => 'Nuevas publicaciones',
+    'latest_listings_turism'    => 'Nuevas motos de turismo',
     'latest_listings_naked'     => 'Nuevas motos deportivas y naked',
     'latest_listings_street'    => 'Nuevas motos de calle',
     'latest_listings_cross'     => 'Nuevas motos de enduro, cross y motard',
 
     //Featured
-    'featured_listing' 			=> 'Publicaciones destacadas',
+    'featured_listing'          => 'Publicaciones destacadas',
+    'listing_featured'          => 'Publicación destacada',
 
     // Listings index -------------------------------------------------------------------
     'listings_on' 				=> 'Publicaciones en',
@@ -90,8 +93,13 @@ return [
 
     // Compare listings
     'compare_title'             => 'Comparar publicaciones',
+    'compare_intro'             => 'En esta sección encontraras las ultimas 4 publicaciones que hayas seleccionado para comparar.',
+    'compare_forget_listings'   => 'Eliminar publicaciones seleccionadas',
     'keep_looking' 				=> 'Seguir navegando',
-    'compare_now' 				=> 'Comparar',
+    'compare_now'               => 'Comparar',
+    'origin'                    => 'Origen: ',
+    'points'                    => 'puntos',
+
 
     // Favorite listings
     'liked_listings'            => 'Publicaciones favoritas',

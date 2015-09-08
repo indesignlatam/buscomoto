@@ -13,7 +13,6 @@
     <script type="text/javascript">
         loadCSS("{{ asset('/css/jquery/jquery-slider.min.css') }}");
         loadCSS("{{ asset('/css/select2.min.css') }}");
-        loadCSS("{{ asset('/css/components/slidenav.almost-flat.min.css') }}");
     </script>
 @endsection
 
@@ -55,13 +54,17 @@
                         <option value="5">600cc o más</option>
                     </select>
 
-                    <div>
-                        <label for="price_range" class="uk-text-bold">{{ trans('frontend.search_price') }} entre</label>
-                        <input type="text" id="price_range" class="uk-text-primary" readonly style="border:0; font-weight:bold; background-color:#fff; font-size:12px;">
-                    </div>
-                    <div id="slider-range-price" class="uk-margin-small-bottom"></div>
-                    <input type="hidden" id="price_min" name="price_min" value="{{Request::get('price_min')}}">
-                    <input type="hidden" id="price_max" name="price_max" value="{{Request::get('price_max')}}">
+                    <input type="hidden" name="price_min" value="0">
+                    <select class="uk-width-1-1 uk-margin-small-bottom uk-form-large" name="price_max">
+                        <option value>{{ trans('frontend.search_price_max') }}</option>
+                        @foreach($priceRanges as $range)
+                            @if($range['id'] == Request::get('price_range'))
+                                <option value="{{ $range['id'] }}" selected>{{ $range['name'] }}</option>
+                            @else
+                                <option value="{{ $range['id'] }}">{{ $range['name'] }}</option>
+                            @endif
+                        @endforeach
+                    </select>
 
                     <select class="uk-margin-small-bottom uk-form-large" id="search_manufacturer" name="manufacturers[]" multiple="multiple" style="width:100%">
                         @foreach($manufacturers as $manufacturer)
@@ -156,22 +159,24 @@
         <!-- Search for mobile devices end -->
 
         <!-- latest listings on turism-->
-        @if(count($turism))
+        @if(count($newBikes) > 0)
             <div>
-                <h1 class="uk-text-bold uk-display-inline">{{ trans('frontend.latest_listings_turism') }}</h1>
-                <a href="{{ url('/buscar?listing_type=2') }}"> ({{ trans('admin.view_more_listings') }})</a>
+                <h1 class="uk-text-bold uk-display-inline">{{ trans('frontend.latest_listings') }}</h1>
+                <a href="{{ url('/buscar') }}"> ({{ trans('admin.view_more_listings') }})</a>
             </div>
 
             <div class="uk-slidenav-position" data-uk-slideset="{small: 1, medium: 4, large: 4, autoplay: true}">
                 <ul class="uk-grid uk-slideset">
-                    @foreach($turism as $bike)
+                    @foreach($newBikes as $bike)
                     <li class="uk-margin-top">
                         <a href="{{ url($bike->path()) }}">
                             <img src="{{ asset(Image::url($bike->image_path(),['mini_front_2x'])) }}">
                         </a>
                         <div>
                             <a href="{{ url($bike->path()) }}">{{ $bike->title }}</a>
-                            <p class="uk-text-muted" style="font-size:10px;margin-top:-4px; margin-bottom:0px">{{ $bike->area }} mt2 - {{ money_format('$%!.0i', $bike->price) }}</p>
+                            <p class="uk-text-muted" style="font-size:10px;margin-top:-4px; margin-bottom:0px">
+                                {{ money_format('$%!.0i', $bike->price) }} | {{ number_format($bike->odometer) }}
+                            </p>
                         </div>
                     </li>
                     @endforeach
@@ -183,98 +188,10 @@
             <hr>
         @endif
         <!-- latest listings on turism -->
-
-        <!-- latest listings on sport/naked -->
-        @if(count($sport))
-            <div>
-                <h1 class="uk-text-bold uk-display-inline">{{ trans('frontend.latest_listings_naked') }}</h1>
-                <a href="{{ url('buscar?listing_type=3') }}">({{ trans('admin.view_more_listings') }})</a>
-            </div>
-
-            <div class="uk-slidenav-position" data-uk-slideset="{small: 1, medium: 4, large: 4, autoplay: true}">
-                <ul class="uk-grid uk-slideset">
-                    @foreach($sport as $bike)
-                    <li class="uk-margin-top">
-                        <a href="{{ url($bike->path()) }}">
-                            <img src="{{ asset(Image::url($bike->image_path(),['mini_front_2x'])) }}" class="uk-margin-small-bottom">
-                        </a>
-                        <div>
-                            <a href="{{ url($bike->path()) }}">{{ $bike->title }}</a>
-                            <p class="uk-text-muted" style="font-size:10px;margin-top:-4px">{{ $bike->area }} mt2 - {{ money_format('$%!.0i', $bike->price) }}</p>
-                        </div>
-                    </li>
-                    @endforeach
-                </ul>
-                <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-previous uk-slidenav-contrast" data-uk-slideset-item="previous"></a>
-                <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-next uk-slidenav-contrast" data-uk-slideset-item="next"></a>
-            </div>
-            
-            <hr>
-        @endif
-        <!-- latest listings on sport/naked -->
-
-        <!-- latest listings on street -->
-        @if(count($street))
-            <div>
-                <h1 class="uk-text-bold uk-display-inline">{{ trans('frontend.latest_listings_street') }}</h1>
-                <a href="{{ url('buscar?listing_type=1') }}">({{ trans('admin.view_more_listings') }})</a>
-            </div>
-
-            <div class="uk-slidenav-position" data-uk-slideset="{small: 1, medium: 4, large: 4, autoplay: true}">
-                <ul class="uk-grid uk-slideset">
-                    @foreach($street as $bike)
-                    <li class="uk-margin-top">
-                        <a href="{{ url($bike->path()) }}">
-                            <img src="{{ asset(Image::url($bike->image_path(),['mini_front_2x'])) }}" class="uk-margin-small-bottom">
-                        </a>
-                        <div>
-                            <a href="{{ url($bike->path()) }}">{{ $bike->title }}</a>
-                            <p class="uk-text-muted" style="font-size:10px;margin-top:-4px">{{ $bike->area }} mt2 - {{ money_format('$%!.0i', $bike->price) }}</p>
-                        </div>
-                    </li>
-                    @endforeach
-                </ul>
-                <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-previous uk-slidenav-contrast" data-uk-slideset-item="previous"></a>
-                <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-next uk-slidenav-contrast" data-uk-slideset-item="next"></a>
-            </div>
-            
-            <hr>
-        @endif
-        <!-- latest listings on street -->
-
-        <!-- latest listings on cross -->
-        @if(count($cross))
-            <div>
-                <h1 class="uk-text-bold uk-display-inline">{{ trans('frontend.latest_listings_cross') }}</h1>
-                <a href="{{ url('buscar?listing_type=5') }}">({{ trans('admin.view_more_listings') }})</a>
-            </div>
-
-            <div class="uk-slidenav-position" data-uk-slideset="{small: 1, medium: 4, large: 4, autoplay: true}">
-                <ul class="uk-grid uk-slideset">
-                    @foreach($cross as $bike)
-                    <li class="uk-margin-top">
-                        <a href="{{ url($bike->path()) }}">
-                            <img src="{{ asset(Image::url($bike->image_path(),['mini_front_2x'])) }}" class="uk-margin-small-bottom">
-                        </a>
-                        <div>
-                            <a href="{{ url($bike->path()) }}">{{ $bike->title }}</a>
-                            <p class="uk-text-muted" style="font-size:10px;margin-top:-4px">{{ $bike->area }} mt2 - {{ money_format('$%!.0i', $bike->price) }}</p>
-                        </div>
-                    </li>
-                    @endforeach
-                </ul>
-                <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-previous uk-slidenav-contrast" data-uk-slideset-item="previous"></a>
-                <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-next uk-slidenav-contrast" data-uk-slideset-item="next"></a>
-            </div>
-            <hr>
-        @endif
-        <!-- latest listings on cross -->
-
-        
     </div>
 
     <!-- Register and publish -->
-    <div class="uk-block uk-block-secondary" style="background-color:#00a26a;">
+    <div class="uk-block uk-block-secondary" style="background-color:#1C7BBA;">
         <div class="uk-container uk-container-center">
             <h1 class="uk-text-bold uk-text-contrast uk-text-center" style="margin-top:-10px; margin-bottom:30px;">{{ trans('frontend.register_publish_title') }}</h1>
 
@@ -346,10 +263,8 @@
 
     <noscript><link href="{{ asset('/css/jquery/jquery-slider.min.css') }}" rel="stylesheet"></noscript>
     <noscript><link href="{{ asset('/css/select2front.min.css') }}" rel="stylesheet"/></noscript>
-    <noscript><link href="{{ asset('/css/components/slidenav.almost-flat.min.css') }}" rel="stylesheet"/></noscript>
     <script src="{{ asset('/js/select2.min.js') }}"></script>
     <script src="{{ asset('/js/components/slideset.min.js') }}"></script>
-    <script src="{{ asset('/js/jquery/jquery-slider.min.js') }}"></script>
     <script src="{{ asset('/js/accounting.min.js') }}"></script>
 
     <script type="text/javascript">
@@ -365,33 +280,6 @@
                 lang: 'es',
                 maximumSelectionLength: 10,
             });
-
-            $( "#slider-range-price" ).slider({
-                range: true,
-                step: 1000000,
-                min: 0,// TODO get from settings
-                max: 50000000,// TODO get from settings
-
-                @if(Request::has('price_min') && Request::has('price_max'))
-                    values: [{{Request::get('price_min')}}, {{Request::get('price_max')}}],
-                @else
-                    values: [0, 50000000],// TODO get from settings
-                @endif
-                slide: function( event, ui ) {
-                    tag = "";
-                    if(ui.values[ 1 ] == 50000000){// TODO get from settings
-                        tag = "+";
-                    }
-                    $( "#price_range" ).val( "$" + accounting.formatNumber(ui.values[ 0 ]) + " - $" + accounting.formatNumber(ui.values[ 1 ]) + tag );
-                    $( "#price_min" ).val(ui.values[ 0 ]);
-                    $( "#price_max" ).val(ui.values[ 1 ]);
-                },
-                change: function(){
-                    //getMarkers(true);
-                }
-            });
-            $( "#price_range" ).val( "$" + accounting.formatNumber($( "#slider-range-price" ).slider( "values", 0 )) +
-                " - $" + accounting.formatNumber($( "#slider-range-price" ).slider( "values", 1 )) + "+" );
         });
 
         function setEngineSize(sender){

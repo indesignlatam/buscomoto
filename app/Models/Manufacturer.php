@@ -52,4 +52,13 @@ class Manufacturer extends IndesignModel {
 	public function listings(){
         return $this->hasMany('App\Models\Listing', 'manufacturer_id');
     }
+
+    /**
+     * Relationship with listing which the message belongs to
+     *
+     * @return \App\Models\Listing
+     */
+	public function country(){
+        return $this->belongsTo('App\Models\Country', 'country_id');
+    }
 }

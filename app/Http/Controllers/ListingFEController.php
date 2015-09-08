@@ -113,7 +113,7 @@ class ListingFEController extends Controller {
 				// If user input price_min & price_max
 				if($request->has('price_min') && $request->has('price_max')){
 					// If user set price_max at the input max dont limit max price
-					if($request->get('price_max') >= 50000000){
+					if($request->get('price_max') >= 30000000){
 						$query = $query->where('price', '>=', $request->get('price_min'));
 					}else{// Else limit by min and max price
 						$query = $query->WhereBetween('price', [$request->get('price_min')-1, $request->get('price_max')]);
