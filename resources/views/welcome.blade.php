@@ -63,7 +63,7 @@
                     <input type="hidden" id="price_min" name="price_min" value="{{Request::get('price_min')}}">
                     <input type="hidden" id="price_max" name="price_max" value="{{Request::get('price_max')}}">
 
-                    <select class="uk-width-1-1 uk-margin-small-bottom uk-form-large" id="search_manufacturer" name="manufacturers[]" multiple="multiple">
+                    <select class="uk-margin-small-bottom uk-form-large" id="search_manufacturer" name="manufacturers[]" multiple="multiple" style="width:100%">
                         @foreach($manufacturers as $manufacturer)
                             @if(is_array(Request::get('manufacturers')) && in_array($manufacturer->id, Request::get('manufacturers')))
                                 <option value="{{ $manufacturer->id }}" selected>{{ $manufacturer->text }}</option>
