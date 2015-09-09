@@ -97,7 +97,7 @@ class ListingController extends Controller {
 			}
 		}
 
-		$manufacturers 	= Manufacturer::selectRaw('id, name AS text')->remember(Settings::get('query_cache_time'))->get();
+		$manufacturers 	= Manufacturer::selectRaw('id, name AS text')->orderBy('name', 'ASC')->remember(Settings::get('query_cache_time'))->get();
 		$listingTypes 	= ListingType::remember(Settings::get('query_cache_time'))->get();
 		$features 		= Feature::remember(Settings::get('query_cache_time'))->with('category')->get();
 		$cities 		= City::remember(Settings::get('query_cache_time'))->orderBy('ordering', 'ASC')->with('department')->get();
@@ -209,7 +209,7 @@ class ListingController extends Controller {
 	    	}
 		}
 
-		$manufacturers 	= Manufacturer::selectRaw('id, name AS text')->remember(Settings::get('query_cache_time'))->get();
+		$manufacturers 	= Manufacturer::selectRaw('id, name AS text')->orderBy('name', 'ASC')->remember(Settings::get('query_cache_time'))->get();
 		$listingTypes 	= ListingType::remember(Settings::get('query_cache_time'))->get();
 		$features 		= Feature::remember(Settings::get('query_cache_time'))->with('category')->get();
 		$cities 		= City::remember(Settings::get('query_cache_time'))->orderBy('ordering', 'ASC')->with('department')->get();

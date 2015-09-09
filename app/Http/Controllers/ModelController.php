@@ -23,7 +23,7 @@ class ModelController extends Controller{
         if(count($request->all()) > 0){
             if($request->has('search')){
                 $search = $request->search;
-                $query = $query->where('slug', 'LIKE', "%$search%");
+                $query = $query->where('name', 'LIKE', "%$search%");
             }
 
             if($request->get('deleted')){

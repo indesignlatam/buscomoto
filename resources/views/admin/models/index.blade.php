@@ -18,6 +18,60 @@
 	        <!-- This is a button toggling the modal -->
 	        <button class="uk-button" data-uk-modal="{target:'#new_object_modal', center: true}">{{ trans('admin.new') }}</button>
 	        <button class="uk-button uk-button-danger" onclick="deleteObjects()"><i class="uk-icon-trash"></i></button>
+
+	        <div class="uk-align-right">
+	        	<form action="{{url(Request::path())}}" method="GET" class="uk-form uk-align-right">
+			        <input type="text" name="search" placeholder="{{ trans('admin.search') }}" class="uk-form-width-small" value="{{ Request::get('search') }}">
+					<select name="take" onchange="this.form.submit()">
+				    	<option value="">{{ trans('admin.elements_amount') }}</option>
+				    	@if(Request::get('take') == 50)
+				    		<option value="50" selected>{{ trans('admin.elements_50') }}</option>
+				    	@else
+				    		<option value="50">{{ trans('admin.elements_50') }}</option>
+				    	@endif
+
+				    	@if(Request::get('take') == 30)
+				    		<option value="30" selected>{{ trans('admin.elements_30') }}</option>
+				    	@else
+				    		<option value="30">{{ trans('admin.elements_30') }}</option>
+				    	@endif
+
+				    	@if(Request::get('take') == 10)
+				    		<option value="10" selected>{{ trans('admin.elements_10') }}</option>
+				    	@else
+				    		<option value="10">{{ trans('admin.elements_10') }}</option>
+				    	@endif
+				    </select>
+
+				    <select name="order_by" onchange="this.form.submit()">
+				    	<option value="">{{ trans('admin.order_by') }}</option>
+				    	
+				    	@if(Request::get('order_by') == 'id_desc')
+				    		<option value="id_desc" selected>{{ trans('admin.order_newer_first') }}</option>
+				    	@else
+				    		<option value="id_desc">{{ trans('admin.order_newer_first') }}</option>
+				    	@endif
+
+				    	@if(Request::get('order_by') == 'id_asc')
+				    		<option value="id_asc" selected>{{ trans('admin.order_older_first') }}</option>
+				    	@else
+				    		<option value="id_asc">{{ trans('admin.order_older_first') }}</option>
+				    	@endif
+
+				    	@if(Request::get('order_by') == 'manufacturer_desc')
+				    		<option value="manufacturer_desc" selected>{{ trans('admin.order_manufacturer_desc') }}</option>
+				    	@else
+				    		<option value="manufacturer_desc">{{ trans('admin.order_manufacturer_desc') }}</option>
+				    	@endif
+
+				    	@if(Request::get('order_by') == 'manufacturer_asc')
+				    		<option value="manufacturer_asc" selected>{{ trans('admin.order_manufacturer_asc') }}</option>
+				    	@else
+				    		<option value="manufacturer_asc">{{ trans('admin.order_manufacturer_asc') }}</option>
+				    	@endif
+				    </select>
+				</form>
+			</div>
 	    </div>
 
 		<div class="uk-margin-top">

@@ -46,7 +46,6 @@ class WelcomeController extends Controller {
 							 ->take(20)
 							 ->get();
 
-		$engineSizes 	= EngineSize::remember(Settings::get('query_cache_time'))->get();
 		$listingTypes 	= ListingType::remember(Settings::get('query_cache_time'))->get();
 		$priceRanges 	= [	['id' => 3000000, 'name' => '3,000,000'],
 							['id' => 5000000, 'name' => '5,000,000'],
@@ -54,10 +53,9 @@ class WelcomeController extends Controller {
 							['id' => 30000000, 'name' => '30,000,000'],
 							['id' => 50000000, 'name' => '50,000,000 o más']
 							];
-		$manufacturers 	= Manufacturer::selectRaw('id, name AS text')->remember(Settings::get('query_cache_time'))->get();
+		$manufacturers 	= Manufacturer::selectRaw('id, name AS text')->orderBy('name', 'ASC')->remember(Settings::get('query_cache_time'))->get();
 
-		return view('welcome', ['engineSizes' 			=> $engineSizes,
-								'priceRanges' 			=> $priceRanges,
+		return view('welcome', ['priceRanges' 			=> $priceRanges,
 								'listingTypes' 			=> $listingTypes,
 								'manufacturers' 		=> $manufacturers,
 								'newBikes' 				=> $newBikes,

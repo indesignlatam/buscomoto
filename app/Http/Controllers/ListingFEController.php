@@ -175,27 +175,23 @@ class ListingFEController extends Controller {
 				$listings = $query->orderBy('id', 'DESC')->with('featuredType')->paginate($take);
 			}
 
-			$engineSizes 	= EngineSize::remember(Settings::get('query_cache_time'))->get();
 			$listingTypes 	= ListingType::remember(Settings::get('query_cache_time'))->get();
 			$manufacturers 	= Manufacturer::selectRaw('id, name AS text')->remember(Settings::get('query_cache_time'))->get();
 			$cities 		= City::selectRaw('id, name AS text')->remember(Settings::get('query_cache_time'))->orderBy('ordering')->get();
 
 			return view('listings.mobile.index', [ 'listingTypes' 		=> $listingTypes,
 												   'cities' 			=> $cities, 
-												   'engineSizes' 		=> $engineSizes ,
 												   'manufacturers'		=> $manufacturers,
 												   'listings'			=> $listings,
 												 ]);
 	  	}
 
-	  	$engineSizes 	= EngineSize::remember(Settings::get('query_cache_time'))->get();
 		$listingTypes 	= ListingType::remember(Settings::get('query_cache_time'))->get();
-		$manufacturers 	= Manufacturer::selectRaw('id, name AS text')->remember(Settings::get('query_cache_time'))->get();
+		$manufacturers 	= Manufacturer::selectRaw('id, name AS text')->orderBy('name', 'ASC')->remember(Settings::get('query_cache_time'))->get();
 		$cities 		= City::selectRaw('id, name AS text')->remember(Settings::get('query_cache_time'))->orderBy('ordering')->get();
 
 		return view('listings.index', [ 'listingTypes' 		=> $listingTypes,
 										'cities' 			=> $cities, 
-										'engineSizes' 		=> $engineSizes ,
 										'manufacturers'		=> $manufacturers,
 										]);
 	}
