@@ -355,6 +355,7 @@
 
 			paging = null;
 			if(paginate){
+				$('#load_button').html('<i class="uk-icon-spinner uk-icon-spin"></i>');
 				paging = page;
 			}else{
 				page = 1;
