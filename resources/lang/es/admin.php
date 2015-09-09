@@ -42,6 +42,8 @@ return [
     'engine_size'               => 'Cilindraje',
     'information'               => 'Información',
     'select_option'             => 'Seleccione una opción',
+    'featured_listing'          => 'Publicación destacada',
+
 
     // Featured Categories
     'feature_categories'        => 'Categorias de características',
@@ -71,7 +73,8 @@ return [
     'type' 						=> 'Tipo',
     'district'                  => 'Barrio',
     'actions_button' 			=> 'Acciones',    
-    'expires'                   => 'Expira ',
+    'expires'                   => 'Expira',
+    'expires_in'                => 'Expira ',
     'listing_expires'           => 'La publicación expira ',
     'listing_featured_expires'  => 'La publicación destacada expira ',
     'listing_expired'           => 'La publicación expiró ',
@@ -84,7 +87,6 @@ return [
     'you_have_no_listings'      => '¿No tienes publicaciones?',
     'you_have_no_deleted_listings'=> 'No tienes ninguna publicación para recuperar.',
     'show_deleted'              => 'También puedes buscar en las publicaciones eliminadas.',
-    'order_by'                  => 'Ordenar por',
     'eliminated_listings'       => 'Ver publicaciones eliminadas',
     'go_back_listings'          => 'Vuelve a tus publicaciones activas',
     'view_listing'              => 'Ver publicación',
@@ -92,7 +94,7 @@ return [
     'shared_check_tooltip'      => 'No has compartido tu publicación',
     'aditional_check_tooltip'   => 'No has escrito una descripción adicional completa',
     'features_check_tooltip'    => 'Tu publicación no tiene suficientes características',
-    
+    'no_listings_found'         => 'No encontramos ninguna publicación',
 
     // Create & edit Listing ================================================================== ==================================================================
     'new_listing' 				=> 'Nueva publicación',
@@ -359,6 +361,7 @@ return [
     'order_older_first'         => 'Antiguos primero',
     'order_expensive_first'     => 'Mayor a menor precio',
     'order_cheaper_first'       => 'Menor a mayor precio',
+    'order_expiring_first'      => 'Expira pronto primero',
     'features111'               => 'publicados',
     'features111'               => 'publicados',
     'features111'               => 'publicados',
