@@ -165,7 +165,7 @@ class AppointmentController extends Controller {
 				$query = $query->orderBy('id', 'DESC');
 			}
 		}else{
-			$query = $query->orderBy('answered', 'ASC')->orderBy('appointments.created_at', 'DESC');
+			$query = $query->orderBy('answered', 'ASC')->orderBy('messages.created_at', 'DESC');
 		}
 
 		// Take n objects

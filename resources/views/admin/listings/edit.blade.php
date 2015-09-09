@@ -146,7 +146,7 @@
 							<h2 class="uk-text-primary uk-text-bold" style="text-transform: uppercase">{{ trans('admin.listing_basic_information') }}</h2>
 						</div>
 
-						<div class="uk-width-large-1-3 uk-width-1-2">
+						<div class="uk-width-large-1-3 uk-width-medium-1-3 uk-width-small-1-1">
 							<div class="uk-form-row">
 						        <label class="uk-form-label" for="">{{ trans('admin.price') }} <i class="uk-text-danger">*</i></label>
 								<input class="uk-width-large-10-10 uk-form-large" id="price" type="text" name="price" placeholder="{{ trans('admin.price') }}" value="{{ $listing->price }}" onkeyup="format(this);">
@@ -158,7 +158,7 @@
 							</div>
 						</div>
 
-						<div class="uk-width-large-1-3 uk-width-1-2">
+						<div class="uk-width-large-1-3 uk-width-medium-1-3 uk-width-small-1-1">
 							<div class="uk-form-row">
 						        <label class="uk-form-label" for="">{{ trans('admin.license_number') }} <i class="uk-icon-info-circle" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.license_number_tooltip') }}"></i></label>
 								<input class="uk-width-large-10-10 uk-form-large" type="text" name="license_number" placeholder="{{ trans('admin.license_number') }}" value="{{ $listing->license_number }}">
@@ -170,7 +170,7 @@
 							</div>
 						</div>
 
-						<div class="uk-width-large-1-3 uk-width-1-2">
+						<div class="uk-width-large-1-3 uk-width-medium-1-3 uk-width-small-1-1">
 							<div class="uk-form-row">
 						        <label class="uk-form-label" for="">{{ trans('admin.color') }}</label>
 								<input class="uk-width-large-10-10 uk-form-large" type="text" name="color" placeholder="{{ trans('admin.color') }}" value="{{ $listing->color }}">

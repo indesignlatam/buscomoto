@@ -217,7 +217,7 @@
     			</ul>
 
 				<button class="uk-button uk-button-large uk-button-primary uk-width-1-1" onclick="select(this)" id="{{ $listing->id }}">{{ trans('frontend.compare') }}</button>
-    			<a href="{{ url($listing->user->path()) }}" class="uk-button uk-button-large uk-width-1-1 uk-margin-small-top">{{ trans('frontend.other_user_listings') }}</a>
+    			<a href="{{ url($listing->user->path()) }}" class="uk-button uk-button-large uk-width-1-1 uk-margin-small-top uk-margin-bottom">{{ trans('frontend.other_user_listings') }}</a>
 	    	</div>
 
 	    	<div class="uk-width-large-3-4 uk-width-medium-3-4 uk-width-small-1-1">
