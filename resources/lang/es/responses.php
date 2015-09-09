@@ -47,7 +47,7 @@ return [
     'cant_cancel_payment'                   => 'No puedes cancelar este pago',
     'payment_unconfirmed_for_listing'       => 'Hay pagos aún no confirmados para esta publicación',
     
-    'features111'                           => 'publicados',
+    'listing_liked'                         => '¡Publicación marcada como favorita!',
     'features111'                           => 'publicados',
     'features111'                           => 'publicados',
     'features111'                           => 'publicados',

@@ -49,7 +49,7 @@
 					    	@endforeach		    	
 					    </ul>
 					    @if(isset(Cookie::get('likes')[$listing->id]) && Cookie::get('likes')[$listing->id] || $listing->like)
-					    	<a onclick="like()"><i style="position:absolute; top:5px; right:5px" class="uk-icon-heart uk-icon-large uk-text-primary" id="like_button_image"></i></a>
+					    	<a onclick="like()"><i style="position:absolute; top:5px; right:5px" class="uk-icon-heart uk-icon-large uk-text-danger" id="like_button_image"></i></a>
 					    @else
 					    	<a onclick="like()"><i style="position:absolute; top:5px; right:5px" class="uk-icon-heart uk-icon-large uk-text-contrast" id="like_button_image"></i></a>
 					    @endif
@@ -137,7 +137,7 @@
 						<button class="uk-button uk-button-large uk-width-1-1" data-uk-toggle="{target:'#phones'}"><i class="uk-icon-phone"></i></button>
 						<button onclick="like()" class="uk-button uk-button-large uk-width-1-1 uk-margin-small-left">
 					    	@if(isset(Cookie::get('likes')[$listing->id]) && Cookie::get('likes')[$listing->id] || $listing->like)
-								<i id="like_button" class="uk-icon-heart uk-text-primary"></i>
+								<i id="like_button" class="uk-icon-heart uk-text-danger"></i>
 							@else
 								<i id="like_button" class="uk-icon-heart"></i>
 							@endif
@@ -538,11 +538,11 @@
 
 		function like() {
 			if(!liked){
-				$('#like_button_image').removeClass('uk-text-contrast').addClass('uk-text-primary');
-				$('#like_button').addClass('uk-text-primary');
+				$('#like_button_image').removeClass('uk-text-contrast').addClass('uk-text-danger');
+				$('#like_button').addClass('uk-text-danger');
 			}else{
-				$('#like_button_image').removeClass('uk-text-primary').addClass('uk-text-contrast');
-				$('#like_button').removeClass('uk-text-primary');
+				$('#like_button_image').removeClass('uk-text-danger').addClass('uk-text-contrast');
+				$('#like_button').removeClass('uk-text-danger');
 			}
 		    
 
@@ -550,24 +550,22 @@
 		    	if(result.success){
 		    		if(result.like){
 		    			liked = true;
-		    			$('#like_button_image').removeClass('uk-text-contrast').addClass('uk-text-primary');
-						$('#like_button').addClass('uk-text-primary');
-						UIkit.modal.confirm('<h3 class="uk-text-center">{{ trans('frontend.goto_favorites') }}</h3>', function(){
-						    // will be executed on confirm.
-							window.location.href = "{{ url('/favoritos') }}";
-						}, {labels:{Ok:'{{trans("admin.yes")}}', Cancel:'{{trans("admin.cancel")}}'}, center: true});
+		    			$('#like_button_image').removeClass('uk-text-contrast').addClass('uk-text-danger');
+						$('#like_button').addClass('uk-text-danger');
+						UIkit.modal.alert('<h2 class="uk-text-center"><i class="uk-icon-check-circle uk-icon-large"></i><br>'+result.success+'</h2>', {center: true});
+
 		    		}else{
 		    			liked = false;
-		    			$('#like_button_image').removeClass('uk-text-primary').addClass('uk-text-contrast');
-						$('#like_button').removeClass('uk-text-primary');
+		    			$('#like_button_image').removeClass('uk-text-danger').addClass('uk-text-contrast');
+						$('#like_button').removeClass('uk-text-danger');
 		    		}
 		    	}else if(result.error || !result){
 					if(liked){
-						$('#like_button_image').removeClass('uk-text-contrast').addClass('uk-text-primary');
-						$('#like_button').addClass('uk-text-primary');
+						$('#like_button_image').removeClass('uk-text-contrast').addClass('uk-text-danger');
+						$('#like_button').addClass('uk-text-danger');
 					}else{
-						$('#like_button_image').removeClass('uk-text-primary').addClass('uk-text-contrast');
-						$('#like_button').removeClass('uk-text-primary');
+						$('#like_button_image').removeClass('uk-text-danger').addClass('uk-text-contrast');
+						$('#like_button').removeClass('uk-text-danger');
 					}
 		    	}
 	        });

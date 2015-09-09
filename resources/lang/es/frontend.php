@@ -105,6 +105,8 @@ return [
     'liked_listings'            => 'Publicaciones favoritas',
     'goto_favorites'            => '¿Deseas ir a ver tus favoritos?',
     'no_favorites'              => 'Aun no tienes ningun favorito.',
+    'no_favorites_text_1' => 'Puedes seleccionar como favorita una publicación haciendo click en el',
+    'no_favorites_text_2' => 'dentro la imagen.',
 
     'new'                       => 'Nuevo',
 

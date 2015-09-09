@@ -353,9 +353,9 @@ class ListingFEController extends Controller {
 		$listings = null;
 
 		if(count($listingsIds) > 1){
-			$listings = Listing::whereIn('id', $listingsIds)->take(4)->with('features', 'listingType')->get();
+			$listings = Listing::whereIn('id', $listingsIds)->take(4)->with('features', 'listingType', 'manufacturer', 'manufacturer.country', 'city')->get();
 		}else if($listingsIds){
-			$listings = Listing::where('id', $listingsIds)->take(4)->with('features', 'listingType')->get();
+			$listings = Listing::where('id', $listingsIds)->take(4)->with('features', 'listingType', 'manufacturer', 'manufacturer.country', 'city')->get();
 		}
 
 		$features = Feature::remember(Settings::get('query_cache_time'))->with('category')->get();

@@ -31,7 +31,7 @@
 		<div class="uk-grid uk-grid-small uk-margin-top uk-margin-large-bottom">
 			@if($listings && count($listings) > 0)
 				@foreach($listings as $listing)
-					<div class="uk-panel uk-panel-box uk-panel-box-primary uk-width-1-4" style="border-top:none;border-left:none;border-bottom:none;border-radius:0">
+					<div class="uk-panel uk-panel-box uk-panel-box-primary uk-width-1-4" style="border-top:none;border-left:none;border-bottom:none;border-radius:0" id="listing_{{ $listing->id }}">
 						<div style="height:60px; background-color:white;" data-uk-sticky="{boundary: true}">
 							<a class="uk-modal-close uk-close uk-close-alt uk-text-danger" onclick="forgetListing({{ $listing->id }})" style="position:absolute; top:0px; right: 15px;"></a>
 							<a href="{{ $listing->path() }}" style="text-decoration:none">
@@ -201,10 +201,6 @@
 			    object: path,
 			})
 			}, function(response, id){
-				$.post("{{ url('/cookie/set') }}", {_token: "{{ csrf_token() }}", key: "shared_listing_"+id, value: true, time:11520}, function(result){
-	                
-	            });
-			  	// Debug response (optional)
 			  	console.log(response);
 			});
        	}
@@ -232,7 +228,9 @@
 		function forgetListing(id){
        		UIkit.modal.confirm("{{ trans('frontend.compare_remove_listing') }}", function(){
        			$.post("{{ url('/cookie/forgetlisting') }}", {_token: "{{ csrf_token() }}", listing_id: id}, function(result){
-				 	window.location.href = "{{ url('/comparar') }}";
+       				if(result.sucess){
+				 		$('#listing_'+id).fadeOut(500, function() { $(this).remove();});
+       				}
             	});
 			}, {labels:{Ok:'{{trans("admin.yes")}}', Cancel:'{{trans("admin.cancel")}}'}, center:true});
 		}
