@@ -21,6 +21,7 @@
 
 <div class="uk-container uk-container-center uk-margin-top" id="secondContent">
 	<div class="uk-panel">
+	@if(!Agent::isMobile())
 		<div>
 			<h1 class="uk-display-inline">{{ trans('frontend.compare_title') }}</h1>
 			<button class="uk-button uk-button-link" onclick="forget()">({{ trans('frontend.compare_forget_listings') }})</button>
@@ -176,10 +177,18 @@
 	    				<h3 id="points2-{{ $listing->id }}" class="uk-text-bold uk-text-center">{{ $listing->points . trans('frontend.points') }}</h3>
 					</div>
 				@endforeach
-			@else
-
 			@endif
 		</div>
+	@else
+		<div class="uk-margin-bottom">
+			<h1>{{ trans('frontend.compare_title') }}</h1>
+
+			<hr>
+		
+			<h3>{{ trans('frontend.not_available_mobile') }}</h3>
+		</div>
+
+	@endif
 	</div>
 </div>
 @endsection

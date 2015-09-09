@@ -20,7 +20,7 @@
                 </li>
 
                 <li class="uk-parent" data-uk-dropdown="">
-                    <a href="{{ url('/ventas') }}">{{ trans('frontend.menu_search') }}</a>
+                    <a href="{{ url('/buscar') }}">{{ trans('frontend.menu_search') }}</a>
                 </li>
 
                 <li class="uk-parent" data-uk-dropdown="">

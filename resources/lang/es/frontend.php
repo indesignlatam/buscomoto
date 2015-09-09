@@ -20,6 +20,8 @@ return [
     'search_intro'              => '¿Que moto estas buscando?',
     'search_listing_type'       => 'Tipo de moto',
     'search_engine_size'        => 'Cilindraje',
+    'search_engine_size_min'    => 'Cilindraje mínimo',
+    'search_engine_size_max'    => 'Cilindraje máximo',
     'search_manufacturer' 		=> 'Marcas (Puedes seleccionar varias)',
     'search_button' 			=> 'Buscar',
     'search_select_option'      => 'Seleccione una opción',
@@ -29,7 +31,10 @@ return [
     'search_price'              => 'Precio',
     'search_code'               => 'Codigo',
     'search_year'               => 'Modelo',
+    'search_year_min'           => 'Año mínimo',
+    'search_year_max'           => 'Año máximo',
     'search_odometer'           => 'Kilometraje',
+    'search_odometer_max'       => 'Kilometraje máximo',
     'search_models_tooltip'     => 'Si seleccionas varias marcas no podras seleccionar un modelo especifico.',
 
     // Register Button
@@ -65,6 +70,7 @@ return [
     'try_other_parameters'      => 'Intenta en otra categoría o con otros parámetros de búsqueda.',
     'no_listings_left'          => 'No encontramos mas publicaciones.',
     'load_more'                 => 'Cargar más',
+    'hide'                      => 'Ocultar',
 
     // Listings show -------------------------------------------------------------------
     'oops'                      => 'Whoops!.',
@@ -80,23 +86,22 @@ return [
     'other_user_listings'       => 'Publicaciones del vendedor',
     'listing_selected'          => 'La publicación fue seleccionada para comparar. ¿Deseas ir a comparar las motos seleccionadas?',
     'compare'                   => 'Comparar',
+    'user_listings'             => 'Publicaciones del vendedor',
 
     'compare_prices'            => 'Compara precios',
     'price_higher'              => 'El precio de esta moto es mayor.',
     'price_lower'               => 'El precio de esta moto es menor.',
+    'keep_looking'              => 'Seguir navegando',
+    'compare_now'               => 'Comparar',
 
     // Map marker info window
     'goto_listing' 				=> 'Ver publicación',
-
-    // User listings
-    'user_listings' 			=> 'Publicaciones del vendedor',
 
     // Compare listings
     'compare_title'             => 'Comparar publicaciones',
     'compare_intro'             => 'En esta sección encontraras las ultimas 4 publicaciones que hayas seleccionado para comparar.',
     'compare_forget_listings'   => 'Eliminar publicaciones seleccionadas',
-    'keep_looking' 				=> 'Seguir navegando',
-    'compare_now'               => 'Comparar',
+    'compare_remove_listing'    => '¿Deseas descartar esta publicación?',
     'origin'                    => 'Origen: ',
     'points'                    => 'puntos',
 
@@ -105,11 +110,11 @@ return [
     'liked_listings'            => 'Publicaciones favoritas',
     'goto_favorites'            => '¿Deseas ir a ver tus favoritos?',
     'no_favorites'              => 'Aun no tienes ningun favorito.',
-    'no_favorites_text_1' => 'Puedes seleccionar como favorita una publicación haciendo click en el',
-    'no_favorites_text_2' => 'dentro la imagen.',
+    'no_favorites_text_1'       => 'Puedes seleccionar como favorita una publicación haciendo click en el',
+    'no_favorites_text_2'       => 'dentro la imagen.',
 
     'new'                       => 'Nuevo',
 
-    'template'                  => 'Nuevo',
+    'not_available_mobile'      => 'Esta sección no esta disponible aún para dispsitivos móviles.',
 
 ];

@@ -22,6 +22,7 @@
 @section('content')
 	@include('includes.navbarHome')
 
+    @if(!Agent::isMobile())
 	<div class="uk-cover-background uk-position-relative" style="background-image:url('{{ asset('/images/fp/search_bg.jpg') }}'); height: 500px">
         <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle uk-visible-small">
             <h1 class="uk-text-contrast uk-text-bold">{{ trans('frontend.mobile_greeting') }}</h1>
@@ -102,11 +103,12 @@
 
 	    </div>
 	</div>
+    @endif
 
 	<div class="uk-container uk-container-center uk-margin">
         <!-- Search for mobile devices -->
         <div class="uk-visible-small">
-            <h3 class="uk-text-primary">{{trans('frontend.search_intro')}}</h3>
+            <h3 class="uk-text-primary uk-text-bold uk-text-center">{{trans('frontend.search_intro')}}</h3>
             <form id="mobile_search_form" class="uk-form" method="GET" action="{{ url('/buscar') }}">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -121,15 +123,13 @@
                     @endforeach
                 </select>
 
-                <select class="uk-width-1-1 uk-margin-small-bottom uk-form-large" name="engine_size">
+                <select class="uk-width-1-1 uk-margin-small-bottom uk-form-large" id="engine_size" onchange="setEngineSize(this)">
                     <option value>{{ trans('frontend.search_engine_size') }}</option>
-                    @foreach($engineSizes as $size)
-                        @if($size->id == Request::get('engine_size'))
-                            <option value="{{ $size->id }}" selected>{{ $size->name }}</option>
-                        @else
-                            <option value="{{ $size->id }}">{{ $size->name }}</option>
-                        @endif
-                    @endforeach
+                    <option value="1">0cc - 125cc</option>
+                    <option value="2">125cc - 250cc</option>
+                    <option value="3">250cc - 450cc</option>
+                    <option value="4">450cc - 600cc</option>
+                    <option value="5">600cc o más</option>
                 </select>
 
                 <select class="uk-width-1-1 uk-margin-small-bottom uk-form-large" name="price_range">
@@ -155,6 +155,27 @@
 
                 <button form="mobile_search_form" type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1 uk-margin-small-top">{{ trans('frontend.search_button') }}</button>
             </form>
+
+            <div class="uk-grid uk-margin-top uk-margin-bottom-remove uk-grid-small">
+                <div class="uk-width-1-3">
+                    <a href="{{ url('/buscar?manufacturers[]=73') }}"><img src="{{ asset('images/logos/mvagusta.jpg') }}" class="uk-align-center uk-margin-remove"></a>
+                </div>
+                <div class="uk-width-1-3">
+                    <a href="{{ url('/buscar?manufacturers[]=12') }}"><img src="{{ asset('images/logos/bmw.jpg') }}" class="uk-align-center uk-margin-remove"></a>
+                </div>
+                <div class="uk-width-1-3">
+                    <a href="{{ url('/buscar?manufacturers[]=51') }}"><img src="{{ asset('images/logos/ktm.jpg') }}" class="uk-align-center uk-margin-remove"></a>
+                </div>
+                <div class="uk-width-1-3">
+                    <a href="{{ url('/buscar?manufacturers[]=110') }}"><img src="{{ asset('images/logos/yamaha.jpg') }}" class="uk-align-center uk-margin-remove"></a>
+                </div>
+                <div class="uk-width-1-3">
+                    <a href="{{ url('/buscar?manufacturers[]=48') }}"><img src="{{ asset('images/logos/kawasaki.jpg') }}" class="uk-align-center uk-margin-remove"></a>
+                </div>
+                <div class="uk-width-1-3">
+                    <a href="{{ url('/buscar?manufacturers[]=73') }}"><img src="{{ asset('images/logos/honda.jpg') }}" class="uk-align-center uk-margin-remove"></a>
+                </div>
+            </div>
         </div>
         <!-- Search for mobile devices end -->
 
@@ -162,7 +183,7 @@
         @if(count($newBikes) > 0)
             <div>
                 <h1 class="uk-text-bold uk-display-inline">{{ trans('frontend.latest_listings') }}</h1>
-                <a href="{{ url('/buscar') }}"> ({{ trans('admin.view_more_listings') }})</a>
+                <a href="{{ url('/buscar') }}" class="uk-hidden-small"> ({{ trans('admin.view_more_listings') }})</a>
             </div>
 
             <div class="uk-slidenav-position" data-uk-slideset="{small: 1, medium: 4, large: 4, autoplay: true}">
@@ -270,12 +291,6 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $("#search_manufacturer").select2({
-                placeholder: "{{ trans('frontend.search_manufacturer') }}",
-                lang: 'es',
-                maximumSelectionLength: 10,
-            });
-
-            $("#search_manufacturer_mobile").select2({
                 placeholder: "{{ trans('frontend.search_manufacturer') }}",
                 lang: 'es',
                 maximumSelectionLength: 10,
