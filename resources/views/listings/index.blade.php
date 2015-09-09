@@ -182,11 +182,11 @@
 	    	<div class="uk-width-large-3-4 uk-width-small-1-1">
 	    		<div class="uk-panel">
 	    			<!-- This is the modal -->
-					<div id="loading_listings" class="uk-modal" style="position:relative; ">
-					    <div style="background-color:rgba(0,0,0,0); height: 60px" class="uk-width-1-1">
+					<div id="loading_listings" style="position:relative;" class="uk-hidden">
+					    <div style="height: 60px" class="uk-width-1-1">
 					    	<div class="uk-text-center uk-margin-small-top">
-					        	<i class="uk-icon-large uk-icon-spinner uk-icon-spin uk-text-contrast"></i>
-					        	<h3 class="uk-text-contrast uk-margin-top-remove">{{ trans('frontend.loading') }}</h3>
+					        	<i class="uk-icon-large uk-icon-spinner uk-icon-spin uk-text-primary"></i>
+					        	<h3 class="uk-text-primary uk-margin-top-remove">{{ trans('frontend.loading') }}</h3>
 					    	</div>
 					    </div>
 					</div>
@@ -351,7 +351,7 @@
 		var page = 1;
 
 		function getListings(paginate){
-			UIkit.modal("#loading_listings").show();
+			$("#loading_listings").slideDown(500).removeClass('uk-hidden');
 
 			paging = null;
 			if(paginate){
@@ -377,7 +377,7 @@
 													_token: "{{ csrf_token() }}", 
 												}, 
 			function(response){
-				UIkit.modal("#loading_listings").hide();
+				$("#loading_listings").slideUp(500);
 				if(response && !paginate){
 					$('#listings').html('');
 				}else{
