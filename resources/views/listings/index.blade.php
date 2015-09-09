@@ -181,6 +181,16 @@
 	    	<!-- Listings space -->
 	    	<div class="uk-width-large-3-4 uk-width-small-1-1">
 	    		<div class="uk-panel">
+	    			<!-- This is the modal -->
+					<div id="loading_listings" class="uk-modal" style="position:relative; ">
+					    <div style="background-color:rgba(0,0,0,0); height: 60px" class="uk-width-1-1">
+					    	<div class="uk-text-center uk-margin-small-top">
+					        	<i class="uk-icon-large uk-icon-spinner uk-icon-spin uk-text-contrast"></i>
+					        	<h3 class="uk-text-contrast uk-margin-top-remove">{{ trans('frontend.loading') }}</h3>
+					    	</div>
+					    </div>
+					</div>
+
 					<div class="uk-grid" id="listings"></div>
 				</div>
 	    	</div>
@@ -201,15 +211,6 @@
 	<!-- CSS -->
 
 	<script type="text/javascript">
-        function setListingView(view) {
-        	if(view == 2){
-        		setTimeout(initMap, 50);
-        	}
-            $.post("{{ url('/cookie/set') }}", {_token: "{{ csrf_token() }}", key:'listings_view', value:view}, function(response){
-                console.log(response);
-            });
-        }
-
 		$(function() {
 		    $( "#slider-range-price" ).slider({
 		      	range: true,
@@ -350,6 +351,8 @@
 		var page = 1;
 
 		function getListings(paginate){
+			UIkit.modal("#loading_listings").show();
+
 			paging = null;
 			if(paginate){
 				paging = page;
@@ -374,6 +377,7 @@
 													_token: "{{ csrf_token() }}", 
 												}, 
 			function(response){
+				UIkit.modal("#loading_listings").hide();
 				if(response && !paginate){
 					$('#listings').html('');
 				}else{

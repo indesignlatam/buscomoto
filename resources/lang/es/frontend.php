@@ -114,7 +114,7 @@ return [
     'no_favorites_text_2'       => 'dentro la imagen.',
 
     'new'                       => 'Nuevo',
-
+    'loading'                   => 'Cargando...',
     'not_available_mobile'      => 'Esta sección no esta disponible aún para dispsitivos móviles.',
 
 ];
