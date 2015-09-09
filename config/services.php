@@ -38,7 +38,7 @@ return [
     'facebook' => [
         'client_id'         => env('SERVICE_FACEBOOK_ID'),
         'client_secret'     => env('SERVICE_FACEBOOK_SECRET'),
-        'redirect'          => 'http://buscocasa.co/social-auth/facebook/redirects',
+        'redirect'          => 'http://buscomoto.co/social-auth/facebook/redirects',
     ],
 
 ];
