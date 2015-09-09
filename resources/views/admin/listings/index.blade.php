@@ -272,14 +272,14 @@
 				                				<!-- If listing expires in the next 5 days -->
 				                				@if($listing->featured_expires_at <= Carbon::now()->addDays(5))
 				                					@if($listing->featured_expires_at < Carbon::now())
-					                					<a class="uk-text-danger uk-text-bold uk-h4" href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.featured_expired') }} {{ $listing->featured_expires_at->diffForHumans() }}</a>
+					                					<a class="uk-text-danger uk-text-bold uk-h4" href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.featured_expired', ['days' => $listing->featured_expires_at->diffInDays()]) }}</a>
 				                					@else
-					                					<a class="uk-text-danger uk-text-bold uk-h4" href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.featured_expires') }} {{ $listing->featured_expires_at->diffForHumans() }}</a>
+					                					<a class="uk-text-danger uk-text-bold uk-h4" href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.featured_expires', ['days' => $listing->featured_expires_at->diffInDays()]) }}</a>
 				                					@endif
 
 					                				<a class="uk-button uk-button-large uk-button-success uk-width-1-1 uk-margin-small-bottom" href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.renovate') }}</a>
 						                        @else
-					                				<b>{{ trans('admin.featured_expires') }} {{ $listing->featured_expires_at->diffForHumans() }}</b>
+					                				<b>{{ trans('admin.featured_expires', ['days' => $listing->featured_expires_at->diffInDays()]) }}</b>
 
 						                			<!-- View messages button -->
 					                				<a class="uk-button uk-width-1-1 uk-margin-small-bottom" href="{{ url('/admin/messages/'.$listing->id) }}">{{ trans('admin.view_messages') }}</a>
@@ -288,14 +288,14 @@
 				                			@else
 				                				@if($listing->expires_at <= Carbon::now()->addDays(5))
 				                					@if($listing->expires_at < Carbon::now())
-					                					<a class="uk-text-danger uk-text-bold uk-h4" href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.listing_expired') }} {{ $listing->expires_at->diffForHumans() }}</a>
+					                					<a class="uk-text-danger uk-text-bold uk-h4" href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.listing_expired', ['days' => $listing->featured_expires_at->diffInDays()]) }}</a>
 				                					@else
-					                					<a class="uk-text-danger uk-text-bold uk-h4" href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.expires') }} {{ $listing->expires_at->diffForHumans() }}</a>
+					                					<a class="uk-text-danger uk-text-bold uk-h4" href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.expires', ['days' => $listing->featured_expires_at->diffInDays()]) }}</a>
 				                					@endif
 
 					                				<a class="uk-button uk-button-large uk-button-success uk-width-1-1 uk-margin-small-bottom" href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.renovate') }}</a>
 						                        @else
-					                				<b>{{ trans('admin.expires') }} {{ $listing->expires_at->diffForHumans() }}</b>
+					                				<b>{{ trans('admin.expires', ['days' => $listing->featured_expires_at->diffInDays()]) }}</b>
 
 					                				<!-- Featured button -->
 					                				<a class="uk-button uk-button-success uk-width-1-1 uk-margin-small-bottom" href="{{ url('admin/destacar/'.$listing->id) }}" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.feature_listing') }}">{{ trans('admin.feature') }}</a>
