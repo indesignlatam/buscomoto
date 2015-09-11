@@ -39,7 +39,7 @@
 						        <label class="uk-form-label" for="">{{ trans('admin.listing_type') }} <i class="uk-text-danger">*</i> <i class="uk-icon-info-circle" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.listing_type_tooltip') }}"></i></label>
 						        <div class="uk-form-controls">
 						        	<select class="uk-width-large-10-10 uk-form-large" id="listing_type" name="listing_type">
-						                <option>{{ trans('admin.select_option') }}</option>
+						                <option value="">{{ trans('admin.select_option') }}</option>
 				                        @foreach($listingTypes as $type)
 				                            @if(old('listing_type') == $type->id)
 				                                <option value="{{ $type->id }}" selected>{{ $type->name }}</option>
@@ -55,7 +55,7 @@
 						        <label class="uk-form-label" for="">{{ trans('admin.manufacturer') }} <i class="uk-text-danger">*</i> <i class="uk-icon-info-circle" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.manufacturer_tooltip') }}"></i></label>
 						        <div class="uk-form-controls">
 						        	<select class="uk-width-large-10-10 uk-form-large" id="manufacturers" type="text" name="manufacturer_id">
-						                <option>{{ trans('admin.select_option') }}</option>
+						                <option value="">{{ trans('admin.select_option') }}</option>
 						                @foreach($manufacturers as $manufacturer)
 						                	@if(old('manufacturer_id') == $manufacturer->id)
 												<option value="{{ $manufacturer->id }}" selected>{{ ucwords(strtolower($manufacturer->text)) }}</option>
@@ -71,7 +71,7 @@
 						        <label class="uk-form-label" for="">{{ trans('admin.model') }} <i class="uk-text-danger">*</i> <i class="uk-icon-info-circle" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.model_tooltip') }}"></i></label>
 						        <div class="uk-form-controls">
 						        	<select class="uk-width-large-10-10 uk-form-large" id="models" type="text" name="model_id" style="width:100%">	
-						                <option>{{ trans('admin.select_option') }}</option>
+						                <option value="">{{ trans('admin.select_option') }}</option>
 					            	</select>
 						        </div>
 						    </div>
@@ -100,7 +100,7 @@
 						        <label class="uk-form-label" for="">{{ trans('admin.city') }} <i class="uk-text-danger">*</i> <i class="uk-icon-info-circle" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.city_tooltip') }}"></i></label>
 						        <div class="uk-form-controls">
 						        	<select class="uk-width-large-10-10 uk-form-large" id="cities" type="text" name="city_id">
-						                <option>{{ trans('admin.select_option') }}</option>
+						                <option value="">{{ trans('admin.select_option') }}</option>
 						                @foreach($cities as $city)
 						                	@if(old('city_id') == $city->id)
 												<option value="{{ $city->id }}" selected>{{ $city->name }} ({{ $city->department->name }})</option>
@@ -121,7 +121,7 @@
 						        <label class="uk-form-label" for="">{{ trans('admin.transmission') }} <i class="uk-text-danger">*</i> <i class="uk-icon-info-circle" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.transmission_tooltip') }}"></i></label>
 						        <div class="uk-form-controls">
 						        	<select class="uk-width-large-10-10 uk-form-large" type="text" name="transmission_type">	
-						                <option>{{ trans('admin.select_option') }}</option>
+						                <option value="">{{ trans('admin.select_option') }}</option>
 						                @foreach($transmissions as $transmission)
 						                	@if(old('transmission_type') == $transmission->id)
 												<option value="{{ $transmission->id }}" selected>{{ $transmission->name }}</option>
