@@ -46,12 +46,11 @@ class CookieController extends Controller {
 		//
 		if ($cookie_data = Cookie::get($request->get('key'))) {
             if(!is_array($cookie_data)){
-                $data 	= [];
-                $data[] = $cookie_data;
+                $data = [];
+                $data[$cookie_data] = $cookie_data;
             }else{
                 $data = $cookie_data;
             }
-
             if(!in_array($request->get('value'), $data)){
             	$data[$request->get('value')] = $request->get('value');
             	if(count($data) > 4){
@@ -59,7 +58,7 @@ class CookieController extends Controller {
             	}
             }
         }else{
-        	$data 	= [];
+        	$data = [];
             $data[$request->get('value')] = $request->get('value');
         }
 
@@ -74,7 +73,7 @@ class CookieController extends Controller {
 	    						 'key' 		=> $request->get('key'), 
 	    						 'value' 	=> $request->get('value'),
 	    						 'time'		=> $request->get('time'),
-	    						 'array' 	=> Cookie::get($request->get('key')),
+	    						 'array' 	=> $data,
 	    						]);
 	}
 

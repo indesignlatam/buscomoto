@@ -19,14 +19,14 @@
 
 @section('content')
 
-<div class="uk-container uk-container-center uk-margin-top" id="secondContent">
+<div class="uk-container uk-container-center uk-margin-top">
 	<div class="uk-panel">
 	@if(!Agent::isMobile())
 		<div>
 			<h1 class="uk-display-inline">{{ trans('frontend.compare_title') }}</h1>
 			<button class="uk-button uk-button-link" onclick="forget()">({{ trans('frontend.compare_forget_listings') }})</button>
 		</div>
-		
+
 		<h3>{{ trans('frontend.compare_intro') }}</h3>
 
 		<div class="uk-grid uk-grid-small uk-margin-top uk-margin-large-bottom">
@@ -237,7 +237,7 @@
 		function forgetListing(id){
        		UIkit.modal.confirm("{{ trans('frontend.compare_remove_listing') }}", function(){
        			$.post("{{ url('/cookie/forgetlisting') }}", {_token: "{{ csrf_token() }}", listing_id: id}, function(result){
-       				if(result.sucess){
+       				if(result.success){
 				 		$('#listing_'+id).fadeOut(500, function() { $(this).remove();});
        				}
             	});
