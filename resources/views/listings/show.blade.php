@@ -176,7 +176,6 @@
     				<a onclick="share('{{ url($listing->path()) }}', {{ $listing->id }})" class="uk-icon-button uk-icon-facebook"></a> 
     				<a class="uk-icon-button uk-icon-twitter twitter-share-button" href="https://twitter.com/intent/tweet?text={{ $listing->title }}%20{{ url($listing->path()) }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=440,width=600');return false;"></a>
 					<a href="https://plus.google.com/share?url={{ url($listing->path()) }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="uk-icon-button uk-icon-google-plus"></a>
-				    <a href="#send_mail" class="uk-icon-button uk-icon-envelope" onclick="setListing({{ $listing->id }})" data-uk-modal="{center:true}"></a>
 	    		</div>
 				<!-- Social share links -->
 
@@ -490,40 +489,6 @@
 			$("#emails").val('');
 			$("#message").val('');
 		}
-
-		function sendMail(sender) {
-	    	$('#sendMail').prop('disabled', true);
-	    	var message = $('#message').val();
-	    	var emails = $('#emails').val().replace(/ /g,'').split(',');
-	    	var validemails = [];
-	    	$.each(emails, function( index, value ) {
-			  	if(validateEmail(value)){
-			  		validemails.push(value);
-			  	}
-			});
-
-			if(validemails.length < 1){
-				UIkit.modal.alert('<h2 class="uk-text-center"><i class="uk-icon-check-circle uk-icon-large"></i><br>{{ trans('admin.no_emails') }}</h2>', {center: true});
-				$('#sendMail').prop('disabled', false);
-				return;
-			}
-
-			if(message.length < 1){
-				UIkit.modal.alert('<h2 class="uk-text-center"><i class="uk-icon-check-circle uk-icon-large"></i><br>{{ trans('admin.no_message') }}</h2>', {center: true});
-				$('#sendMail').prop('disabled', false);
-				return;
-			}
-
-	    	$.post("{{ url('/admin/listings') }}/"+ $('#listingId').val() +"/share", {_token: "{{ csrf_token() }}", email: validemails, message: message}, function(result){
-		    	$('#sendMail').prop('disabled', false);
-		    	if(result.success){
-		    		UIkit.modal("#send_mail").hide();
-					UIkit.modal.alert('<h2 class="uk-text-center"><i class="uk-icon-check-circle uk-icon-large"></i><br>'+result.success+'</h2>', {center: true});
-		    	}else if(result.error || !result){
-					UIkit.modal.alert('<h2 class="uk-text-center"><i class="uk-icon-check-circle uk-icon-large"></i><br>'+result.error+'</h2>', {center: true});
-		    	}
-	        });
-	    }
 
 	    function validateEmail(email) {
 		    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
