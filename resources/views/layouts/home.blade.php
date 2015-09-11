@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="BuscoCasa.co">
+        <meta name="author" content="BuscoMoto.co">
         @section('head')
             <title>{{ Settings::get('site_name') }}</title>
             <meta name="description" content="{{ Settings::get('site_description') }}">
@@ -130,7 +130,9 @@
                             <ul class="uk-list">
                                 <li><a href="http://buscocasa.co" style="text-decoration:none" class="uk-text-contrast">BuscoCasa</a></li>
                                 <li><a href="{{ url('/') }}" style="text-decoration:none" class="uk-text-contrast">BuscoCarro</a></li>
-                                <li><a href="{{ url('/') }}" style="text-decoration:none" class="uk-text-contrast">BuscoMoto</a></li>
+                                <li><a href="http://buscomoto.co" style="text-decoration:none" class="uk-text-contrast">BuscoMoto</a></li>
+                                <li><a href="http://motomoteros.co" style="text-decoration:none" class="uk-text-contrast">Motomoteros</a></li>
+                                <li><a href="http://mvagustacolombia.com" style="text-decoration:none" class="uk-text-contrast">MV Agusta</a></li>
                             </ul>
                         </div>
                     </div>

@@ -29,7 +29,7 @@
 				?>
 				@include('listings.mosaic')
 			@endforeach
-		@elseif(count($likes))
+		@elseif(count($likes) > 0)
 			@foreach($likes as $listing)
 				<?php $mosaicClass = "uk-width-medium-1-3 uk-width-large-1-3 uk-margin-small-bottom"; ?>
 				@include('listings.mosaic')
