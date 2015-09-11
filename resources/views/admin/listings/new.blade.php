@@ -71,7 +71,7 @@
 						        <label class="uk-form-label" for="">{{ trans('admin.model') }} <i class="uk-text-danger">*</i> <i class="uk-icon-info-circle" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.model_tooltip') }}"></i></label>
 						        <div class="uk-form-controls">
 						        	<select class="uk-width-large-10-10 uk-form-large" id="models" type="text" name="model_id" style="width:100%">	
-						                <option value="">{{ trans('admin.select_option') }}</option>
+						                <option value="{{ old('model_id') }}">{{ trans('admin.select_option') }}</option>
 					            	</select>
 						        </div>
 						    </div>
