@@ -108,6 +108,10 @@
 	<div class="uk-container uk-container-center uk-margin">
         <!-- Search for mobile devices -->
         <div class="uk-visible-small">
+            <!-- Register button for mobiles -->
+            <a href="{{ url('/auth/register') }}" class="uk-button uk-button-primary uk-button-large uk-width-1-1">{{ trans('admin.register_publish_free') }}</a>
+            <!-- Register button for mobiles -->
+
             <h3 class="uk-text-primary uk-text-bold uk-text-center">{{trans('frontend.search_intro')}}</h3>
             <form id="mobile_search_form" class="uk-form" method="GET" action="{{ url('/buscar') }}">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -183,7 +187,7 @@
         @if(count($newBikes) > 0)
             <div>
                 <h1 class="uk-text-bold uk-display-inline">{{ trans('frontend.latest_listings') }}</h1>
-                <a href="{{ url('/buscar') }}" class="uk-hidden-small"> ({{ trans('admin.view_more_listings') }})</a>
+                <a href="{{ url('/buscar') }}" class="uk-hidden-small uk-text-primary"> {{ trans('admin.view_more_listings') }} <i class="uk-icon-angle-right uk-text-bold"></i></a>
             </div>
 
             <div class="uk-slidenav-position" data-uk-slideset="{small: 1, medium: 4, large: 4, autoplay: true}">

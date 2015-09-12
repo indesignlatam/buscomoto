@@ -36,6 +36,7 @@
                 @if (!Auth::check())
                     <li><a href="{{ url('/auth/login') }}">{{ trans('frontend.menu_login') }}</a></li>
                     <li><a href="{{ url('/auth/register') }}">{{ trans('frontend.menu_register') }}</a></li>
+                    <li><a href="{{ url('/auth/register') }}">{{ trans('admin.register_publish_free') }}</a></li>
                 @else
                     <li><a href="{{ url('/admin/user/'.Auth::user()->id.'/edit') }}">{{ Auth::user()->name }}</a></li>
                     <li><a href="{{ url('/admin') }}">{{ trans('frontend.menu_my_listings') }}</a></li>

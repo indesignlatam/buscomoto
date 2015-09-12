@@ -329,7 +329,7 @@
 	    				<h2>{{ trans('frontend.similar_listings') }}</h2>
 		    			<div class="uk-grid">
 		    				@foreach($related as $rlisting)
-		    				<div class="uk-width-1-4">
+		    				<div class="uk-width-large-1-4 uk-width-medium-1-4">
 			    				<div class="uk-overlay uk-overlay-hover uk-margin-small">
 			    					<img src="{{ asset(Image::url( $rlisting->image_path(), ['map_mini']) ) }}" alt="{{$rlisting->title}}" data-uk-scrollspy="{cls:'uk-animation-fade'}">
 								    <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade">
@@ -347,6 +347,14 @@
 	    	</div>
 	    	
 	    </div>
+
+	    <div class="uk-visible-small">
+	    	<hr>
+	    	<!-- Register button for mobiles -->
+	        <a href="{{ url('/auth/register') }}" class="uk-button uk-button-primary uk-button-large uk-width-1-1 uk-margin-bottom">{{ trans('admin.register_publish_free') }}</a>
+	        <!-- Register button for mobiles -->
+	    </div>
+	    
 	</div>
 </div>
 

@@ -17,6 +17,10 @@
 
 <div class="uk-container uk-container-center uk-margin-top uk-margin-bottom">
 	<div class="uk-panel">
+		<!-- Register button for mobiles -->
+        <a href="{{ url('/auth/register') }}" class="uk-button uk-button-primary uk-button-large uk-width-1-1">{{ trans('admin.register_publish_free') }}</a>
+        <!-- Register button for mobiles -->
+
 		<h2>{{ trans('frontend.search_listings') }}</h2>
 	    
 	    <hr>
@@ -163,6 +167,10 @@
 		    	</div>
 		    @endif
 	    </div>
+
+	    <!-- Register button for mobiles -->
+        <a href="{{ url('/auth/register') }}" class="uk-button uk-button-primary uk-button-large uk-width-1-1">{{ trans('admin.register_publish_free') }}</a>
+        <!-- Register button for mobiles -->
 	</div>
 </div>
 @endsection

@@ -121,7 +121,7 @@
                                 <li class="uk-text-contrast">Nuestros Servicios</li>
                                 <li class="uk-text-contrast">Preguntas Frequentes</li>
                                 <li class="uk-text-contrast">Blog</li>
-                                <li class="uk-text-contrast">Publíca</li>
+                                <li class="uk-text-contrast">Publica</li>
                             </ul>
                         </div>
 
