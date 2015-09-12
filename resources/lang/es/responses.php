@@ -49,7 +49,7 @@ return [
     
     'listing_liked'                         => '¡Publicación marcada como favorita!',
     'features111'                           => 'publicados',
-    'features111'                           => 'publicados',
+    'already_featured'                      => 'La publicación ya es destacada',
     'features111'                           => 'publicados',
     'features111'                           => 'publicados',
     'features111'                           => 'publicados',

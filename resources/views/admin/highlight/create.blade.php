@@ -29,51 +29,51 @@
 	    					<p>{{ $type->description }}</p>
 	    					<ul class="uk-list">
 	    						@if($type->id >= 3)
-									<li data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.homepage_rotation_tooltip') }}"><i class="uk-icon-check uk-text-success"></i> {{ trans('admin.homepage_rotation') }}</li>
+									<li><i class="uk-icon-check uk-text-success" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.homepage_rotation_tooltip') }}"></i> {{ trans('admin.homepage_rotation') }}</li>
 								@else
-									<li data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.homepage_rotation_tooltip') }}"><i class="uk-icon-remove uk-text-danger"></i> {{ trans('admin.homepage_rotation') }}</li>
+									<li><i class="uk-icon-remove uk-text-danger" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.homepage_rotation_tooltip') }}"></i> {{ trans('admin.homepage_rotation') }}</li>
 								@endif
 
 								@if($type->id >= 3)
-									<li data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.social_publish_tooltip') }}"><i class="uk-icon-check uk-text-success"></i> {{ trans('admin.social_publish') }}</li>
+									<li><i class="uk-icon-check uk-text-success" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.social_publish_tooltip') }}"></i> {{ trans('admin.social_publish') }}</li>
 								@else
-									<li data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.social_publish_tooltip') }}"><i class="uk-icon-remove uk-text-danger"></i> {{ trans('admin.social_publish') }}</li>
+									<li><i class="uk-icon-remove uk-text-danger" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.social_publish_tooltip') }}"></i> {{ trans('admin.social_publish') }}</li>
 								@endif
 
 								@if($type->id >= 2)
-									<li data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.better_search_positions_tooltip') }}"><i class="uk-icon-check uk-text-success"></i> {{ trans('admin.better_search_positions') }}</li>
+									<li><i class="uk-icon-check uk-text-success" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.better_search_positions_tooltip') }}"></i> {{ trans('admin.better_search_positions') }}</li>
 								@else
-									<li data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.better_search_positions_tooltip') }}"><i class="uk-icon-remove uk-text-danger"></i> {{ trans('admin.better_search_positions') }}</li>
+									<li><i class="uk-icon-remove uk-text-danger" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.better_search_positions_tooltip') }}"></i> {{ trans('admin.better_search_positions') }}</li>
 								@endif
 
 								@if($type->id >= 1)
-									<li data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.listing_container_ribbon_tooltip') }}"><i class="uk-icon-check uk-text-success"></i> {{ trans('admin.listing_container_ribbon') }}</li>
+									<li><i class="uk-icon-check uk-text-success" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.listing_container_ribbon_tooltip') }}"></i> {{ trans('admin.listing_container_ribbon') }}</li>
 								@else
-									<li data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.listing_container_ribbon_tooltip') }}"><i class="uk-icon-remove uk-text-danger"></i> {{ trans('admin.listing_container_ribbon') }}</li>
+									<li><i class="uk-icon-remove uk-text-danger" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.listing_container_ribbon_tooltip') }}"></i> {{ trans('admin.listing_container_ribbon') }}</li>
 								@endif
 
 								@if($type->id >= 1)
-									<li data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.outstanding_container_tooltip') }}"><i class="uk-icon-check uk-text-success"></i> {{ trans('admin.outstanding_container') }}</li>
+									<li><i class="uk-icon-check uk-text-success" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.outstanding_container_tooltip') }}"></i> {{ trans('admin.outstanding_container') }}</li>
 								@else
-									<li data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.outstanding_container_tooltip') }}"><i class="uk-icon-remove uk-text-danger"></i> {{ trans('admin.outstanding_container') }}</li>
+									<li><i class="uk-icon-remove uk-text-danger" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.outstanding_container_tooltip') }}"></i> {{ trans('admin.outstanding_container') }}</li>
 								@endif
 
 								@if($type->id)
-									<li data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.listing_expiring_tooltip') }}"><i class="uk-icon-check uk-text-success"></i> {{ Settings::get('listing_expiring') }} {{ trans('admin.days') }}</li>
+									<li><i class="uk-icon-check uk-text-success" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.listing_expiring_tooltip') }}"></i> {{ Settings::get('listing_expiring') }} {{ trans('admin.days') }}</li>
 								@else
-									<li data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.listing_expiring_tooltip') }}"><i class="uk-icon-remove uk-text-danger"></i> {{ Settings::get('listing_expiring') }} {{ trans('admin.days') }}</li>
+									<li><i class="uk-icon-remove uk-text-danger" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.listing_expiring_tooltip') }}"></i> {{ Settings::get('listing_expiring') }} {{ trans('admin.days') }}</li>
 								@endif
 
 								@if($type->id)
-									<li data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.featured_image_limit_tooltip') }}"><i class="uk-icon-check uk-text-success"></i> {{ Settings::get('featured_image_limit') }} {{ trans('admin.photos') }}</li>
+									<li><i class="uk-icon-check uk-text-success" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.featured_image_limit_tooltip') }}"></i> {{ Settings::get('featured_image_limit') }} {{ trans('admin.photos') }}</li>
 								@else
-									<li data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.featured_image_limit_tooltip') }}"><i class="uk-icon-remove uk-text-danger"></i> {{ Settings::get('featured_image_limit') }} {{ trans('admin.photos') }}</li>
+									<li><i class="uk-icon-remove uk-text-danger" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.featured_image_limit_tooltip') }}"></i> {{ Settings::get('featured_image_limit') }} {{ trans('admin.photos') }}</li>
 								@endif
 
 	    						<li class="uk-margin-top uk-h2 uk-text-center" id="price-{{ $type->id }}">{{ money_format('$%!.0i', $type->price) }}</li>
 	    					</ul>
 
-	    					<a href="#preview" class="uk-button uk-button-primary uk-button-large uk-width-1-1" style="background-color:{{$type->color}}" onclick="feature({{$type->id}})" data-uk-smooth-scroll>{{ trans('admin.select') }}</a>
+	    					<a href="#preview" class="uk-button uk-button-primary uk-button-large uk-width-1-1" onclick="feature({{$type->id}})" data-uk-smooth-scroll>{{ trans('admin.select') }}</a>
 	    				</div>
 	    			</div>
 	    			<div class="uk-visible-small uk-margin-top"></div>
@@ -82,43 +82,23 @@
 	    			<div class="uk-width-1-1 uk-margin-top" id="preview">
 	    				<hr>
 	    				<h3>{{ trans('admin.listing_preview') }}</h3>
-			    		<a href="#" style="text-decoration:none">
-							<div class="uk-panel uk-panel-box uk-panel-box uk-margin-bottom" style="border-left-width:4px; border-left-color:#ff4d53; border-left-style: solid;" id="listing">
-								<img src="{{ asset(Image::url($listing->image_path(),['mini_image_2x'])) }}" style="width:350px; max-height:200px; float:left" class="uk-margin-right">
-								<div class="uk-visible-small uk-width-1-1 uk-panel"></div>
-								<h4 class="uk-margin-remove">{{ $listing->title }}</h4>
-								<h4 style="margin-top:0px" class="uk-text-primary">${{ money_format('%!.0i', $listing->price) }}</h4>
-								<ul style="list-style-type: none;margin-top:-5px" class="uk-text-muted uk-text-small">
-									@if($listing->rooms)
-									<li><i class="uk-icon-check"></i> {{ $listing->rooms }} {{ trans('admin.rooms') }}</li>
-									@endif
 
-									@if($listing->bathrooms)
-									<li><i class="uk-icon-check"></i> {{ $listing->bathrooms }} {{ trans('admin.bathrooms') }}</li>
-									@endif
-
-									@if($listing->garages)
-									<li><i class="uk-icon-check"></i> {{ $listing->garages }} {{ trans('admin.garages') }}</li>
-									@endif
-
-									@if($listing->stratum)
-									<li><i class="uk-icon-check"></i> {{ trans('admin.stratum') }} {{ $listing->stratum }}</li>
-									@endif
-
-									@if($listing->area)
-									<li><i class="uk-icon-check"></i> {{ number_format($listing->area, 0, ',', '.') }} mt2</li>
-									@endif
-
-									@if($listing->lot_area)
-									<li id="lot_area"><i class="uk-icon-check"></i> {{ number_format($listing->lot_area, 0, ',', '.') }} {{ trans('frontend.lot_area') }}</li>
-									@endif
-
-									@if((int)$listing->administration != 0)
-									<li><i class="uk-icon-check"></i> {{ money_format('$%!.0i', $listing->administration) }} {{ trans('admin.administration_fees') }}</li>
-									@endif
-								</ul>
+						<div class="uk-width-medium-1-2 uk-width-large-1-2 uk-margin-small-bottom">							
+							<div class="uk-panel uk-panel-hover uk-margin-remove">
+								<a style="text-decoration:none" id="listing">
+									<img src="{{ asset(Image::url($listing->image_path(),['mini_image_2x'])) }}">
+						    		<div class="">
+						    			<p class="uk-margin-bottom-remove">
+						    				<strong class="uk-text-primary">{{ $listing->title }}</strong>
+						    				<br>
+						    				<b class="uk-text-bold">{{ money_format('$%!.0i', $listing->price) }}</b> | 
+						    				<i class="uk-text-muted">{{ number_format($listing->odometer) }} kms</i>
+						    			</p>
+						    		</div>
+								</a>
 							</div>
-						</a>
+						</div>
+
 	    			</div>
 	    		</div>
 	    	</div>
@@ -202,7 +182,7 @@
 		function feature(input){
 			types = {!! json_encode($featuredTypes) !!}
 			$("#featured_id").val(input);
-			tag = '<div id="tag" style="background-color:'+types[input-1].color+'; position:absolute; top:15px; left:15px;" class="uk-text-center uk-text-contrast uk-h3"><p class="uk-margin-small-bottom uk-margin-small-top uk-margin-left uk-margin-right"><i class="'+types[input-1].uk_class+'"></i> '+types[input-1].name+'</p></div>';
+			tag = '<div id="tag" style="background-color:#1C7BBA; position:absolute; top:15px; left:15px;" class="uk-text-center uk-text-contrast uk-h3"><p class="uk-margin-small-bottom uk-margin-small-top uk-margin-left uk-margin-right"><i class="uk-icon-check"></i></p></div>';
 
 			$("#tag").remove();
 	        $("#listing").prepend(tag).css('border-left-color',types[input-1].color);

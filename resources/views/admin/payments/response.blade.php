@@ -18,49 +18,30 @@
 		    <div class="uk-width-small-1-1 uk-width-medium-2-3 uk-width-large-2-3">
 		    	@if(Request::get('transactionState') == 4)
 			    	<img src="{{ asset('/images/support/payments/payment_succeeded.png') }}" class="uk-align-center">
+					
 					<!-- Listing preview -->
-			    	<a href="#" style="text-decoration:none">
-						<div class="uk-panel uk-panel-box uk-panel-box uk-margin-bottom" style="border-left-width:4px; border-left-color:{{$payment->featuredType->color}}; border-left-style: solid;">
-							<div style="background-color:{{$payment->featuredType->color}}; position:absolute; top:15px; left:15px;" class="uk-text-center uk-text-contrast uk-h3">
-								<p class="uk-margin-small-bottom uk-margin-small-top uk-margin-left uk-margin-right"><i class="{{$payment->featuredType->uk_class}}"></i> {{ strtoupper($payment->featuredType->name) }}</p>
-							</div>
-
-							<img src="{{ asset(Image::url($payment->listing->image_path(),['mini_image_2x'])) }}" style="width:350px; max-height:200px; float:left" class="uk-margin-right">
-							<div class="uk-visible-small uk-width-1-1 uk-panel"></div>
-							<h4 class="uk-margin-remove">{{ $payment->listing->title }}</h4>
-							<h4 style="margin-top:0px" class="uk-text-primary">${{ money_format('%!.0i', $payment->listing->price) }}</h4>
-							<ul style="list-style-type: none;margin-top:-5px" class="uk-text-muted uk-text-small">
-								@if($payment->listing->rooms)
-								<li><i class="uk-icon-check"></i> {{ $payment->listing->rooms }} {{ trans('admin.rooms') }}</li>
-								@endif
-
-								@if($payment->listing->bathrooms)
-								<li><i class="uk-icon-check"></i> {{ $payment->listing->bathrooms }} {{ trans('admin.bathrooms') }}</li>
-								@endif
-
-								@if($payment->listing->garages)
-								<li><i class="uk-icon-check"></i> {{ $payment->listing->garages }} {{ trans('admin.garages') }}</li>
-								@endif
-
-								@if($payment->listing->stratum)
-								<li><i class="uk-icon-check"></i> {{ trans('admin.stratum') }} {{ $payment->listing->stratum }}</li>
-								@endif
-
-								@if($payment->listing->area)
-								<li><i class="uk-icon-check"></i> {{ number_format($payment->listing->area, 0, ',', '.') }} mt2</li>
-								@endif
-
-								@if($payment->listing->lot_area)
-								<li id="lot_area"><i class="uk-icon-check"></i> {{ number_format($payment->listing->lot_area, 0, ',', '.') }} {{ trans('frontend.lot_area') }}</li>
-								@endif
-
-								@if((int)$payment->listing->administration != 0)
-								<li><i class="uk-icon-check"></i> {{ money_format('$%!.0i', $payment->listing->administration) }} {{ trans('admin.administration_fees') }}</li>
-								@endif
-							</ul>
+			    	<div class="uk-width-medium-1-2 uk-width-large-1-2 uk-margin-small-bottom">							
+						<div class="uk-panel uk-panel-hover uk-margin-remove">
+							<a style="text-decoration:none">
+								<div id="tag" style="background-color:#1C7BBA; position:absolute; top:15px; left:15px;" class="uk-text-center uk-text-contrast uk-h3">
+									<p class="uk-margin-small-bottom uk-margin-small-top uk-margin-left uk-margin-right">
+										<i class="uk-icon-check"></i>
+									</p>
+								</div>
+								<img src="{{ asset(Image::url($payment->listing->image_path(),['mini_image_2x'])) }}">
+					    		<div class="">
+					    			<p class="uk-margin-bottom-remove">
+					    				<strong class="uk-text-primary">{{ $payment->listing->title }}</strong>
+					    				<br>
+					    				<b class="uk-text-bold">{{ money_format('$%!.0i', $payment->listing->price) }}</b> | 
+					    				<i class="uk-text-muted">{{ number_format($payment->listing->odometer) }} kms</i>
+					    			</p>
+					    		</div>
+							</a>
 						</div>
-					</a>
+					</div>
 					<!-- Listing preview -->
+
 			    @elseif(Request::get('transactionState') == 6 && Request::get('polResponseCode') == 6)
 			    	<img src="{{ asset('/images/support/payments/payment_denied_funds.png') }}" class="uk-align-center">
 			    @elseif(Request::get('transactionState') == 6)

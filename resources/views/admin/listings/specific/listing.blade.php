@@ -13,7 +13,7 @@
 
 			<!-- Featured tag -->
         	@if($listing->featured_type && $listing->featured_expires_at && $listing->featured_expires_at > Carbon::now())
-				<i class="{{$listing->featuredType->uk_class}} uk-text-success" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.featured_listing') }}"></i>
+				<i class="uk-icon-small {{$listing->featuredType->uk_class}} uk-text-success" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.featured_listing') }}"></i>
         	@endif
         	<!-- Featured tag -->
 
@@ -97,9 +97,13 @@
 				@if($listing->expires_at > Carbon::now()->addDays(5))
 					<b>{{ trans('admin.expires_in') . $listing->expires_at->diffForHumans() }}</b>
 
-					<!-- Featured button -->
-					<a class="uk-button uk-button-success uk-width-1-1 uk-margin-small-bottom" href="{{ url('admin/destacar/'.$listing->id) }}" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.feature_listing') }}">{{ trans('admin.feature') }}</a>
-	    			<!-- Featured button -->
+                    <!-- Featured button -->
+                    @if($listing->featured_type && $listing->featured_expires_at && $listing->featured_expires_at > Carbon::now())
+                        <button class="uk-button uk-button-success uk-width-1-1 uk-margin-small-bottom" disabled>{{ trans('admin.feature') }}</button>
+                    @else
+                        <a class="uk-button uk-button-success uk-width-1-1 uk-margin-small-bottom" href="{{ url('admin/destacar/'.$listing->id) }}" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.feature_listing') }}">{{ trans('admin.feature') }}</a>
+                    @endif
+                    <!-- Featured button -->
 
 	    			<!-- View messages button -->
 					<a class="uk-button uk-width-1-1 uk-margin-small-bottom" href="{{ url('/admin/messages/'.$listing->id) }}">{{ trans('admin.view_messages') }}</a>
