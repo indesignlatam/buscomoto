@@ -2,6 +2,7 @@
 
 @section('head')
     <title>{{ Settings::get('site_name') }}</title>
+    <meta name="description" content="{{ Settings::get('site_description') }}">
     <meta property="og:title" content="{{ Settings::get('site_name') }}"/>
     <meta property="og:image" content="{{ asset('/images/defaults/facebook-share.jpg') }}"/>
     <meta property="og:type" content="website"/>
@@ -114,8 +115,7 @@
 
             <h3 class="uk-text-primary uk-text-bold uk-text-center">{{trans('frontend.search_intro')}}</h3>
             <form id="mobile_search_form" class="uk-form" method="GET" action="{{ url('/buscar') }}">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
+                
                 <select class="uk-width-1-1 uk-margin-small-bottom uk-form-large" name="listing_type">
                     <option value>{{ trans('frontend.search_listing_type') }}</option>
                     @foreach($listingTypes as $type)
@@ -281,6 +281,28 @@
         @endif
         <!-- Featured listings -->
     </div>
+
+    <div class="uk-block uk-block-primary">
+        <div class="uk-container uk-container-center uk-margin-top-remove">
+            <div class="uk-grid uk-hidden-small" style="margin-top:-70px">
+                <div class="uk-width-3-5 uk-margin-large-top">
+                    <h1 class="uk-text-contrast">Pronto podras encontrar nuestra aplicación para dispositivos moviles</h1>
+                    <img src="{{ asset('/images/fp/app_store.png') }}" style="max-width: 150px">
+                </div>
+
+                <div class="uk-width-2-5">
+                    <img src="{{ asset('/images/fp/app.png') }}" class="uk-align-right" style="margin-bottom:-50px">
+                </div>
+            </div>
+
+            <div class="uk-visible-small">
+                <h1 class="uk-text-contrast">Pronto podrás encontrar nuestra aplicación para dispositivos moviles</h1>
+                <img src="{{ asset('/images/fp/app_store.png') }}" style="max-width: 300px" class="uk-align-center">
+                <img src="{{ asset('/images/fp/app.png') }}" class="uk-align-center" style="margin-bottom:-20px">
+            </div>
+        </div>
+    </div>
+    
 @endsection
 
 @section('js')

@@ -82,7 +82,7 @@
                         <h3 class="uk-panel-title">{{ trans('admin.listings') }}</h3>
                     </a>
                     <a href="{{ url('/admin/listings') }}" style="text-decoration:none">
-                        <h1 class="uk-text-center">{{ $listingCount }} <i class="uk-icon-home"></i></h1>
+                        <h1 class="uk-text-center">{{ $listingCount }} <i class="uk-icon-motorcycle"></i></h1>
                     </a>
                 </div>
             </div>
@@ -134,9 +134,9 @@
                     <ul class="uk-list uk-list-striped">
                         @foreach($listings as $listing)
                             @if($listing->featured_expires_at && $listing->featured_expires_at > Carbon::now())
-                                <li><a class="" href="{{ url($listing->pathEdit()) }}">Inmueble #{{ $listing->code }} {{ strtolower(trans('admin.expires_in')) }} {{ $listing->featured_expires_at->diffForHumans() }}</a></li>
+                                <li><a class="" href="{{ url($listing->pathEdit()) }}">Publicación #{{ $listing->code }} {{ strtolower(trans('admin.expires_in')) }} {{ $listing->featured_expires_at->diffForHumans() }}</a></li>
                             @else
-                                <li><a class="" href="{{ url($listing->pathEdit()) }}">Inmueble #{{ $listing->code }} {{ strtolower(trans('admin.expires_in')) }} {{ $listing->expires_at->diffForHumans() }}</a></li>
+                                <li><a class="" href="{{ url($listing->pathEdit()) }}">Publicación #{{ $listing->code }} {{ strtolower(trans('admin.expires_in')) }} {{ $listing->expires_at->diffForHumans() }}</a></li>
                             @endif
                         @endforeach
                     </ul>

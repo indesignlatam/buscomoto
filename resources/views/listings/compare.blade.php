@@ -6,7 +6,7 @@
 	<meta property="og:image" content=""/>
 	<meta property="og:type" content="article"/>
 	<meta property="og:description" content=""/>
-	<meta name="description" content="">
+    <meta name="description" content="{{ Settings::get('site_description') }}">
 @endsection
 
 @section('css')
