@@ -38,18 +38,19 @@
 	                    <tr>
 	                      	<td><input type="checkbox" name="checkedLine" value="{{$user->id}}" /></td>
 	                        <td>{{ $user->id }}</td>
-	                        <td>@if($user->confirmed)<i class="uk-icon-check"></i>@else<i class="uk-icon-remove"></i>@endif</td>
+	                        <td>@if($user->confirmed)<i class="uk-icon-check uk-text-success"></i>@else<i class="uk-icon-remove uk-text-danger"></i>@endif</td>
 	                        <td><a href="{{ url('admin/users/'.$user->id.'/edit') }}">{{$user->name}}</a></td>
 	                        <td>{{ $user->email }}</td>
 	                        <td>{{ $user->listingCount }}</td>
-	                        <td>{{ $user->updated_at->diffForHumans() }}</td>
+	                        <td>{{ $user->created_at->diffForHumans() }}</td>
 	                        <td>
 	                            <div class="uk-button-dropdown" data-uk-dropdown>
 	                                <button class="uk-button">Actions <i class="uk-icon-caret-down"></i></button>
 	                                <div class="uk-dropdown uk-dropdown-small">
 	                                    <ul class="uk-nav uk-nav-dropdown">
 	                                        <li><a href="{{ url('admin/users/'.$user->id.'/edit') }}">Edit</a></li>
-	                                        <li><a>Clone</a></li>
+	                                        <li><a>Send message</a></li>
+	                                        <li><a>Send confirmation</a></li>
 	                                        <li><a>Delete</a></li>
 	                                    </ul>
 	                                </div>

@@ -22,6 +22,18 @@
 	        <div class="uk-align-right">
 	        	<form action="{{url(Request::path())}}" method="GET" class="uk-form uk-align-right">
 			        <input type="text" name="search" placeholder="{{ trans('admin.search') }}" class="uk-form-width-small" value="{{ Request::get('search') }}">
+
+			        <select name="manufacturer" onchange="this.form.submit()">
+				    	<option value="">{{ trans('admin.manufacturer') }}</option>
+				    	@foreach($manufacturers as $manufacturer)
+				    		@if(Request::get('manufacturer') == $manufacturer->id)
+		                    	<option value="{{ $manufacturer->id }}" selected="">{{ $manufacturer->name }}</option>
+		                    @else
+		                    	<option value="{{ $manufacturer->id }}">{{ $manufacturer->name }}</option>
+		                    @endif
+		                @endforeach
+				    </select>
+
 					<select name="take" onchange="this.form.submit()">
 				    	<option value="">{{ trans('admin.elements_amount') }}</option>
 				    	@if(Request::get('take') == 50)
@@ -85,7 +97,7 @@
 	                    <th style="width:120px">{{ trans('admin.actions') }}</th>
 	                </tr>
 	            </thead>
-	            <tbody>
+	            <tbody id="models">
 	                @foreach($models as $model)
 	                    <tr>
 	                      	<td><input type="checkbox" name="checkedLine" value="{{$model->id}}"/></td>
@@ -126,6 +138,27 @@
 	        for(var i=0, n=checkboxes.length;i<n;i++) {
 	            checkboxes[i].checked = source.checked;
 	        }
+	    }
+
+	    function newObject(sender) {
+	    	$('#new_button').prop("disabled");
+	    	name = $('#input_name').val();
+	    	manufacturer = $('#input_manufacturer_id').val();
+	    	console.log(manufacturer);
+
+	        $.post("{{ url('/admin/models') }}", {_token: "{{ csrf_token() }}", manufacturer_id: manufacturer, name: name}, function(result){
+	            console.log(result);
+	            if(result.success && result.model){
+	            	model = result.model;
+	            	div = '<tr><td><input type="checkbox" name="checkedLine" value="'+ model.id +'"/></td><td>'+ model.id +'</td><td>'+ model.name +'</td><td>'+ model.manufacturer.name +'</td><td><div class="uk-button-dropdown" data-uk-dropdown><button class="uk-button">{{ trans('admin.actions') }} <i class="uk-icon-caret-down"></i></button><div class="uk-dropdown uk-dropdown-small"><ul class="uk-nav uk-nav-dropdown"><li><a href="">{{ trans('admin.edit') }}</a></li><li><a href="">{{ trans('admin.clone') }}</a></li><li><a id="'+ model.id +'" onclick="deleteObject(this)">{{ trans('admin.delete') }}</a></li></ul></div></div></td></tr>'
+	            	$('#models').prepend(div);
+	            	$('#input_name').val('');
+		    		UIkit.notify('<i class="uk-icon-check-circle"></i> '+result.success, {pos:'top-right', status:'success', timeout: 5000});
+	            }else{
+	            	console.log(result.errors);
+		    		UIkit.notify('<i class="uk-icon-remove"></i> Failed to create item' , {pos:'top-right', status:'danger', timeout: 5000});
+	            }
+	        });
 	    }
 
 	    function deleteObject(sender) {
