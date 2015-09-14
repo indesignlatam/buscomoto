@@ -11,6 +11,7 @@ use Socialize;
 use Queue;
 use Analytics;
 use Cookie;
+use Agent;
 
 use App\Models\Role;
 use App\Models\Like;
@@ -40,7 +41,9 @@ class AuthController extends Controller {
      */
     public function __construct(){
         $this->middleware('guest', ['except' => 'getLogout']);
-        $this->middleware('recaptcha:false', ['only' => 'postRegister']);
+        if(!Agent::isMobile()){
+            $this->middleware('recaptcha:false', ['only' => 'postRegister']);
+        }
     }
 
     /**

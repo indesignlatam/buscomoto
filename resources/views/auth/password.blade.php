@@ -8,7 +8,7 @@
 	<link href="{{ asset('/css/uikit.flat.min.css') }}" rel="stylesheet">
 	<style type="text/css">
 		body {
-		    background-color: #2089cf;
+		    background-color: #1C7BBA;
 		    height:100vh;
 		}
 	</style>
