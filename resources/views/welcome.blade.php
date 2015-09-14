@@ -240,7 +240,7 @@
             
             <div class="uk-text-center uk-margin-top">
                 @if(!Auth::check())
-                    <a href="{{ url('/auth/register') }}" class="uk-button uk-button-link uk-button-large" style="text-decoration: none"><h1 class="uk-text-contrast uk-text-bold">{{ trans('admin.register_publish_free') }}</h1></a>
+                    <a href="{{ url('/auth/register') }}" class="uk-button uk-button-link" style="text-decoration: none"><h1 class="uk-text-contrast uk-text-bold">{{ trans('admin.register_publish_free') }}</h1></a>
                 @else
                     <a href="{{ url('/admin/listings/create') }}" class="uk-button uk-button-primary uk-button-large" style="background-color:#444">{{ trans('admin.publish_listing') }}</a>
                 @endif
@@ -255,27 +255,19 @@
             <h1 class="uk-margin-bottom uk-margin-top uk-text-bold">{{ trans('frontend.featured_listing') }}</h1>
 
             <div class="uk-grid uk-grid-small uk-margin" data-uk-grid-margin data-uk-grid-match="featured">
-            <?php $i = 0; ?>
             @foreach ($featured as $featuredListing)
-                @if($i == 4)
-                <div class="uk-width-medium-2-3 uk-width-large-2-3 featured">
-                    <div class="uk-overlay uk-overlay-hover uk-margin-small">
-                        <img src="{{ asset(Image::url( $featuredListing->image_path(), ['featured_mosaic_large']) ) }}" alt="{{$featuredListing->title}}" data-uk-scrollspy="{cls:'uk-animation-fade'}">
-                @else
                 <div class="uk-width-medium-1-3 uk-width-large-1-3 featured">
                     <div class="uk-overlay uk-overlay-hover uk-margin-small">
                         <img src="{{ asset(Image::url( $featuredListing->image_path(), ['mini_front_2x']) ) }}" alt="{{$featuredListing->title}}" data-uk-scrollspy="{cls:'uk-animation-fade'}">
-                @endif
                         <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade uk-vertical-align">
                             <div class="uk-vertical-align-middle">
-                                <h3 class="uk-text-bold uk-h2">{{ $featuredListing->title }}</h3>
-                                <h3 class="uk-text-bold uk-h2 uk-margin-remove">{{ money_format('$%!.0i', $featuredListing->price) }}</h3>
+                                <h3 class="uk-text-bold uk-h2">{{ strtoupper($featuredListing->title) }}</h3>
+                                <h3 class="uk-text-bold uk-h2 uk-margin-remove">{{ money_format('$%!.0i', $featuredListing->price) }} | {{ number_format($featuredListing->odometer) }} kms</h3>
                             </div>
                         </div>
                         <a class="uk-position-cover" href="{{ url($featuredListing->path()) }}"></a>
                     </div>
                 </div>
-                <?php $i++; ?>
             @endforeach        
             </div>
         @endif
@@ -286,7 +278,7 @@
         <div class="uk-container uk-container-center uk-margin-top-remove">
             <div class="uk-grid uk-hidden-small" style="margin-top:-70px">
                 <div class="uk-width-3-5 uk-margin-large-top">
-                    <h1 class="uk-text-contrast">Pronto podras encontrar nuestra aplicación para dispositivos moviles</h1>
+                    <h1 class="uk-text-contrast">Pronto podrás encontrar nuestra aplicación para dispositivos móviles</h1>
                     <img src="{{ asset('/images/fp/app_store.png') }}" style="max-width: 150px">
                 </div>
 
@@ -296,7 +288,7 @@
             </div>
 
             <div class="uk-visible-small">
-                <h1 class="uk-text-contrast">Pronto podrás encontrar nuestra aplicación para dispositivos moviles</h1>
+                <h1 class="uk-text-contrast">Pronto podrás encontrar nuestra aplicación para dispositivos móviles</h1>
                 <img src="{{ asset('/images/fp/app_store.png') }}" style="max-width: 300px" class="uk-align-center">
                 <img src="{{ asset('/images/fp/app.png') }}" class="uk-align-center" style="margin-bottom:-20px">
             </div>
