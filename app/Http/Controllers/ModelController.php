@@ -26,6 +26,10 @@ class ModelController extends Controller{
                 $query = $query->where('name', 'LIKE', "%$search%");
             }
 
+            if($request->has('manufacturer')){
+                $query = $query->where('manufacturer_id', $request->get('manufacturer'));
+            }
+
             if($request->get('deleted')){
                 $query = $query->onlyTrashed();
             }
@@ -80,11 +84,24 @@ class ModelController extends Controller{
         $model = new Model;
 
         if (!$model->validate($request->all())){
+            if($request->ajax()){// If request was sent using ajax
+                return response()->json(['success'  => false,
+                                         'model'    => $model,
+                                         'errors'  => $model->errors(),
+                                         ]);
+            }
             return redirect('admin/models')->withErrors($model->errors());
         }
         $input = $request->all();
 
-        $model->create($input);
+        $model = $model->create($input);
+        $model->load('manufacturer');
+
+        if($request->ajax()){// If request was sent using ajax
+            return response()->json(['success'  => trans('responses.model_created'),
+                                     'model'    => $model,
+                                     ]);
+        }
 
         return redirect('admin/models')->withSuccess([trans('responses.model_created')]);
     }

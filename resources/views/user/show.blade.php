@@ -40,7 +40,7 @@
                         </a>
                         <br class="uk-visible-small">
                         <a href="{{ url($listing->path()) }}">{{ $listing->title }}</a>
-                        <p class="uk-text-muted" style="font-size:10px;margin-top:-4px">{{ $listing->area }} mt2 - {{ money_format('$%!.0i', $listing->price) }}</p>
+                        <p class="uk-text-muted" style="font-size:10px;margin-top:-4px">{{ money_format('$%!.0i', $listing->price) }} | {{ $listing->odometer }} kms</p>
                         <hr class="uk-visible-small uk-margin-bottom">
                     </div>
                 @endforeach
