@@ -24,11 +24,11 @@ class HomeController extends Controller {
 	public function index(){
 
 		if(Auth::user()->is('admin')){
-			$users = User::selectRaw('count(*) AS amount, date(created_at) AS created_at')->groupBy('created_at')->get();
+			$users = User::selectRaw('count(*) AS amount, date(created_at) AS created')->groupBy('created')->get();
 			$items = [];
 			$labels = [];
 			foreach ($users as $user) {
-				$labels[] 	= $user->created_at->toDateString();
+				$labels[] 	= $user->created;
 				$items[] 	= $user->amount;
 			}
 			$datasetUsers = ['label' 		=> 'Registered users by day',
