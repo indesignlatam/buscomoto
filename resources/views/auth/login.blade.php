@@ -5,10 +5,15 @@
 @endsection
 
 @section('css')
+	<link href="{{ asset('/css/uikit.flat.min.css') }}" rel="stylesheet">
 	<style type="text/css">
-		body {
-		    background-color: #2089cf;
-		    height:100vh;
+		html{
+			background-color: #000000;
+		    background-image: url("{{ asset('/images/defaults/back.jpg') }}");
+		    -webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
 		}
 	</style>
 @endsection
@@ -18,7 +23,7 @@
 <div class="uk-container uk-container-center">
 	<a href="{{url('/')}}"><img src="{{ asset('/images/logo_h_contrast.png') }}" class="uk-align-center uk-margin-top uk-width-large-4-10"></a>
 	<div class="uk-panel uk-panel-box uk-panel-box-secondary uk-width-large-4-10 uk-align-center">
-		<div class="uk-h1 uk-text-center uk-text-success uk-margin-top">
+		<div class="uk-h1 uk-text-center uk-text-primary">
 			{{ trans('auth.login') }}
 		</div>
 		@if (count($errors) > 0)
@@ -51,7 +56,7 @@
 			<!-- ReCaptcha -->
 			<div class="uk-form-row uk-width-large-8-10 uk-align-center uk-hidden">
 				<div class="g-recaptcha" data-sitekey="6Lc9XQwTAAAAAE7GXfLVOU_g3QcsodKReurbVRUp"></div>
-				<p class="uk-margin-remove uk-text-muted">{{ trans('admin.recaptcha_help') }}</p>
+				<p class="uk-margin-remove uk-text-contrast">{{ trans('admin.recaptcha_help') }}</p>
 			</div>
 			<!-- ReCaptcha -->
 
@@ -62,13 +67,11 @@
 				<a class="uk-button uk-button-success uk-button-large uk-width-large-8-10 uk-margin-small-top" href="{{ url('/social-auth/facebook') }}" style="background-color:#2089cf;"><i class="uk-icon-facebook"></i> {{ trans('auth.facebook_login') }}</a>
 			</div>
 			<div class="uk-margin-small-top">
-				<a class="uk-text-muted uk-text-small" href="{{ url('/password/email') }}">{{ trans('auth.forgot_password') }}</a>
+				<a class="uk-text-muted" href="{{ url('/password/email') }}">{{ trans('auth.forgot_password') }}</a>
+				<br>
+				<a class="uk-text-large uk-text-primary" href="{{ url('/auth/register') }}">{{ trans('auth.create_account') }}</a>
 			</div>
 		</form>
-	</div>
-	<div class="uk-text-center">
-		<a class="uk-text-large uk-text-contrast" href="{{ url('/auth/register') }}">{{ trans('auth.create_account') }}</a>
-		<br>
 	</div>
 </div>
 @endsection
@@ -83,8 +86,6 @@
 @endsection
 
 @section('js')
-	<link href="{{ asset('/css/uikit.flat.min.css') }}" rel="stylesheet">
-
 	<script async src='https://www.google.com/recaptcha/api.js'></script>
 	<script src="{{ asset('/js/jquery.min.js') }}"></script>
     <script src="{{ asset('/js/uikit.min.js') }}"></script>

@@ -102,6 +102,7 @@
 		                                <div class="uk-dropdown uk-dropdown-small">
 		                                    <ul class="uk-nav uk-nav-dropdown">
 		                                        <li><a href="{{ url('/admin/listings/'.$listing->id.'/edit') }}">{{ trans('admin.edit') }}</a></li>
+		                                        <li><a href="{{ url('/admin/listings/'.$listing->id.'/edit') }}">{{ trans('admin.edit') }}</a></li>
 		                                        <li><a href="bikes/types/clone/{{ $listing->id }}">{{ trans('admin.clone') }}</a></li>
 		                                        <li><a id="{{ $listing->id }}" onclick="deleteObject(this)">{{ trans('admin.delete') }}</a></li>
 		                                    </ul>
@@ -182,7 +183,6 @@
 					            <th style="width:15px">{{ trans('admin.id') }}</th>
 					            <th style="width:40px">{{ trans('admin.image') }}</th>
 					            <th style="width:50%">{{ trans('admin.title') }}</th>
-					            <th style="width:50px">{{ trans('admin.area') }}</th>
 					            <th style="width:50px">{{ trans('admin.price') }}</th>
 					            <th style="width:9%">{{ trans('admin.recover') }}</th>
 					        </tr>
@@ -193,7 +193,6 @@
 					            <td>{{ $listing->id }}</td>
 					            <td><img src="{{ asset(Image::url($listing->image_path(),['map_mini'])) }}" style="width:40px"></td>
 					            <td class="uk-text-bold">{{ $listing->title }}</td>
-					            <td>{{ number_format($listing->area, 0) }} mt2</td>
 					            <td>{{ money_format('$%!.0i', $listing->price) }}</td>
 					            <td>
 					            	<div class="uk-flex uk-flex-space-between">

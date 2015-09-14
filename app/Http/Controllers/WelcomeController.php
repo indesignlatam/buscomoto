@@ -26,9 +26,8 @@ class WelcomeController extends Controller {
 	 * @return Response
 	 */
 	public function index(){
-		$featured 	= Listing::remember(Settings::get('query_cache_time_extra_short'))
+		$featured 	= Listing::remember(Settings::get('query_cache_time_short'))
 							 ->active()
-							 ->where('featured_type', '>', 2)
 							 ->whereNotNull('image_path')
 							 ->where('image_path', '<>', '')
 							 ->with('listingType')
