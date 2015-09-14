@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://buscocasa.co'),
+    'url' => env('APP_URL', 'http://buscomoto.co'),
 
     /*
     |--------------------------------------------------------------------------

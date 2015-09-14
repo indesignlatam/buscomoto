@@ -93,36 +93,67 @@ return [
         ],
 
         // Listing create and edit
-        'latitude' => [
-            'required' => 'Debes elegir una ubicación en el mapa.',
+        'engine_size' => [
+            'required'  => 'El campo cilindraje es obligatorio.',
+            'numeric'   => 'El campo cilindraje debe ser numerico.',
         ],
-        'longitude' => [
-            'required' => 'Debes elegir una ubicación en el mapa.',
+        'listing_type' => [
+            'required'  => 'Debes seleccionar un tipo de moto.',
+            'numeric'   => 'El tipo de moto no es valido.',
         ],
-        'direction' => [
-            'required' => 'El campo dirección es obligatorio.',
+        'manufacturer_id' => [
+            'required'  => 'Debes seleccionar una marca.',
+            'numeric'   => 'El campo marca debe ser numerico.',
         ],
-        'stratum' => [
-            'required' => 'El campo estrato es obligatorio.',
+        'model_id' => [
+            'required'  => 'Debes seleccionar una referencia.',
+            'numeric'   => 'El campo referencia debe ser numerico.',
+        ],
+        'fuel_type' => [
+            'required'  => 'Debes seleccionar un tipo de combustible.',
+            'numeric'   => 'El campo combustible debe ser numerico.',
+        ],
+        'transmission_type' => [
+            'required'  => 'Debes seleccionar un tipo de transmisión.',
+            'numeric'   => 'El campo transmisión debe ser numerico.',
+        ],
+        'city_id' => [
+            'required'  => 'Debes seleccionar una ciudad.',
+            'numeric'   => 'El campo ciudad debe ser numerico.',
+        ],
+        'district' => [
+            'max'       => 'El campo distrito no puede superar los :max caracteres.',
         ],
         'price' => [
-            'required' => 'El campo valor es obligatorio.',
+            'required'  => 'El campo precio es obligatorio.',
+            'numeric'   => 'El campo precio debe ser numerico.',
+        ],
+        'year' => [
+            'required'  => 'El campo modelo es obligatorio.',
+            'numeric'   => 'El campo modelo debe ser numerico.',
+        ],
+        'odometer' => [
+            'required'  => 'El campo kilometraje es obligatorio.',
+            'numeric'   => 'El campo kilometraje debe ser numerico.',
+        ],
+        'color' => [
+            'max'       => 'El campo color no puede superar los :max caracteres.',
+        ],
+        'license_number' => [
+            'max'       => 'El campo numero de placa no puede superar los :max caracteres.',
         ],
         'image' => [
             'max' => 'La imagen no debe pesar más de :max',
-        ],
-        'construction_year' => [
-            'max' => 'El campo año de construcción no debe ser mayor a :max',
         ],
 
         // Auth
         'password' => [
             'required'  => 'El campo contraseña es obligatorio.',
-            'min'       => 'La contraseña debe contener al menos 6 caracteres.',
+            'min'       => 'La contraseña debe contener al menos :min caracteres.',
         ],
         'email' => [
             'required'  => 'El campo correo electrónico es obligatorio.',
-            'min'       => 'El correo electrónico debe contener al menos 6 caracteres.',
+            'min'       => 'El correo electrónico debe contener al menos :min caracteres.',
             'unique'    => 'El correo electrónico ya fue registrado.',
         ],
         'name' => [
@@ -133,11 +164,21 @@ return [
             'digits_between'    => 'El teléfono debe contener entre :min y :max caracteres.',
             'unique'            => 'El teléfono ya fue registrado.',
         ],
+        'phone_1' => [
+            'required'          => 'El campo teléfono es obligatorio.',
+            'digits_between'    => 'El teléfono debe contener entre :min y :max caracteres.',
+            'unique'            => 'El teléfono ya fue registrado.',
+        ],
+        'phone_2' => [
+            'required'          => 'El campo teléfono es obligatorio.',
+            'digits_between'    => 'El teléfono debe contener entre :min y :max caracteres.',
+            'unique'            => 'El teléfono ya fue registrado.',
+        ],
 
         // Appointment
         'comments' => [
             'required'  => 'El campo comentarios es obligatorio.',
-            'max'       => 'El campo comentarios no debe tener más de 500 caracteres.',
+            'max'       => 'El campo comentarios no debe tener más de :max caracteres.',
         ],
     ],
 

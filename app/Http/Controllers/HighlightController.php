@@ -67,7 +67,7 @@ class HighlightController extends Controller {
 		}
 
 		if($listing->featured_expires_at > Carbon::now()->addDays(5)){
-	        return redirect('/admin/listings')->withErrors([trans('responses.no_permission')]);
+	        return redirect('/admin/listings')->withErrors([trans('responses.already_featured')]);
 		}
 
 		// Get the featured types and cache them

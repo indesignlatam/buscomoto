@@ -24,13 +24,13 @@ class AppServiceProvider extends ServiceProvider {
 
         // Frontpage or welcome images
         Image::filter('mini_front', [
-            'width'     => 256,
-            'height'    => 170,
+            'width'     => 267,
+            'height'    => 150,
             'crop'      => true,
         ]);
         Image::filter('mini_front_2x', [
-            'width'     => 512,
-            'height'    => 340,
+            'width'     => 533,
+            'height'    => 300,
             'crop'      => true,
         ]);
         Image::filter('featured_mosaic', [
@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider {
         ]);
         Image::filter('featured_mosaic_large', [
             'width'     => 750,
-            'height'    => 230,
+            'height'    => 300,
             'crop'      => true,
         ]);
         Image::filter('featured_mosaic_large_2x', [

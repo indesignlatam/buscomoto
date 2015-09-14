@@ -28,39 +28,39 @@
 				<form action="{{url(Request::path())}}" method="GET" class="uk-form uk-align-right">
 			        <input type="text" name="search" placeholder="{{ trans('admin.search') }}" class="uk-form-width-small" value="{{ Request::get('search') }}">
 					<select name="take" onchange="this.form.submit()">
-				    	<option value="">Cantidad de publicaciones</option>
+				    	<option value="">{{ trans('admin.elements_amount') }}</option>
 				    	@if(Request::get('take') == 50)
-				    		<option value="50" selected>Ver 50</option>
+				    		<option value="50" selected>{{ trans('admin.elements_50') }}</option>
 				    	@else
-				    		<option value="50">Ver 50</option>
+				    		<option value="50">{{ trans('admin.elements_50') }}</option>
 				    	@endif
 
 				    	@if(Request::get('take') == 30)
-				    		<option value="30" selected>Ver 30</option>
+				    		<option value="30" selected>{{ trans('admin.elements_30') }}</option>
 				    	@else
-				    		<option value="30">Ver 30</option>
+				    		<option value="30">{{ trans('admin.elements_30') }}</option>
 				    	@endif
 
 				    	@if(Request::get('take') == 10)
-				    		<option value="10" selected>Ver 10</option>
+				    		<option value="10" selected>{{ trans('admin.elements_10') }}</option>
 				    	@else
-				    		<option value="10">Ver 10</option>
+				    		<option value="10">{{ trans('admin.elements_10') }}</option>
 				    	@endif
 				    </select>
 
 				    <select name="order_by" onchange="this.form.submit()">
-				    	<option value="">Ordenar por</option>
+				    	<option value="">{{ trans('admin.order_by') }}</option>
 				    	
 				    	@if(Request::get('order_by') == 'id_desc')
-				    		<option value="id_desc" selected>Fecha creación</option>
+				    		<option value="id_desc" selected>{{ trans('admin.order_newer_first') }}</option>
 				    	@else
-				    		<option value="id_desc">Fecha creación</option>
+				    		<option value="id_desc">{{ trans('admin.order_newer_first') }}</option>
 				    	@endif
 
 				    	@if(Request::get('order_by') == 'exp_desc')
-				    		<option value="exp_desc" selected>Fecha expiración</option>
+				    		<option value="exp_desc" selected>{{ trans('admin.order_expiring_first') }}</option>
 				    	@else
-				    		<option value="exp_desc">Fecha expiración</option>
+				    		<option value="exp_desc">{{ trans('admin.order_expiring_first') }}</option>
 				    	@endif
 				    </select>
 				</form>
@@ -126,39 +126,39 @@
 			        <form action="{{url(Request::path())}}" method="GET" class="uk-form uk-align-right uk-hidden-small">
 			        	<input type="text" name="search" placeholder="{{ trans('admin.search') }}" class="uk-form-width-small" value="{{ Request::get('search') }}">
 						<select name="take" onchange="this.form.submit()">
-					    	<option value="">Cantidad de publicaciones</option>
+					    	<option value="">{{ trans('admin.elements_amount') }}</option>
 					    	@if(Request::get('take') == 50)
-					    		<option value="50" selected>Ver 50</option>
+					    		<option value="50" selected>{{ trans('admin.elements_50') }}</option>
 					    	@else
-					    		<option value="50">Ver 50</option>
+					    		<option value="50">{{ trans('admin.elements_50') }}</option>
 					    	@endif
 
 					    	@if(Request::get('take') == 30)
-					    		<option value="30" selected>Ver 30</option>
+					    		<option value="30" selected>{{ trans('admin.elements_30') }}</option>
 					    	@else
-					    		<option value="30">Ver 30</option>
+					    		<option value="30">{{ trans('admin.elements_30') }}</option>
 					    	@endif
 
 					    	@if(Request::get('take') == 10)
-					    		<option value="10" selected>Ver 10</option>
+					    		<option value="10" selected>{{ trans('admin.elements_10') }}</option>
 					    	@else
-					    		<option value="10">Ver 10</option>
+					    		<option value="10">{{ trans('admin.elements_10') }}</option>
 					    	@endif
 					    </select>
 
 					    <select name="order_by" onchange="this.form.submit()">
-					    	<option value="">Ordenar por</option>
-					    	
+					    	<option value="">{{ trans('admin.order_by') }}</option>
+				    		
 					    	@if(Request::get('order_by') == 'id_desc')
-					    		<option value="id_desc" selected>Fecha creación</option>
+					    		<option value="id_desc" selected>{{ trans('admin.order_newer_first') }}</option>
 					    	@else
-					    		<option value="id_desc">Fecha creación</option>
+					    		<option value="id_desc">{{ trans('admin.order_newer_first') }}</option>
 					    	@endif
 
 					    	@if(Request::get('order_by') == 'exp_desc')
-					    		<option value="exp_desc" selected>Fecha expiración</option>
+					    		<option value="exp_desc" selected>{{ trans('admin.order_expiring_first') }}</option>
 					    	@else
-					    		<option value="exp_desc">Fecha expiración</option>
+					    		<option value="exp_desc">{{ trans('admin.order_expiring_first') }}</option>
 					    	@endif
 					    </select>
 					</form>
@@ -169,159 +169,7 @@
 				<div class="uk-panel uk-margin-top">					
 					<ul class="uk-list">
 						@foreach($listings as $listing)
-			                <li class="uk-panel uk-panel-box uk-panel-box-primary uk-margin-bottom" id="listing-{{ $listing->id }}">
-			                	<div class="uk-grid">
-			                		<div class="uk-width-large-2-10 uk-width-medium-2-10 uk-width-small-1-1">
-			                			<a href="{{ url('/admin/listings/'.$listing->id.'/edit') }}">
-				                			<!-- Featured tag -->
-						                	@if($listing->featured_expires_at && $listing->featured_expires_at > Carbon::now())
-												<div style="background-color:{{$listing->featuredType->color}}; position:absolute; top:15px; left:15px;" class="uk-text-center uk-text-contrast">
-													<p class="uk-margin-small-bottom uk-margin-small-top uk-margin-left uk-margin-right"><i class="{{$listing->featuredType->uk_class}}"></i></p>
-												</div>
-						                	@endif
-						                	<!-- Featured tag -->
-			                				<img src="{{ asset(Image::url($listing->image_path(),['map_mini'])) }}">
-			                			</a>
-			                		</div>
-
-			                		<div class="uk-width-large-6-10 uk-width-medium-6-10 uk-width-small-1-1">
-			                			<!-- Listing title -->
-			                			<a class="uk-h3 uk-text-bold" style="color:black;" href="{{ url('/admin/listings/'.$listing->id.'/edit') }}">{{ $listing->title }}</a>
-			                			<!-- Listing title -->
-
-			                			<!-- Listing info and share -->
-			                			<div class="uk-grid uk-margin-top uk-hidden-small">
-
-			                    			<ul class="uk-list uk-list-line uk-width-4-10">
-			                    				<li><i class="uk-text-muted">{{ trans('admin.price') }}</i> {{ money_format('$%!.0i', $listing->price) }}</li>
-			                    				@if($listing->area > 0)
-			                    					<li><i class="uk-text-muted">{{ trans('admin.mt2_price') }}</i> {{ money_format('$%!.0i', $listing->price/$listing->area) }}</li>
-			                    					<li><i class="uk-text-muted">{{ trans('admin.area') }}</i> {{ number_format($listing->area, 0) }} mt2</li>
-			                    				@elseif($listing->lot_area > 0)
-			                    					<li><i class="uk-text-muted">{{ trans('admin.mt2_price') }}</i> {{ money_format('$%!.0i', $listing->price/$listing->lot_area) }}</li>
-			                    					<li><i class="uk-text-muted">{{ trans('admin.area') }}</i> {{ number_format($listing->lot_area, 0) }} mt2</li>
-			                    				@endif
-			                    				<li><i class="uk-text-muted">{{ trans('admin.code') }}</i> #{{ $listing->code }}</li>
-			                    			</ul>
-
-			                    			<ul class="uk-list uk-list-line uk-width-4-10">
-			                    				<li>
-			                    					<a href="{{ $listing->pathEdit() }}#6" style="text-decoration: none">
-			                    					@if(count($listing->images)>0)
-			                    					 	<i class="uk-icon-check uk-text-success"> </i>
-			                    					@else
-			                    						<i class="uk-icon-remove uk-text-danger" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.images_check_tooltip') }}"> </i>
-			                    					@endif
-													<i class="uk-text-muted">{{ trans('admin.images') }}</i>
-													</a>
-			                    				</li>
-			                    				<li>
-			                    					<a href="{{ $listing->pathEdit() }}#7" style="text-decoration: none">
-			                    					@if(Cookie::get('shared_listing_'.$listing->id))
-														<i class="uk-icon-check uk-text-success"> </i>
-			                    					@else
-			                    						<i class="uk-icon-remove uk-text-danger" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.shared_check_tooltip') }}"> </i>
-			                    					@endif
-			                    					<i class="uk-text-muted">{{ trans('admin.shared') }}</i>
-			                    					</a>
-			                    				<li>
-			                    					<a href="{{ $listing->pathEdit() }}#5" style="text-decoration: none">
-			                    					@if(strlen($listing->description) > 50)
-														<i class="uk-icon-check uk-text-success"> </i>
-			                    					@else
-			                    						<i class="uk-icon-remove uk-text-danger" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.aditional_check_tooltip') }}"> </i>
-			                    					@endif
-			                    					<i class="uk-text-muted">{{ trans('admin.description') }}</i>
-			                    					</a>
-			                    				</li>
-			                    				<li>
-			                    					<a href="{{ $listing->pathEdit() }}#4" style="text-decoration: none">
-			                    					@if(count($listing->features) > 5)
-														<i class="uk-icon-check uk-text-success"> </i>
-			                    					@else
-			                    						<i class="uk-icon-remove uk-text-danger" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.features_check_tooltip') }}"> </i>
-			                    					@endif
-			                    					<i class="uk-text-muted">{{ trans('admin.features') }}</i>
-			                    					</a>
-			                    				</li>
-			                    			</ul>
-			                    			
-			                    			<!-- Share buttons -->
-			                    			<div class="uk-width-2-10 uk-text-center">
-			                    				<h4 class="uk-text-bold" style="color:black">{{ trans('admin.share') }}</h4>
-			                    				<ul class="uk-list" style="list-style: none;">
-				                    				<li style="margin-left:-20px;">
-					                    				<a onclick="share('{{ url($listing->path()) }}', {{ $listing->id }})" class="uk-icon-button uk-icon-facebook"></a> 
-					                    				<a class="uk-icon-button uk-icon-twitter twitter-share-button" href="https://twitter.com/intent/tweet?text=Hello%20world%20{{ url($listing->path()) }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=440,width=600');return false;"></a>
-				                    				</li>
-				                    				<li class="uk-margin-small-top" style="margin-left:-20px;">
-				                    					<a href="https://plus.google.com/share?url={{ url($listing->path()) }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="uk-icon-button uk-icon-google-plus"></a>
-				                    					<a href="#send_mail" class="uk-icon-button uk-icon-envelope" onclick="setListing({{ $listing->id }})" data-uk-modal="{center:true}"></a>
-				                    				</li>
-				                    			</ul>
-			                    			</div>
-			                    			<!-- Share buttons -->
-			                			</div>
-			                			<!-- Listing info and share -->
-			                		</div>
-
-			                		<div class="uk-width-large-2-10 uk-width-medium-2-10 uk-width-small-1-1">
-			                			@if(!$listing->deleted_at)
-			                				<!-- If listing is featured and is not expired yet -->
-				                			@if($listing->featured_expires_at && $listing->featured_expires_at > Carbon::now() && $listing->expires_at == $listing->featured_expires_at)
-				                				<!-- If listing expires in the next 5 days -->
-				                				@if($listing->featured_expires_at <= Carbon::now()->addDays(5))
-				                					@if($listing->featured_expires_at < Carbon::now())
-					                					<a class="uk-text-danger uk-text-bold uk-h4" href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.featured_expired') }} {{ $listing->featured_expires_at->diffForHumans() }}</a>
-				                					@else
-					                					<a class="uk-text-danger uk-text-bold uk-h4" href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.featured_expires') }} {{ $listing->featured_expires_at->diffForHumans() }}</a>
-				                					@endif
-
-					                				<a class="uk-button uk-button-large uk-button-success uk-width-1-1 uk-margin-small-bottom" href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.renovate') }}</a>
-						                        @else
-					                				<b>{{ trans('admin.featured_expires') }} {{ $listing->featured_expires_at->diffForHumans() }}</b>
-
-						                			<!-- View messages button -->
-					                				<a class="uk-button uk-width-1-1 uk-margin-small-bottom" href="{{ url('/admin/messages/'.$listing->id) }}">{{ trans('admin.view_messages') }}</a>
-						                			<!-- View messages button -->
-					                			@endif
-				                			@else
-				                				@if($listing->expires_at <= Carbon::now()->addDays(5))
-				                					@if($listing->expires_at < Carbon::now())
-					                					<a class="uk-text-danger uk-text-bold uk-h4" href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.listing_expired') }} {{ $listing->expires_at->diffForHumans() }}</a>
-				                					@else
-					                					<a class="uk-text-danger uk-text-bold uk-h4" href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.expires') }} {{ $listing->expires_at->diffForHumans() }}</a>
-				                					@endif
-
-					                				<a class="uk-button uk-button-large uk-button-success uk-width-1-1 uk-margin-small-bottom" href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.renovate') }}</a>
-						                        @else
-					                				<b>{{ trans('admin.expires') }} {{ $listing->expires_at->diffForHumans() }}</b>
-
-					                				<!-- Featured button -->
-					                				<a class="uk-button uk-button-success uk-width-1-1 uk-margin-small-bottom" href="{{ url('admin/destacar/'.$listing->id) }}" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.feature_listing') }}">{{ trans('admin.feature') }}</a>
-						                			<!-- Featured button -->
-
-						                			<!-- View messages button -->
-					                				<a class="uk-button uk-width-1-1 uk-margin-small-bottom" href="{{ url('/admin/messages/'.$listing->id) }}">{{ trans('admin.view_messages') }}</a>
-						                			<!-- View messages button -->
-					                			@endif
-				                			@endif
-
-				                			<!-- View in frontend button -->
-				                            <a class="uk-button uk-width-1-1 uk-margin-small-bottom" href="{{ url($listing->path()) }}" target="_blank">{{ trans('admin.view_listing') }}</a>
-				                			<!-- View in frontend button -->
-
-				                			<!-- Edit and delete buttons -->
-					                		<div class="uk-flex uk-flex-center uk-flex-space-between">
-					                			<a class="uk-button" href="{{ url('/admin/listings/'.$listing->id.'/edit') }}">{{ trans('admin.edit') }}</a>
-					                			<button class="uk-button" href="{{ url('/admin/banners/create') }}" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.print_banner') }}" disabled><i class="uk-icon-print"></i></button>
-					                            <a class="uk-button uk-button-danger" id="{{ $listing->id }}" onclick="deleteObject(this)" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.eliminate_listing') }}"><i class="uk-icon-trash"></i></a>
-				                			</div>
-				                			<!-- Edit and delete buttons -->
-				                		@endif
-			                        </div>
-			                	</div>
-			                </li>
+			                @include('admin.listings.specific.listing')
 			          	@endforeach
 					</ul>
 					<?php echo $listings->appends(Request::all())->render(); ?>
@@ -371,7 +219,7 @@
 				@endif
 			@else
 				<div class="uk-text-center uk-margin-top">
-					<h2 class="uk-text-bold uk-text-muted">{{ trans('admin.you_have_no_listings') }}</h2>
+					<h2 class="uk-text-bold uk-text-muted">{{ trans('admin.no_listings_found') }}</h2>
 					<a href="{{ url('/admin/listings/create') }}" class="uk-h3">{{ trans('admin.publish_property_4_steps') }}</a>
 					<br>
 					<br>
@@ -397,12 +245,10 @@
 
 @section('js')
 	@parent
-	<link href="{{ asset('/css/select2.min.css') }}" rel="stylesheet"/>
 	<link href="{{ asset('/css/selectize.min.css') }}" rel="stylesheet"/>
 
 	<link href="{{ asset('/css/components/tooltip.almost-flat.min.css') }}" rel="stylesheet">
 	<script src="{{ asset('/js/components/tooltip.min.js') }}"></script>
-	<script src="{{ asset('/js/select2.min.js') }}"></script>
 	<script src="{{ asset('/js/selectize.min.js') }}"></script>
 
 
@@ -556,21 +402,5 @@
 		    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 		    return re.test(email);
 		}
-
-	    // function toggle(source){
-	    //     checkboxes = document.getElementsByName('checkedLine');
-	    //     for(var i=0, n=checkboxes.length;i<n;i++) {
-	    //         checkboxes[i].checked = source.checked;
-	    //     }
-	    // }
-
-	    // function deleteObjects() {
-     //        var checkedValues = $('input[name="checkedLine"]:checked').map(function() {
-     //            return this.value;
-     //        }).get();
-     //        $.post("{{ url('/admin/listings/delete') }}", {_token: "{{ csrf_token() }}", ids: checkedValues}, function(result){
-     //            location.reload();
-     //        });
-     //    }
 	</script>
 @endsection

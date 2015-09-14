@@ -29,38 +29,35 @@
 				?>
 				@include('listings.mosaic')
 			@endforeach
-		@elseif(count($likes))
+		@elseif(count($likes) > 0)
 			@foreach($likes as $listing)
 				<?php $mosaicClass = "uk-width-medium-1-3 uk-width-large-1-3 uk-margin-small-bottom"; ?>
 				@include('listings.mosaic')
 			@endforeach
 		@else
-			<h3>{{ trans('frontend.no_favorites') }}</h3>
+			<div class="uk-width-1-1 uk-margin-large-bottom">
+				<h3 class="uk-text-center uk-text-primary">{{ trans('frontend.no_favorites') }}</h3>
+				<h3 class="uk-text-center uk-text-muted">{{ trans('frontend.no_favorites_text_1') }} <i class="uk-icon-heart"></i> {{ trans('frontend.no_favorites_text_2') }}</h3>
+			</div>
 		@endif
 		</div>
 	</div>
 </div>
-
-@include('modals.email_listing')
-
 @endsection
 
 @section('js')
 	@parent
 	<script type="text/javascript">
-		function like(sender) {
-			$('#like_button_image').removeClass('uk-text-primary').addClass('uk-text-contrast');
-			$('#like_button').removeClass('uk-text-primary');
+		function unlike(id) {
+			$('#like_'+id).removeClass('uk-text-primary').addClass('uk-text-contrast');
 
-		    $.post("{{ url('/listings/') }}"+ sender.id +"/like", {_token: "{{ csrf_token() }}"}, function(result){
+		    $.post("{{ url('/listings') }}/"+ id +"/like", {_token: "{{ csrf_token() }}"}, function(result){
 		    	if(result.success){
 		    		if(result.like){
 		    			$('#like_button_image').removeClass('uk-text-contrast').addClass('uk-text-primary');
 						$('#like_button').addClass('uk-text-primary');
 		    		}else{
-		    			$('listing-'+sender.id).fadeOut(500, function() { $(this).remove();});
-		    			$('#like_button_image').removeClass('uk-text-primary').addClass('uk-text-contrast');
-						$('#like_button').removeClass('uk-text-primary');
+		    			$('#listing_'+id).fadeOut(500, function() { $(this).remove();});
 		    		}
 		    	}else if(result.error || !result){
 					$('#like_button_image').removeClass('uk-text-contrast').addClass('uk-text-primary');

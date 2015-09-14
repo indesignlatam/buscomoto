@@ -32,8 +32,8 @@ class PostListingToFacebookPage extends Job implements SelfHandling, ShouldQueue
 	 */
 	public function handle(){
 		// Post to facebook page
-		$page_access_token 		= 'CAALz6NTr0cABAINoFdpijnQzJZAgyOuBnEv90GB3557wU7tanjCZA3QFhkANETGFvO4MD59AZCWB48ME51ZBIhbqdB0ZACeP4FbveQ3Ekf1JuIZCwZA4AFdDH8NOYfhlSOAAvLZC2e6LMU9iNqP3ql62lqOp7Uq5Qro93XZCRloDWpAyfWL1ZBI9weKzQlFEU0SAqgoNoWvAAJTAZDZD';
-		$page_id				= '511385855693541';
+		$page_access_token 		= env('FB_TOKEN');
+		$page_id				= env('FB_PAGE_ID');
 		$data['picture'] 		= url( Image::url($this->listing->image_path(), ['facebook_share']) );
 		$data['link'] 			= url($this->listing->path());
 		//$data['message'] 		= "Your message";

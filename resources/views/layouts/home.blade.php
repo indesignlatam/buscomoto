@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="BuscoCasa.co">
+        <meta name="author" content="BuscoMoto.co">
         @section('head')
             <title>{{ Settings::get('site_name') }}</title>
             <meta name="description" content="{{ Settings::get('site_description') }}">
@@ -121,7 +121,7 @@
                                 <li class="uk-text-contrast">Nuestros Servicios</li>
                                 <li class="uk-text-contrast">Preguntas Frequentes</li>
                                 <li class="uk-text-contrast">Blog</li>
-                                <li class="uk-text-contrast">Publíca</li>
+                                <li class="uk-text-contrast">Publica</li>
                             </ul>
                         </div>
 
@@ -130,7 +130,9 @@
                             <ul class="uk-list">
                                 <li><a href="http://buscocasa.co" style="text-decoration:none" class="uk-text-contrast">BuscoCasa</a></li>
                                 <li><a href="{{ url('/') }}" style="text-decoration:none" class="uk-text-contrast">BuscoCarro</a></li>
-                                <li><a href="{{ url('/') }}" style="text-decoration:none" class="uk-text-contrast">BuscoMoto</a></li>
+                                <li><a href="http://buscomoto.co" style="text-decoration:none" class="uk-text-contrast">BuscoMoto</a></li>
+                                <li><a href="http://motomoteros.co" style="text-decoration:none" class="uk-text-contrast">Motomoteros</a></li>
+                                <li><a href="http://mvagustacolombia.com" style="text-decoration:none" class="uk-text-contrast">MV Agusta</a></li>
                             </ul>
                         </div>
                     </div>
@@ -192,7 +194,19 @@
             }
         </script>
 
-        <!-- Other Scripts -->
-        {!! Analytics::render() !!}
+        @if(env('APP_ENV') == 'production')
+            <!--Start of Zopim Live Chat Script-->
+            <script type="text/javascript">
+            window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+            d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+            _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
+            $.src="//v2.zopim.com/?3JSQBAV4Z1Lfbp8037PLzpSnUFdRn1EV";z.t=+new Date;$.
+            type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+            </script>
+            <!--End of Zopim Live Chat Script-->
+            
+            <!-- Other Scripts -->
+            {!! Analytics::render() !!}
+        @endif
     </body>
 </html>

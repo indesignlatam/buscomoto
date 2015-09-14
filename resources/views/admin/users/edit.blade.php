@@ -39,7 +39,7 @@
 		<form id="create_form" class="uk-form uk-form-stacked" method="POST" action="{{ url('/admin/user/'.Auth::user()->id) }}" enctype="multipart/form-data">
 			<div class="uk-grid">
 				
-				<div class="uk-width-3-4">
+				<div class="uk-width-large-3-4 uk-width-medium-3-4">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<input type="hidden" name="_method" value="PATCH">
 
@@ -89,7 +89,7 @@
 							</div>
 						</div>
 
-						<div class="uk-width-1-1">
+						<div class="uk-width-1-1 uk-margin-bottom">
 							<div class="uk-form-row uk-margin-small-top">
 						        <label class="uk-form-label">{{ trans('admin.description') }} <i class="uk-text-danger">*</i></label>
 						        <div class="uk-form-controls">
@@ -101,7 +101,7 @@
 					</div>
 				</div>
 
-				<div class="uk-width-1-4">
+				<div class="uk-width-large-1-4 uk-width-medium-1-4">
 					<div class="uk-panel uk-panel-box uk-panel-box-primary">
 						<h3 class="uk-panel-title">{{ trans('admin.configuration') }}</h3>
 

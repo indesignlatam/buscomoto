@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use DB;
+use Carbon;
 use App\Models\IndesignModel;
 
 class Listing extends IndesignModel {
@@ -21,7 +22,7 @@ class Listing extends IndesignModel {
      *
      * @var array
      */
-    //protected $appends = ['main_image_url', 'url'];
+    protected $appends = ['url', 'tag', 'image_url'];
 
 	/**
 	 * The name of the table.
@@ -123,6 +124,30 @@ class Listing extends IndesignModel {
     public function getUrlAttribute(){
         return url($this->path());
     }
+
+    /**
+     * Get the administrator flag for the user.
+     *
+     * @return bool
+     */
+    public function getTagAttribute(){
+        if($this->featured_type && $this->featured_expires_at > Carbon::now()){
+	    	return '<div style="background-color:#1C7BBA; position:absolute; top:15px; left:15px;" class="uk-text-contrast uk-text-center uk-h3"><p class="uk-margin-small-bottom uk-margin-small-top uk-margin-left uk-margin-right"><i class="uk-icon-check" data-uk-tooltip title="'.trans("frontend.listing_featured").'"></i></p></div>';
+        }
+        return '';
+    }
+
+    /**
+	 * Resolve the image path to show
+	 *
+	 * @var string
+	 */
+	public function getImageUrlAttribute(){
+		if($this->image_path || $this->image_path != ''){
+			return url($this->image_path);
+		}
+		return url('/images/defaults/listing.jpg');
+	}
 
 	/**
 	 * Resolve the image path to show

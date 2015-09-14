@@ -42,7 +42,7 @@
 						        <label class="uk-form-label" for="">{{ trans('admin.listing_type') }} <i class="uk-text-danger">*</i> <i class="uk-icon-info-circle" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.listing_type_tooltip') }}"></i></label>
 						        <div class="uk-form-controls">
 						        	<select class="uk-width-large-10-10 uk-form-large" id="listing_type" name="listing_type">
-						                <option>{{ trans('admin.select_option') }}</option>
+						                <option value="">{{ trans('admin.select_option') }}</option>
 				                        @foreach($listingTypes as $type)
 				                            @if($listing->listingType->id == $type->id)
 				                                <option value="{{ $type->id }}" selected>{{ $type->name }}</option>
@@ -58,7 +58,7 @@
 						        <label class="uk-form-label" for="">{{ trans('admin.manufacturer') }} <i class="uk-text-danger">*</i> <i class="uk-icon-info-circle" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.manufacturer_tooltip') }}"></i></label>
 						        <div class="uk-form-controls">
 						        	<select class="uk-width-large-10-10 uk-form-large" id="manufacturers" type="text" name="manufacturer_id">
-						                <option>{{ trans('admin.select_option') }}</option>
+						                <option value="">{{ trans('admin.select_option') }}</option>
 						                @foreach($manufacturers as $manufacturer)
 						                	@if($listing->manufacturer->id == $manufacturer->id)
 												<option value="{{ $manufacturer->id }}" selected>{{ ucwords(strtolower($manufacturer->text)) }}</option>
@@ -83,7 +83,7 @@
 						        <label class="uk-form-label" for="">{{ trans('admin.fuel') }} <i class="uk-text-danger">*</i> <i class="uk-icon-info-circle" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.fuel_tooltip') }}"></i></label>
 						        <div class="uk-form-controls">
 						        	<select class="uk-width-large-10-10 uk-form-large" type="text" name="fuel_type">
-						                <option>{{ trans('admin.select_option') }}</option>
+						                <option value="">{{ trans('admin.select_option') }}</option>
 						                @foreach($fuels as $fuel)
 						                	@if($listing->fuelType->id == $fuel->id)
 												<option value="{{ $fuel->id }}" selected>{{ $fuel->name }}</option>
@@ -102,7 +102,7 @@
 						        <label class="uk-form-label" for="">{{ trans('admin.city') }} <i class="uk-text-danger">*</i> <i class="uk-icon-info-circle" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.city_tooltip') }}"></i></label>
 						        <div class="uk-form-controls">
 						        	<select class="uk-width-large-10-10 uk-form-large" id="cities" type="text" name="city_id">
-						                <option>{{ trans('admin.select_option') }}</option>
+						                <option value="">{{ trans('admin.select_option') }}</option>
 						                @foreach($cities as $city)
 						                	@if($listing->city->id == $city->id)
 												<option value="{{ $city->id }}" selected>{{ $city->name }} ({{ $city->department->name }})</option>
@@ -146,7 +146,7 @@
 							<h2 class="uk-text-primary uk-text-bold" style="text-transform: uppercase">{{ trans('admin.listing_basic_information') }}</h2>
 						</div>
 
-						<div class="uk-width-large-1-3 uk-width-1-2">
+						<div class="uk-width-large-1-3 uk-width-medium-1-3 uk-width-small-1-1">
 							<div class="uk-form-row">
 						        <label class="uk-form-label" for="">{{ trans('admin.price') }} <i class="uk-text-danger">*</i></label>
 								<input class="uk-width-large-10-10 uk-form-large" id="price" type="text" name="price" placeholder="{{ trans('admin.price') }}" value="{{ $listing->price }}" onkeyup="format(this);">
@@ -158,7 +158,7 @@
 							</div>
 						</div>
 
-						<div class="uk-width-large-1-3 uk-width-1-2">
+						<div class="uk-width-large-1-3 uk-width-medium-1-3 uk-width-small-1-1">
 							<div class="uk-form-row">
 						        <label class="uk-form-label" for="">{{ trans('admin.license_number') }} <i class="uk-icon-info-circle" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.license_number_tooltip') }}"></i></label>
 								<input class="uk-width-large-10-10 uk-form-large" type="text" name="license_number" placeholder="{{ trans('admin.license_number') }}" value="{{ $listing->license_number }}">
@@ -170,7 +170,7 @@
 							</div>
 						</div>
 
-						<div class="uk-width-large-1-3 uk-width-1-2">
+						<div class="uk-width-large-1-3 uk-width-medium-1-3 uk-width-small-1-1">
 							<div class="uk-form-row">
 						        <label class="uk-form-label" for="">{{ trans('admin.color') }}</label>
 								<input class="uk-width-large-10-10 uk-form-large" type="text" name="color" placeholder="{{ trans('admin.color') }}" value="{{ $listing->color }}">
@@ -315,12 +315,21 @@
 				    </div>
 				    <!-- Share listing -->
 
+				    @if(!Agent::isMobile())
 					<div class="uk-margin-top uk-flex">
 				        <!-- This is a button toggling the modal -->
 				        <button form="create_form" type="submit" class="uk-width-1-3 uk-margin-right uk-button uk-button-large uk-button-success uk-text-bold uk-margin-bottom" onclick="blockUI()">{{ trans('admin.save') }}</button>
 				        <button form="create_form" type="submit" class="uk-width-1-3 uk-margin-right uk-button uk-button-large uk-text-bold uk-margin-bottom" onclick="saveClose()" >{{ trans('admin.save_close') }}</button>
 				        <a class="uk-width-1-3 uk-button uk-button-large uk-text-bold uk-margin-bottom" target="_blank" href="{{ url($listing->path())}}">{{ trans('admin.view_listing') }}</a>
 				    </div>
+				    @else
+				    <div class="uk-margin-top">
+				        <!-- This is a button toggling the modal -->
+				        <button form="create_form" type="submit" class="uk-width-1-1 uk-button uk-button-large uk-button-success uk-text-bold uk-margin-small-bottom" onclick="blockUI()">{{ trans('admin.save') }}</button>
+				        <button form="create_form" type="submit" class="uk-width-1-1 uk-button uk-button-large uk-text-bold uk-margin-small-bottom" onclick="saveClose()" >{{ trans('admin.save_close') }}</button>
+				        <a class="uk-width-1-1 uk-button uk-button-large uk-text-bold uk-margin-bottom" target="_blank" href="{{ url($listing->path())}}">{{ trans('admin.view_listing') }}</a>
+				    </div>
+				    @endif
 			    </div>
 			</div>
 		</form>
@@ -615,11 +624,11 @@
 		            	if(response.image && response.success){
 		            		UIkit.notify('<i class="uk-icon-check-circle"></i> '+response.success, {pos:'top-right', status:'success', timeout: 5000});
 
-		            		$("#images_div_modal").append('<div class="uk-width-1-4" id="image-modal-'+response.image.id+'" style="display: none;"><figure class="uk-overlay uk-overlay-hover uk-margin-bottom"><img src="{{asset("")}}'+response.image.image_path+'"><div class="uk-overlay-panel uk-overlay-background uk-overlay-fade uk-text-center uk-vertical-align"><i class="uk-icon-large uk-icon-remove uk-vertical-align-middle" id="'+response.image.id+'" onclick="deleteImage(this, true)"></i></div></figure></div>');
+		            		$("#images_div_modal").append('<div class="uk-width-large-1-4 uk-width-medium-1-2 uk-margin-bottom" id="image-modal-'+response.image.id+'" style="display: none;"><figure class="uk-overlay uk-overlay-hover uk-margin-bottom"><img src="{{asset("")}}'+response.image.image_path+'"><div class="uk-overlay-panel uk-overlay-background uk-overlay-fade uk-text-center uk-vertical-align"><i class="uk-icon-large uk-icon-remove uk-vertical-align-middle" id="'+response.image.id+'" onclick="deleteImage(this, true)"></i></div></figure></div>');
 		            		$("#image-modal-"+response.image.id).show('normal');
 
 		            		// Insite uploader images
-		            		$("#images-div").append('<li data-id="'+response.image.id+'" class="uk-width-large-1-4 uk-width-medium-1-3 uk-panel" id="image-'+response.image.id+'"><i class="uk-close uk-close-alt uk-panel-badge" id="'+response.image.id+'" onclick="deleteImage(this)" data-uk-tooltip="{pos:"top"}" title="{{ trans("admin.eliminate_image") }}"></i><input type="hidden" name="image['+response.image.id+']" value><img src="{{asset("/")}}'+response.image.image_path+'"><div class="uk-badge uk-badge-notification uk-panel-badge" style="right:40%;">0</div></li>');
+		            		$("#images-div").append('<li data-id="'+response.image.id+'" class="uk-width-large-1-4 uk-width-medium-1-3 uk-panel uk-margin-bottom" id="image-'+response.image.id+'"><i class="uk-close uk-close-alt uk-panel-badge" id="'+response.image.id+'" onclick="deleteImage(this)" data-uk-tooltip="{pos:"top"}" title="{{ trans("admin.eliminate_image") }}"></i><input type="hidden" name="image['+response.image.id+']" value><img src="{{asset("/")}}'+response.image.image_path+'"><div class="uk-badge uk-badge-notification uk-panel-badge" style="right:40%;">0</div></li>');
 		            		setOrdering(sortable);
 		            	}else if(response.error){
 		            		if(response.error instanceof Array){
@@ -675,7 +684,7 @@
 		            	if(response.image && response.success){
 		            		UIkit.notify('<i class="uk-icon-check-circle"></i> '+response.success, {pos:'top-right', status:'success', timeout: 5000});
 
-		            		$("#images-div").append('<li data-id="'+response.image.id+'" class="uk-width-large-1-4 uk-width-medium-1-3 uk-panel" id="image-'+response.image.id+'"><i class="uk-close uk-close-alt uk-panel-badge" id="'+response.image.id+'" onclick="deleteImage(this)" data-uk-tooltip="{pos:"top"}" title="{{ trans("admin.eliminate_image") }}"></i><input type="hidden" name="image['+response.image.id+']" value><img src="{{asset("/")}}'+response.image.image_path+'"><div class="uk-badge uk-badge-notification uk-panel-badge" style="right:40%;">0</div></li>');
+		            		$("#images-div").append('<li data-id="'+response.image.id+'" class="uk-width-large-1-4 uk-width-medium-1-3 uk-panel uk-margin-bottom" id="image-'+response.image.id+'"><i class="uk-close uk-close-alt uk-panel-badge" id="'+response.image.id+'" onclick="deleteImage(this)" data-uk-tooltip="{pos:"top"}" title="{{ trans("admin.eliminate_image") }}"></i><input type="hidden" name="image['+response.image.id+']" value><img src="{{asset("/")}}'+response.image.image_path+'"><div class="uk-badge uk-badge-notification uk-panel-badge" style="right:40%;">0</div></li>');
 		            		$("#image-"+response.image.id).show('normal');
 		            		setOrdering(sortable);
 		            	}else if(response.error){

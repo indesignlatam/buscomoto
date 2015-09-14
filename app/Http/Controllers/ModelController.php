@@ -14,14 +14,50 @@ class ModelController extends Controller{
      *
      * @return Response
      */
-    public function index(){
+    public function index(Request $request){
         //
-        $models         = Model::with('manufacturer')->orderBy('manufacturer_id', 'desc')->orderBy('id', 'desc')->paginate(30);
+        $query = Model::with('manufacturer');
         $manufacturers  = Manufacturer::all();
+        $take = 30;
+
+        if(count($request->all()) > 0){
+            if($request->has('search')){
+                $search = $request->search;
+                $query = $query->where('name', 'LIKE', "%$search%");
+            }
+
+            if($request->get('deleted')){
+                $query = $query->onlyTrashed();
+            }
+
+            // Order the objects
+            if($request->has('order_by')){
+                if($request->get('order_by') == 'id_desc'){
+                    $query = $query->orderBy('id', 'DESC');
+                }else if($request->get('order_by') == 'id_asc'){
+                    $query = $query->orderBy('id', 'ASC');
+                }else if($request->get('order_by') == 'manufacturer_desc'){
+                    $query = $query->orderBy('manufacturer_id', 'DESC');
+                }else if($request->get('order_by') == 'manufacturer_asc'){
+                    $query = $query->orderBy('manufacturer_id', 'ASC');
+                }
+            }else{
+                $query = $query->orderBy('id', 'DESC');
+            }
+
+            // Take n objects
+            if($request->has('take')){
+                $take = $request->take;
+            }
+        }else{
+            $query = $query->orderBy('id', 'DESC');
+        }
+
+        $models = $query->paginate($take);
 
         return view('admin.models.index', ['manufacturers'   => $manufacturers,
-                                                  'models'          => $models,
-                                                  ]);
+                                            'models'          => $models,
+                                          ]);
     }
 
     /**

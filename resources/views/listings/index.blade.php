@@ -100,8 +100,6 @@
 	    	<div class="uk-width-large-1-4 uk-visible-large" style="margin-right:15px; padding-right:20px; border-right-style:solid; border-right: 1px solid #dddddd;">
 				<form id="search_form" class="uk-form uk-form-stacked">
 
-					<input class="uk-width-large-10-10 uk-margin-bottom uk-form-large" type="text" name="listing_code" placeholder="{{ trans('frontend.search_code') }}" value>
-
 					<div class="uk-form-row">
 						<label class="uk-form-label">{{ trans('frontend.search_listing_type') }}</label>
 						<select class="uk-width-1-1 uk-margin-small-bottom uk-form-large" name="listing_type" id="listing_type" onchange="getListings()">
@@ -116,7 +114,7 @@
 	                    </select>
 			        </div>
 
-			        <div class="uk-form-row">
+			        <div class="uk-form-row uk-margin-remove">
 						<label class="uk-form-label">{{ trans('frontend.search_manufacturer') }}</label>
 						<select class="uk-width-1-1 uk-margin-small-bottom uk-form-large" id="search_manufacturer" name="manufacturers[]" multiple="multiple" onchange="getListings()">
 	                        @foreach($manufacturers as $manufacturer)
@@ -129,41 +127,41 @@
 	                    </select>
 			        </div>
 
-			        <div class="uk-form-row">
+			        <div class="uk-form-row uk-margin-small-top">
 						<label class="uk-form-label">{{ trans('frontend.search_model') }} <i class="uk-icon-info-circle" data-uk-tooltip title="{{ trans('frontend.search_models_tooltip') }}"></i></label>
 			            <select class="uk-width-large-10-10 uk-margin-small-bottom uk-form-large" id="search_models" name="models" onchange="getListings()">
-			                <option value>{{ trans('frontend.search_select_option') }}</option>
+			                <option value="{{ Request::get('models') }}">{{ trans('frontend.search_select_option') }}</option>
 			            </select>
 			        </div>
 
-		            <p>
+			        <div class="uk-form-row uk-margin-small-top">
 					  	<label for="price_range" class="uk-form-label">{{ trans('frontend.search_price') }}</label>
-					  	<input type="text" id="price_range" class="uk-width-large-10-10 uk-text-primary" readonly style="border:0; font-weight:bold; background-color:#fff; font-size:12px; margin-bottom:-10px">
-					</p>
+					  	<input type="text" id="price_range" class="uk-width-large-10-10 uk-text-primary" readonly style="border:0; font-weight:bold; background-color:#fff; font-size:12px; margin-top:-10px">
+					</div>
 					<div id="slider-range-price"></div>
 					<input type="hidden" id="price_min" name="price_min" value="{{Request::get('price_min')}}">
 					<input type="hidden" id="price_max" name="price_max" value="{{Request::get('price_max')}}">
 
-			        <p>
+			        <div class="uk-form-row uk-margin-small-top">
 					  	<label for="engine_size_range" class="uk-form-label">{{ trans('frontend.search_engine_size') }}</label>
-					  	<input type="text" id="engine_size_range" class="uk-width-large-10-10 uk-text-primary" readonly style="border:0; font-weight:bold; background-color:#fff; font-size:12px; margin-bottom:-10px">
-					</p>
+					  	<input type="text" id="engine_size_range" class="uk-width-large-10-10 uk-text-primary" readonly style="border:0; font-weight:bold; background-color:#fff; font-size:12px; margin-top:-10px">
+					</div>
 					<div id="slider_engine_size_range"></div>
 					<input type="hidden" id="engine_size_min" name="engine_size_min" value="{{Request::get('engine_size_min')}}">
 					<input type="hidden" id="engine_size_max" name="engine_size_max" value="{{Request::get('engine_size_max')}}">
 
-					<p>
+			        <div class="uk-form-row uk-margin-small-top">
 					  	<label for="year_range" class="uk-form-label">{{ trans('frontend.search_year') }}</label>
-					  	<input type="text" id="year_range" class="uk-width-large-10-10 uk-text-primary" readonly style="border:0; font-weight:bold; background-color:#fff; font-size:12px; margin-bottom:-10px">
-					</p>
+					  	<input type="text" id="year_range" class="uk-width-large-10-10 uk-text-primary" readonly style="border:0; font-weight:bold; background-color:#fff; font-size:12px; margin-top:-10px">
+					</div>
 					<div id="slider_year_range"></div>
 					<input type="hidden" id="year_min" name="year_min" value="{{Request::get('year_min')}}">
 					<input type="hidden" id="year_max" name="year_max" value="{{Request::get('year_max')}}">
 
-					<p>
+			        <div class="uk-form-row uk-margin-small-top">
 					  	<label for="odometer_range" class="uk-form-label">{{ trans('frontend.search_odometer') }}</label>
-					  	<input type="text" id="odometer_range" class="uk-width-large-10-10 uk-text-primary" readonly style="border:0; font-weight:bold; background-color:#fff; font-size:12px; margin-bottom:-10px">
-					</p>
+					  	<input type="text" id="odometer_range" class="uk-width-large-10-10 uk-text-primary" readonly style="border:0; font-weight:bold; background-color:#fff; font-size:12px; margin-top:-10px">
+					</div>
 					<div id="slider_odometer_range"></div>
 					<input type="hidden" id="odometer_min" name="odometer_min" value="{{Request::get('odometer_min')}}">
 					<input type="hidden" id="odometer_max" name="odometer_max" value="{{Request::get('odometer_max')}}">
@@ -174,6 +172,8 @@
 			                <option value>{{ trans('frontend.search_select_option') }}</option>
 			            </select>
 			        </div>
+
+					<input class="uk-width-large-10-10 uk-margin-bottom uk-form-large uk-margin-top" type="text" name="listing_code" placeholder="{{ trans('frontend.search_code') }}" value>
 				</form>
 	    	</div>
 	    	<!-- End search bar -->
@@ -181,6 +181,16 @@
 	    	<!-- Listings space -->
 	    	<div class="uk-width-large-3-4 uk-width-small-1-1">
 	    		<div class="uk-panel">
+	    			<!-- This is the modal -->
+					<div id="loading_listings" style="position:relative;" class="uk-hidden">
+					    <div style="height: 60px" class="uk-width-1-1">
+					    	<div class="uk-text-center uk-margin-small-top">
+					        	<i class="uk-icon-large uk-icon-spinner uk-icon-spin uk-text-primary"></i>
+					        	<h3 class="uk-text-primary uk-margin-top-remove">{{ trans('frontend.loading') }}</h3>
+					    	</div>
+					    </div>
+					</div>
+
 					<div class="uk-grid" id="listings"></div>
 				</div>
 	    	</div>
@@ -197,33 +207,25 @@
 	<noscript><link href="{{ asset('/css/jquery/jquery-slider.min.css') }}" rel="stylesheet"></noscript>
 	<noscript><link href="{{ asset('/css/select2.min.css') }}" rel="stylesheet"/></noscript>
 	<noscript><link href="{{ asset('/css/components/slidenav.almost-flat.min.css') }}" rel="stylesheet"/></noscript>
+	<noscript><link href="{{ asset('/css/components/tooltip.almost-flat.min.css') }}" rel="stylesheet"/></noscript>
 	<!-- CSS -->
 
 	<script type="text/javascript">
-        function setListingView(view) {
-        	if(view == 2){
-        		setTimeout(initMap, 50);
-        	}
-            $.post("{{ url('/cookie/set') }}", {_token: "{{ csrf_token() }}", key:'listings_view', value:view}, function(response){
-                console.log(response);
-            });
-        }
-
 		$(function() {
 		    $( "#slider-range-price" ).slider({
 		      	range: true,
-		      	step: 1000000,
+		      	step: 500000,
 		      	min: 0,// TODO get from settings
-		      	max: 50000000,// TODO get from settings
+		      	max: 30000000,// TODO get from settings
 
 		      	@if(Request::has('price_min') && Request::has('price_max'))
 					values: [{{Request::get('price_min')}}, {{Request::get('price_max')}}],
 				@else
-					values: [0, 50000000],// TODO get from settings
+					values: [0, 30000000],// TODO get from settings
 		      	@endif
 		      	slide: function( event, ui ) {
 		      		tag = "";
-		      		if(ui.values[ 1 ] == 50000000){// TODO get from settings
+		      		if(ui.values[ 1 ] == 30000000){// TODO get from settings
 		      			tag = "+";
 		      		}
 		        	$( "#price_range" ).val( "$" + accounting.formatNumber(ui.values[ 0 ]) + " - $" + accounting.formatNumber(ui.values[ 1 ]) + tag );
@@ -241,6 +243,7 @@
 		      	range: true,
 		      	min: 0,// TODO get from settings
 		      	max: 1000,// TODO get from settings
+		      	step: 25,
 
 		      	@if(Request::has('engine_size_min') && Request::has('engine_size_max'))
 					values: [{{Request::get('engine_size_min')}}, {{Request::get('engine_size_max')}}],
@@ -267,6 +270,7 @@
 		      	range: true,
 		      	min: 1970,// TODO get from settings
 		      	max: 2016,// TODO get from settings
+		      	step: 1,
 
 		      	@if(Request::has('year_min') && Request::has('year_max'))
 					values: [{{Request::get('year_min')}}, {{Request::get('year_max')}}],
@@ -293,6 +297,7 @@
 		      	range: true,
 		      	min: 0,// TODO get from settings
 		      	max: 50000,// TODO get from settings
+		      	step: 1000,
 
 		      	@if(Request::has('odometer_min') && Request::has('odometer_max'))
 					values: [{{Request::get('odometer_min')}}, {{Request::get('odometer_max')}}],
@@ -346,8 +351,11 @@
 		var page = 1;
 
 		function getListings(paginate){
+			$("#loading_listings").slideDown(500).removeClass('uk-hidden');
+
 			paging = null;
 			if(paginate){
+				$('#load_button').html('<i class="uk-icon-spinner uk-icon-spin"></i>');
 				paging = page;
 			}else{
 				page = 1;
@@ -370,6 +378,7 @@
 													_token: "{{ csrf_token() }}", 
 												}, 
 			function(response){
+				$("#loading_listings").slideUp(500);
 				if(response && !paginate){
 					$('#listings').html('');
 				}else{
@@ -378,7 +387,7 @@
 				if(response.data.length > 0){
 					$('#listings_number').html("("+response.total+" encontrados)")
 					jQuery.each(response.data , function(index, listing){
-						var view = '<div class="uk-width-medium-1-2 uk-width-large-1-2 uk-margin-small-bottom"><a href="{{ url('/buscar') }}/'+listing.slug+'" style="text-decoration:none"><div class="uk-panel uk-panel-hover uk-margin-remove"><img src="'+listing.image_path+'" style="width:380px; float:left" class="uk-margin-right"><div class=""><p class=""><strong class="uk-text-primary">'+listing.title+'</strong><br><b class="uk-text-bold">$'+accounting.formatNumber(listing.price)+'</b> | <i class="uk-text-muted">'+accounting.formatNumber(listing.odometer)+' kms</i></p></div></div></a></div>'
+						var view = '<div class="uk-width-medium-1-2 uk-width-large-1-2 uk-margin-small-bottom"><a href="'+listing.url+'" target="_blank" style="text-decoration:none"><div class="uk-panel uk-panel-hover uk-margin-remove"><img src="'+listing.image_url+'" style="width:380px; float:left" class="uk-margin-right">'+listing.tag+'<div class=""><p class=""><strong class="uk-text-primary">'+listing.title+'</strong><br><b class="uk-text-bold">$'+accounting.formatNumber(listing.price)+'</b> | <i class="uk-text-muted">'+accounting.formatNumber(listing.odometer)+' kms</i></p></div></div></a></div>'
 					    $('#listings').append(view);
 					});
 					if(response.total > response.to){

@@ -49,7 +49,7 @@
 					    	@endforeach		    	
 					    </ul>
 					    @if(isset(Cookie::get('likes')[$listing->id]) && Cookie::get('likes')[$listing->id] || $listing->like)
-					    	<a onclick="like()"><i style="position:absolute; top:5px; right:5px" class="uk-icon-heart uk-icon-large uk-text-primary" id="like_button_image"></i></a>
+					    	<a onclick="like()"><i style="position:absolute; top:5px; right:5px" class="uk-icon-heart uk-icon-large uk-text-danger" id="like_button_image"></i></a>
 					    @else
 					    	<a onclick="like()"><i style="position:absolute; top:5px; right:5px" class="uk-icon-heart uk-icon-large uk-text-contrast" id="like_button_image"></i></a>
 					    @endif
@@ -137,7 +137,7 @@
 						<button class="uk-button uk-button-large uk-width-1-1" data-uk-toggle="{target:'#phones'}"><i class="uk-icon-phone"></i></button>
 						<button onclick="like()" class="uk-button uk-button-large uk-width-1-1 uk-margin-small-left">
 					    	@if(isset(Cookie::get('likes')[$listing->id]) && Cookie::get('likes')[$listing->id] || $listing->like)
-								<i id="like_button" class="uk-icon-heart uk-text-primary"></i>
+								<i id="like_button" class="uk-icon-heart uk-text-danger"></i>
 							@else
 								<i id="like_button" class="uk-icon-heart"></i>
 							@endif
@@ -176,7 +176,6 @@
     				<a onclick="share('{{ url($listing->path()) }}', {{ $listing->id }})" class="uk-icon-button uk-icon-facebook"></a> 
     				<a class="uk-icon-button uk-icon-twitter twitter-share-button" href="https://twitter.com/intent/tweet?text={{ $listing->title }}%20{{ url($listing->path()) }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=440,width=600');return false;"></a>
 					<a href="https://plus.google.com/share?url={{ url($listing->path()) }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="uk-icon-button uk-icon-google-plus"></a>
-				    <a href="#send_mail" class="uk-icon-button uk-icon-envelope" onclick="setListing({{ $listing->id }})" data-uk-modal="{center:true}"></a>
 	    		</div>
 				<!-- Social share links -->
 
@@ -217,7 +216,7 @@
     			</ul>
 
 				<button class="uk-button uk-button-large uk-button-primary uk-width-1-1" onclick="select(this)" id="{{ $listing->id }}">{{ trans('frontend.compare') }}</button>
-    			<a href="{{ url($listing->user->path()) }}" class="uk-button uk-button-large uk-width-1-1 uk-margin-small-top">{{ trans('frontend.other_user_listings') }}</a>
+    			<a href="{{ url($listing->user->path()) }}" class="uk-button uk-button-large uk-width-1-1 uk-margin-small-top uk-margin-bottom">{{ trans('frontend.other_user_listings') }}</a>
 	    	</div>
 
 	    	<div class="uk-width-large-3-4 uk-width-medium-3-4 uk-width-small-1-1">
@@ -330,7 +329,7 @@
 	    				<h2>{{ trans('frontend.similar_listings') }}</h2>
 		    			<div class="uk-grid">
 		    				@foreach($related as $rlisting)
-		    				<div class="uk-width-1-4">
+		    				<div class="uk-width-large-1-4 uk-width-medium-1-4">
 			    				<div class="uk-overlay uk-overlay-hover uk-margin-small">
 			    					<img src="{{ asset(Image::url( $rlisting->image_path(), ['map_mini']) ) }}" alt="{{$rlisting->title}}" data-uk-scrollspy="{cls:'uk-animation-fade'}">
 								    <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade">
@@ -348,6 +347,14 @@
 	    	</div>
 	    	
 	    </div>
+
+	    <div class="uk-visible-small">
+	    	<hr>
+	    	<!-- Register button for mobiles -->
+	        <a href="{{ url('/auth/register') }}" class="uk-button uk-button-primary uk-button-large uk-width-1-1 uk-margin-bottom">{{ trans('admin.register_publish_free') }}</a>
+	        <!-- Register button for mobiles -->
+	    </div>
+	    
 	</div>
 </div>
 
@@ -406,7 +413,7 @@
 		function select(sender){
 			$.post("{{ url('/cookie/select') }}", {_token: "{{ csrf_token() }}", key: "selected_listings", value: sender.id}, function(result){
 				UIkit.modal.confirm("{{ trans('frontend.listing_selected') }}", function(){
-				    window.location.href = "{{ url('/compare') }}";
+				    window.location.href = "{{ url('/comparar') }}";
 				}, {labels:{Ok:'{{trans("frontend.compare_now")}}', Cancel:'{{trans("frontend.keep_looking")}}'}, center:true});
             });
 		}
@@ -491,40 +498,6 @@
 			$("#message").val('');
 		}
 
-		function sendMail(sender) {
-	    	$('#sendMail').prop('disabled', true);
-	    	var message = $('#message').val();
-	    	var emails = $('#emails').val().replace(/ /g,'').split(',');
-	    	var validemails = [];
-	    	$.each(emails, function( index, value ) {
-			  	if(validateEmail(value)){
-			  		validemails.push(value);
-			  	}
-			});
-
-			if(validemails.length < 1){
-				UIkit.modal.alert('<h2 class="uk-text-center"><i class="uk-icon-check-circle uk-icon-large"></i><br>{{ trans('admin.no_emails') }}</h2>', {center: true});
-				$('#sendMail').prop('disabled', false);
-				return;
-			}
-
-			if(message.length < 1){
-				UIkit.modal.alert('<h2 class="uk-text-center"><i class="uk-icon-check-circle uk-icon-large"></i><br>{{ trans('admin.no_message') }}</h2>', {center: true});
-				$('#sendMail').prop('disabled', false);
-				return;
-			}
-
-	    	$.post("{{ url('/admin/listings') }}/"+ $('#listingId').val() +"/share", {_token: "{{ csrf_token() }}", email: validemails, message: message}, function(result){
-		    	$('#sendMail').prop('disabled', false);
-		    	if(result.success){
-		    		UIkit.modal("#send_mail").hide();
-					UIkit.modal.alert('<h2 class="uk-text-center"><i class="uk-icon-check-circle uk-icon-large"></i><br>'+result.success+'</h2>', {center: true});
-		    	}else if(result.error || !result){
-					UIkit.modal.alert('<h2 class="uk-text-center"><i class="uk-icon-check-circle uk-icon-large"></i><br>'+result.error+'</h2>', {center: true});
-		    	}
-	        });
-	    }
-
 	    function validateEmail(email) {
 		    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 		    return re.test(email);
@@ -538,11 +511,11 @@
 
 		function like() {
 			if(!liked){
-				$('#like_button_image').removeClass('uk-text-contrast').addClass('uk-text-primary');
-				$('#like_button').addClass('uk-text-primary');
+				$('#like_button_image').removeClass('uk-text-contrast').addClass('uk-text-danger');
+				$('#like_button').addClass('uk-text-danger');
 			}else{
-				$('#like_button_image').removeClass('uk-text-primary').addClass('uk-text-contrast');
-				$('#like_button').removeClass('uk-text-primary');
+				$('#like_button_image').removeClass('uk-text-danger').addClass('uk-text-contrast');
+				$('#like_button').removeClass('uk-text-danger');
 			}
 		    
 
@@ -550,24 +523,22 @@
 		    	if(result.success){
 		    		if(result.like){
 		    			liked = true;
-		    			$('#like_button_image').removeClass('uk-text-contrast').addClass('uk-text-primary');
-						$('#like_button').addClass('uk-text-primary');
-						UIkit.modal.confirm('<h3 class="uk-text-center">{{ trans('frontend.goto_favorites') }}</h3>', function(){
-						    // will be executed on confirm.
-							window.location.href = "{{ url('/favoritos') }}";
-						}, {labels:{Ok:'{{trans("admin.yes")}}', Cancel:'{{trans("admin.cancel")}}'}, center: true});
+		    			$('#like_button_image').removeClass('uk-text-contrast').addClass('uk-text-danger');
+						$('#like_button').addClass('uk-text-danger');
+						UIkit.modal.alert('<h2 class="uk-text-center"><i class="uk-icon-check-circle uk-icon-large"></i><br>'+result.success+'</h2>', {center: true});
+
 		    		}else{
 		    			liked = false;
-		    			$('#like_button_image').removeClass('uk-text-primary').addClass('uk-text-contrast');
-						$('#like_button').removeClass('uk-text-primary');
+		    			$('#like_button_image').removeClass('uk-text-danger').addClass('uk-text-contrast');
+						$('#like_button').removeClass('uk-text-danger');
 		    		}
 		    	}else if(result.error || !result){
 					if(liked){
-						$('#like_button_image').removeClass('uk-text-contrast').addClass('uk-text-primary');
-						$('#like_button').addClass('uk-text-primary');
+						$('#like_button_image').removeClass('uk-text-contrast').addClass('uk-text-danger');
+						$('#like_button').addClass('uk-text-danger');
 					}else{
-						$('#like_button_image').removeClass('uk-text-primary').addClass('uk-text-contrast');
-						$('#like_button').removeClass('uk-text-primary');
+						$('#like_button_image').removeClass('uk-text-danger').addClass('uk-text-contrast');
+						$('#like_button').removeClass('uk-text-danger');
 					}
 		    	}
 	        });

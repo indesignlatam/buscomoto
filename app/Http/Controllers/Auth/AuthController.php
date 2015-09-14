@@ -132,7 +132,7 @@ class AuthController extends Controller {
         }
 
         // Analytics event
-        Analytics::trackEvent('User Registered', 'button', $user->id, 1);
+        Analytics::trackEvent('user', 'registered', 'website', 1);
 
         if($cookie){
             return redirect($this->redirectPath())->withCookie($cookie);
@@ -167,7 +167,7 @@ class AuthController extends Controller {
 
         if (Auth::attempt($credentials, $request->has('remember'))) {
             // Analytics event
-            Analytics::trackEvent('User logged in', 'button', Auth::user()->id, 1);
+            Analytics::trackEvent('user', 'login', 'website', 1);
 
             // Get liked listings and create them
             $cookie = null;
@@ -254,7 +254,10 @@ class AuthController extends Controller {
             $user->attachRole($role);
 
             // Analytics event
-            Analytics::trackEvent('User Registered by Facebook', 'button', $user->id, 1);
+            Analytics::trackEvent('user', 'registered', 'social', 1);
+        }else{
+            // Analytics event
+            Analytics::trackEvent('user', 'login', 'social', 1);
         }
 
         Auth::login($user);

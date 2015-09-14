@@ -27,7 +27,7 @@ return [
 			/**
 			 * Tracking ID
 			 */
-			'tracking_id' => 'UA-49477139-5',
+			'tracking_id' => 'UA-49477139-6',
 
 			/**
 			 * Tracking Domain
