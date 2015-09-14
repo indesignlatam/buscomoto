@@ -9,8 +9,12 @@
 	<link href="{{ asset('/css/strength.min.css') }}" rel="stylesheet">
 	<style type="text/css">
 		html{
-		    background:#2089cf;
-		    height:100vh;
+			background-color: #000000;
+		    background-image: url("{{ asset('images/defaults/back.jpg') }}");
+		    -webkit-background-size: cover;
+			  -moz-background-size: cover;
+			  -o-background-size: cover;
+			  background-size: cover;
 		}
 	</style>
 @endsection
@@ -18,8 +22,8 @@
 @section('content')
 <div class="uk-container uk-container-center">
 	<a href="{{url('/')}}"><img src="{{ asset('/images/logo_h_contrast.png') }}" class="uk-align-center uk-margin-top uk-width-large-4-10"></a>
-	<div class="uk-panel uk-panel-box uk-panel-box-secondary uk-panel-header uk-width-large-4-10 uk-align-center">
-		<div class="uk-h1 uk-text-center uk-text-success uk-margin-top">
+	<div class="uk-panel uk-panel-box uk-panel-box-secondary uk-width-large-4-10 uk-align-center">
+		<div class="uk-h1 uk-text-center uk-text-primary">
 			{{ trans('auth.register') }}
 		</div>
 		@if (count($errors) > 0)
@@ -60,7 +64,7 @@
 			<!-- ReCaptcha -->
 			<div class="uk-form-row uk-width-large-8-10 uk-align-center">
 				<div class="g-recaptcha" data-sitekey="6Lc9XQwTAAAAAE7GXfLVOU_g3QcsodKReurbVRUp"></div>
-				<p class="uk-margin-remove uk-text-muted">{{ trans('admin.recaptcha_help') }}</p>
+				<p class="uk-margin-remove uk-text-primary">{{ trans('admin.recaptcha_help') }}</p>
 			</div>
 			<!-- ReCaptcha -->
 
@@ -68,7 +72,7 @@
 				<button type="submit" class="uk-button uk-button-success uk-width-large-8-10 uk-button-large">{{ trans('auth.register_button') }}</button>
 			</div>
 
-			<a class="uk-button uk-button-success uk-button-large uk-width-large-8-10 uk-margin-small-top" href="{{ url('/social-auth/facebook') }}" style="background-color:#2089cf;"><i class="uk-icon-facebook"></i> {{ trans('auth.facebook_register') }}</a>
+			<a class="uk-button uk-button-primary uk-button-large uk-width-large-8-10 uk-margin-small-top" href="{{ url('/social-auth/facebook') }}"><i class="uk-icon-facebook"></i> {{ trans('auth.facebook_register') }}</a>
 
 		</form>
 
