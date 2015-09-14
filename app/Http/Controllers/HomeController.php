@@ -28,7 +28,7 @@ class HomeController extends Controller {
 			$items = [];
 			$labels = [];
 			foreach ($users as $user) {
-				$labels[] 	= $user->created;
+				$labels[] 	= Carbon::createFromFormat('Y-m-d', $user->created)->formatLocalized('%A %d');
 				$items[] 	= $user->amount;
 			}
 			$datasetUsers = ['label' 		=> 'Registered users by day',
