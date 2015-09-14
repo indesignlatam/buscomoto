@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Auth;
-use Gmaps;
-use Geocoder;
 use Carbon;
 use Settings;
 use Queue;

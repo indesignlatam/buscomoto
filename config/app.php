@@ -151,11 +151,9 @@ return [
 		Bican\Roles\RolesServiceProvider::class,
 		Folklore\Image\ImageServiceProvider::class,
 		Laravel\Socialite\SocialiteServiceProvider::class,
-		Toin0u\Geocoder\GeocoderServiceProvider::class,
 		Ipunkt\LaravelAnalytics\AnalyticsServiceProvider::class,
 		Efriandika\LaravelSettings\SettingsServiceProvider::class,
 		Barryvdh\Debugbar\ServiceProvider::class,
-		IndesignColombia\Phpgmaps\PhpgmapsServiceProvider::class,
 		GrahamCampbell\Throttle\ThrottleServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
         Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider::class,
@@ -211,10 +209,8 @@ return [
          * Custom Libraries Facades...
          */
 		'Countries' => Webpatser\Countries\CountriesFacade::class,
-		'Gmaps' 	=> IndesignColombia\Phpgmaps\Facades\Phpgmaps::class,
 		'Image' 	=> Folklore\Image\Facades\Image::class,
 		'Socialize' => Laravel\Socialite\Facades\Socialite::class,
-		'Geocoder' 	=> Toin0u\Geocoder\Facade\Geocoder::class,
 		'Carbon' 	=> Carbon\Carbon::class,
 		'Analytics' => Ipunkt\LaravelAnalytics\AnalyticsFacade::class,
 		'Settings'  => Efriandika\LaravelSettings\Facades\Settings::class,
