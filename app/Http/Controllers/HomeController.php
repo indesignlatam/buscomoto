@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Auth;
+use App\User;
 use Carbon;
 use Settings;
 use App\Models\Appointment;
@@ -23,7 +24,29 @@ class HomeController extends Controller {
 	public function index(){
 
 		if(Auth::user()->is('admin')){
-			return view('admin.home.home');
+			$users = User::selectRaw('count(*) AS amount, date(created_at) AS created_at')->groupBy('created_at')->get();
+			$items = [];
+			$labels = [];
+			foreach ($users as $user) {
+				$labels[] 	= $user->created_at->toDateString();
+				$items[] 	= $user->amount;
+			}
+			$datasetUsers = ['label' 		=> 'Registered users by day',
+							 'fillColor' 	=> "rgba(220,220,220,0.2)",
+            				 'strokeColor' 	=> "rgba(220,220,220,1)",
+            				 'pointColor'	=> "rgba(220,220,220,1)",
+				             'pointStrokeColor' => "#fff",
+				             'pointHighlightFill' => "#fff",
+				             'pointHighlightStroke' => "rgba(220,220,220,1)",
+				             'data' 		=> $items,
+							];
+			$datasets[] = $datasetUsers;
+			$data = ['labels' => $labels,
+					 'datasets' => $datasets,
+					 ];
+
+			return view('admin.home.home', ['data' => $data,
+											]);
 		}elseif(Auth::user()->confirmed){
 			$messages 				= Appointment::remember(Settings::get('query_cache_time_extra_short'))
 												  ->leftJoin('listings',
