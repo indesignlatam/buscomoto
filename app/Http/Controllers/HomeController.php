@@ -24,7 +24,7 @@ class HomeController extends Controller {
 	public function index(){
 
 		if(Auth::user()->is('admin')){
-			$users = User::selectRaw('count(*) AS amount, date(created_at) AS created')->groupBy('created')->get();
+			$users = User::selectRaw('count(*) AS amount, date(created_at) AS created')->where('created_at', '>', Carbon::now()->subDays(7))->groupBy('created')->get();
 			$items = [];
 			$labels = [];
 			foreach ($users as $user) {

@@ -15,7 +15,8 @@
 
     <div class="uk-grid">
         <div class="uk-width-1-2">
-            <div class="uk-panel uk-panel-box">
+            <div class="uk-panel uk-panel-box uk-panel-box-secondary">
+                <h2>Registered users</h2>
                 <canvas id="users_chart" width="500px" height="200px"></canvas>
             </div>
         </div>
