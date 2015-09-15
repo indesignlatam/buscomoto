@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ecaaa9e0d7e7ba713240968e4169eb15",
+    "hash": "7013a3874628b6fb8658f8226b2ba9bb",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -896,6 +896,52 @@
                 "image processing"
             ],
             "time": "2014-11-11 11:36:02"
+        },
+        {
+            "name": "indesigncolombia/phpgmaps",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wanchopeblanco/Phpgmaps.git",
+                "reference": "d64bed6508c7995545f6ea6bd9b2acefad35b5bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wanchopeblanco/Phpgmaps/zipball/d64bed6508c7995545f6ea6bd9b2acefad35b5bc",
+                "reference": "d64bed6508c7995545f6ea6bd9b2acefad35b5bc",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "5.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "IndesignColombia\\Phpgmaps\\": "src/IndesignColombia/Phpgmaps/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Michael Hopkins",
+                    "email": "michael@appitventures.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "A codeigniter library that has been modified a bit so that it's laravel friendly",
+            "keywords": [
+                "biostall",
+                "googlemaps",
+                "laravel",
+                "phpgmaps"
+            ],
+            "time": "2015-07-01 01:26:18"
         },
         {
             "name": "ipunkt/laravel-analytics",
@@ -2807,6 +2853,62 @@
             "time": "2015-07-28 15:18:12"
         },
         {
+            "name": "toin0u/geocoder-laravel",
+            "version": "0.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geocoder-php/GeocoderLaravel.git",
+                "reference": "3cff8193e408472abc9852301a95e7c30e728ec5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geocoder-php/GeocoderLaravel/zipball/3cff8193e408472abc9852301a95e7c30e728ec5",
+                "reference": "3cff8193e408472abc9852301a95e7c30e728ec5",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "php": ">=5.4",
+                "willdurand/geocoder": "~2.4"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.0",
+                "phpunit/phpunit": "~4.5",
+                "satooshi/php-coveralls": "~0.6"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Toin0u\\Geocoder\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Antoine Corcy",
+                    "email": "contact@sbin.dk",
+                    "homepage": "http://sbin.dk",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Geocoder Service provider for Laravel 4",
+            "homepage": "http://geocoder-php.org/",
+            "keywords": [
+                "geocoder",
+                "geocoding",
+                "laravel"
+            ],
+            "time": "2015-07-10 09:04:22"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v1.1.1",
             "source": {
@@ -2951,6 +3053,70 @@
                 "laravel"
             ],
             "time": "2015-06-10 07:52:21"
+        },
+        {
+            "name": "willdurand/geocoder",
+            "version": "2.8.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geocoder-php/Geocoder.git",
+                "reference": "8a66b8a227328f28ba12f98937a33c6fa0bb90f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geocoder-php/Geocoder/zipball/8a66b8a227328f28ba12f98937a33c6fa0bb90f8",
+                "reference": "8a66b8a227328f28ba12f98937a33c6fa0bb90f8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "geoip/geoip": "~1.13",
+                "geoip2/geoip2": "~0.6",
+                "guzzle/guzzle": "@stable",
+                "kriswallsmith/buzz": "@stable",
+                "zendframework/zend-http": "~2.1"
+            },
+            "suggest": {
+                "ext-curl": "Enabling the curl extension allows you to use the CurlHttpAdapter.",
+                "ext-geoip": "Enabling the geoip extension allows you to use the MaxMindProvider.",
+                "geoip/geoip": "If you are going to use the MaxMindBinaryProvider (conflict with geoip extension).",
+                "geoip2/geoip2": "If you are going to use the GeoIP2DatabaseProvider.",
+                "guzzle/guzzle": "Enabling Guzzle allows you to use the GuzzleHttpAdapter.",
+                "kriswallsmith/buzz": "Enabling Buzz allows you to use the BuzzHttpAdapter.",
+                "zendframework/zend-http": "Enabling Zend Http allows you to use the ZendHttpAdapter."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Geocoder": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "William Durand",
+                    "email": "william.durand1@gmail.com"
+                }
+            ],
+            "description": "The almost missing Geocoder PHP 5.3 library.",
+            "homepage": "http://geocoder-php.org",
+            "keywords": [
+                "abstraction",
+                "geocoder",
+                "geocoding",
+                "geoip"
+            ],
+            "time": "2015-01-07 13:23:35"
         }
     ],
     "packages-dev": [
@@ -4336,75 +4502,13 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2015-07-28 14:07:07"
-        },
-        {
-            "name": "willdurand/geocoder",
-            "version": "2.8.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/geocoder-php/Geocoder.git",
-                "reference": "8a66b8a227328f28ba12f98937a33c6fa0bb90f8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/Geocoder/zipball/8a66b8a227328f28ba12f98937a33c6fa0bb90f8",
-                "reference": "8a66b8a227328f28ba12f98937a33c6fa0bb90f8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "geoip/geoip": "~1.13",
-                "geoip2/geoip2": "~0.6",
-                "guzzle/guzzle": "@stable",
-                "kriswallsmith/buzz": "@stable",
-                "zendframework/zend-http": "~2.1"
-            },
-            "suggest": {
-                "ext-curl": "Enabling the curl extension allows you to use the CurlHttpAdapter.",
-                "ext-geoip": "Enabling the geoip extension allows you to use the MaxMindProvider.",
-                "geoip/geoip": "If you are going to use the MaxMindBinaryProvider (conflict with geoip extension).",
-                "geoip2/geoip2": "If you are going to use the GeoIP2DatabaseProvider.",
-                "guzzle/guzzle": "Enabling Guzzle allows you to use the GuzzleHttpAdapter.",
-                "kriswallsmith/buzz": "Enabling Buzz allows you to use the BuzzHttpAdapter.",
-                "zendframework/zend-http": "Enabling Zend Http allows you to use the ZendHttpAdapter."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.8-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Geocoder": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "William Durand",
-                    "email": "william.durand1@gmail.com"
-                }
-            ],
-            "description": "The almost missing Geocoder PHP 5.3 library.",
-            "homepage": "http://geocoder-php.org",
-            "keywords": [
-                "abstraction",
-                "geocoder",
-                "geocoding",
-                "geoip"
-            ],
-            "time": "2015-01-07 13:23:35"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "indesigncolombia/phpgmaps": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

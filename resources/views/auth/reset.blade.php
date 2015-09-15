@@ -9,7 +9,7 @@
 	<link href="{{ asset('/css/strength.min.css') }}" rel="stylesheet">
 	<style type="text/css">
 		body {
-		    background-color: #1C7BBA;
+		    background-color: #2089cf;
 		    height:100vh;
 		}
 	</style>

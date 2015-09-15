@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Auth;
+use Gmaps;
+use Geocoder;
 use Carbon;
 use Settings;
 use Queue;
@@ -251,7 +253,7 @@ class ListingController extends Controller {
 		$input['year'] 		= preg_replace("/[^0-9]/", "", $input['year']);
 		$input['odometer'] 	= preg_replace("/[^0-9]/", "", $input['odometer']);
 		$input['engine_size'] = preg_replace("/[^0-9]/", "", $input['engine_size']);
-		$input['user_id'] 	= $listing->user_id;
+		$input['user_id'] 	= Auth::user()->id;
 
 		// If year input is less than 500 is not a year is the age so substract current year - age
 		if((int)$input['year'] < 500){
@@ -260,7 +262,7 @@ class ListingController extends Controller {
 
 
 		if (!$listing->validate($input)){
-			return redirect('admin/listings/'.$id.'/edit')->withErrors($listing->errors())->withInput();
+	        return redirect('admin/listings/create')->withErrors($listing->errors())->withInput();
 	    }
 
 		// Update the listing

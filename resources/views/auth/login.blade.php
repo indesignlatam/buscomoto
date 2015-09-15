@@ -8,12 +8,8 @@
 	<link href="{{ asset('/css/uikit.flat.min.css') }}" rel="stylesheet">
 	<style type="text/css">
 		html{
-		@if(!Agent::isMobile())
-			background-color: #000;
-		    background-image: url("{{ asset('images/defaults/back.jpg') }}");
-		@else
-			background-color: #1C7BBA;
-		@endif
+			background-color: #000000;
+		    background-image: url("{{ asset('/images/defaults/back.jpg') }}");
 		    -webkit-background-size: cover;
 			-moz-background-size: cover;
 			-o-background-size: cover;
