@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Auth;
+use App\User;
 use Carbon;
 use Settings;
 use App\Models\Appointment;
@@ -23,7 +24,83 @@ class HomeController extends Controller {
 	public function index(){
 
 		if(Auth::user()->is('admin')){
-			return view('admin.home.home');
+			// Users dataset
+			$users = User::selectRaw('count(*) AS amount, date(created_at) AS created')->where('created_at', '>', Carbon::now()->subDays(30))->groupBy('created')->get();
+			$items = [];
+			$labels = [];
+			foreach ($users as $user) {
+				$labels[] 	= Carbon::createFromFormat('Y-m-d', $user->created)->formatLocalized('%a %d %b');
+				$items[] 	= $user->amount;
+			}
+			$datasetUsers = ['label' 		=> 'Registered users by day',
+							 'fillColor' 	=> "rgba(220,220,220,0.2)",
+            				 'strokeColor' 	=> "rgba(220,220,220,1)",
+            				 'pointColor'	=> "rgba(220,220,220,1)",
+				             'pointStrokeColor' => "#fff",
+				             'pointHighlightFill' => "#fff",
+				             'pointHighlightStroke' => "rgba(220,220,220,1)",
+				             'data' 		=> $items,
+							];
+			$datasets[] = $datasetUsers;
+			// Graph data
+			$data = ['labels' => $labels,
+					 'datasets' => $datasets,
+					 ];
+
+			// Listings dataset
+			$listings = Listing::selectRaw('count(*) AS amount, date(created_at) AS created')->where('created_at', '>', Carbon::now()->subDays(30))->groupBy('created')->get();
+			$items = [];
+			$labels = [];
+			foreach ($listings as $listing) {
+				$labels[] 	= Carbon::createFromFormat('Y-m-d', $listing->created)->formatLocalized('%a %d %b');
+				$items[] 	= $listing->amount;
+			}
+			$datasetlistings = [ 'label' 		=> 'Registered users by day',
+								 'fillColor' 	=> "rgba(151,187,205,0.2)",
+	            				 'strokeColor' 	=> "rgba(151,187,205,1)",
+	            				 'pointColor'	=> "rgba(151,187,205,1)",
+					             'pointStrokeColor' => "#fff",
+					             'pointHighlightFill' => "#fff",
+					             'pointHighlightStroke' => "rgba(151,187,205,1)",
+					             'data' 		=> $items,
+								];
+			$datasets = null;
+			$datasets[] = $datasetlistings;
+			// Graph data
+			$data2 = ['labels' => $labels,
+					 'datasets' => $datasets,
+					 ];
+
+
+			// Messages dataset
+			$messages = Appointment::selectRaw('count(*) AS amount, date(created_at) AS created')->where('created_at', '>', Carbon::now()->subDays(30))->groupBy('created')->get();
+			$items = [];
+			$labels = [];
+			foreach ($messages as $message) {
+				$labels[] 	= Carbon::createFromFormat('Y-m-d', $message->created)->formatLocalized('%a %d %b');
+				$items[] 	= $message->amount;
+			}
+			$datasetMessages = [ 'label' 		=> 'Registered users by day',
+								 'fillColor' 	=> "rgba(151,187,205,0.2)",
+	            				 'strokeColor' 	=> "rgba(151,187,205,1)",
+	            				 'pointColor'	=> "rgba(151,187,205,1)",
+					             'pointStrokeColor' => "#fff",
+					             'pointHighlightFill' => "#fff",
+					             'pointHighlightStroke' => "rgba(151,187,205,1)",
+					             'data' 		=> $items,
+								];
+			$datasets = null;
+			$datasets[] = $datasetMessages;
+			// Graph data
+			$data3 = ['labels' => $labels,
+					  'datasets' => $datasets,
+					 ];
+			
+
+			return view('admin.home.home', ['data' => $data,
+											'data2'=> $data2,
+											'data3'=> $data3,
+											]);
 		}elseif(Auth::user()->confirmed){
 			$messages 				= Appointment::remember(Settings::get('query_cache_time_extra_short'))
 												  ->leftJoin('listings',

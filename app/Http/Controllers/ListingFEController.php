@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-use Gmaps;
 use Image;
 use Cookie;
 use	Settings;

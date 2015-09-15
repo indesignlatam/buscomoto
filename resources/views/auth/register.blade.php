@@ -6,11 +6,18 @@
 
 @section('css')
 	<link href="{{ asset('/css/uikit.flat.min.css') }}" rel="stylesheet">
+	@if(!Agent::isMobile())
 	<link href="{{ asset('/css/strength.min.css') }}" rel="stylesheet">
+	@endif
+
 	<style type="text/css">
 		html{
-			background-color: #000000;
+		@if(!Agent::isMobile())
+			background-color: #000;
 		    background-image: url("{{ asset('images/defaults/back.jpg') }}");
+		@else
+			background-color: #1C7BBA;
+		@endif
 		    -webkit-background-size: cover;
 			  -moz-background-size: cover;
 			  -o-background-size: cover;
@@ -61,12 +68,14 @@
 				<input type="password" id="password" class="uk-width-large-8-10 uk-form-large" placeholder="{{ trans('auth.password') }}" name="password" style="z-index:10;">
 			</div>
 
+			@if(!Agent::isMobile())
 			<!-- ReCaptcha -->
 			<div class="uk-form-row uk-width-large-8-10 uk-align-center">
 				<div class="g-recaptcha" data-sitekey="6Lc9XQwTAAAAAE7GXfLVOU_g3QcsodKReurbVRUp"></div>
 				<p class="uk-margin-remove uk-text-primary">{{ trans('admin.recaptcha_help') }}</p>
 			</div>
 			<!-- ReCaptcha -->
+			@endif
 
 			<div class="uk-form-row">
 				<button type="submit" class="uk-button uk-button-success uk-width-large-8-10 uk-button-large">{{ trans('auth.register_button') }}</button>
@@ -90,9 +99,11 @@
 @endsection
 
 @section('js')
-	<script async src='https://www.google.com/recaptcha/api.js'></script>
 	<script src="{{ asset('/js/jquery.min.js') }}"></script>
     <script src="{{ asset('/js/uikit.min.js') }}"></script>
+
+@if(!Agent::isMobile())
+	<script async src='https://www.google.com/recaptcha/api.js'></script>
     <script async src="{{ asset('/js/strength.min.js') }}"></script>
 
     <script>
@@ -106,4 +117,5 @@
 	        });
 		});
 	</script>
+@endif
 @endsection

@@ -188,7 +188,7 @@ return [
 
     // Confirmation sent
     'confirmation_sent'         => 'Mensaje de confirmación enviado',
-    'confirmation_sent_text'    => 'En tu cuenta de correo electrónico encontrarás un mensaje del Equipo BuscoMoto.co con un enlace para confirmar tu cuenta de correo y acceder a todos los beneficios de nuestra plataforma.',
+    'confirmation_sent_text'    => 'En tu cuenta de correo electrónico encontrarás un mensaje del Equipo BuscoMoto.co con un enlace para confirmar tu cuenta y poder recibir mensajes de clientes potenciales y acceder a todos los beneficios de BuscoMoto.co',
     'confirmation_sent_title'   => 'Hemos enviado un mensaje a tu cuenta de correo electrónico',
     'confirmation_sent_spam'    => 'Revisa tu cuenta de correo, si no encuentras el mensaje en tu carpeta de recibidos revisa la carpeta de spam.',
     //
