@@ -2,7 +2,11 @@
 	<div class="uk-grid">
 		<div class="uk-width-large-2-10 uk-width-medium-2-10 uk-width-small-1-1">
 			<a href="{{ url('/admin/listings/'.$listing->id.'/edit') }}">
-				<img src="{{ asset(Image::url($listing->image_path(),['map_mini'])) }}">
+                @if(Agent::isMobile())
+				    <img src="{{ asset(Image::url($listing->image_path(),['mini_front_2x'])) }}">
+                @else
+                    <img src="{{ asset(Image::url($listing->image_path(),['map_mini'])) }}">
+                @endif
 			</a>
 		</div>
 
@@ -10,6 +14,10 @@
 			<!-- Listing title -->
 			<a class="uk-h3 uk-text-bold" style="color:black;" href="{{ url($listing->pathEdit()) }}">{{ $listing->title }}</a>
 			<!-- Listing title -->
+
+            <div class="uk-visible-small">
+                <b>{{ $listing->views . ' ' . trans('admin.views') }}</b>
+            </div>
 
 			<!-- Featured tag -->
         	@if($listing->featured_type && $listing->featured_expires_at && $listing->featured_expires_at > Carbon::now())
@@ -28,7 +36,7 @@
     				@if($listing->odometer >= 0)
     					<li><i class="uk-text-muted">{{ trans('admin.odometer') }}</i> {{ number_format($listing->odometer) }} kms</li>
     				@endif
-    				<li><i class="uk-text-muted">{{ trans('admin.code') }}</i> #{{ $listing->code }}</li>
+    				<li><i class="uk-text-muted">{{ trans('admin.views') }}:</i> {{ $listing->views }}</li>
     			</ul>
 
     			<ul class="uk-list uk-list-line uk-width-4-10">
@@ -118,6 +126,7 @@
                 <a class="uk-button uk-width-1-1 uk-margin-small-bottom" href="{{ url($listing->path()) }}" target="_blank">{{ trans('admin.view_listing') }}</a>
     			<!-- View in frontend button -->
 
+                @if(!Agent::isMobile())
     			<!-- Edit and delete buttons -->
         		<div class="uk-flex uk-flex-center uk-flex-space-between">
         			<a class="uk-button" href="{{ url('/admin/listings/'.$listing->id.'/edit') }}">{{ trans('admin.edit') }}</a>
@@ -125,6 +134,17 @@
                     <a class="uk-button uk-button-danger" id="{{ $listing->id }}" onclick="deleteObject(this)" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.eliminate_listing') }}"><i class="uk-icon-trash"></i></a>
     			</div>
     			<!-- Edit and delete buttons -->
+                @else
+                    <div class="">
+                        <div class="uk-flex">
+                            <a onclick="share('{{ url($listing->path()) }}', {{ $listing->id }})" class="uk-button uk-button-primary uk-width-1-3"><i class="uk-icon-facebook"></i></a>
+
+                            <a class="uk-button uk-button-success uk-width-1-3 twitter-share-button" href="https://twitter.com/intent/tweet?text=Hello%20world%20{{ url($listing->path()) }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=440,width=600');return false;" style="background-color:#4099FF"><i class="uk-icon-twitter"></i></a>
+
+                            <a class="uk-button uk-button-danger uk-width-1-3" id="{{ $listing->id }}" onclick="deleteObject(this)" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.eliminate_listing') }}"><i class="uk-icon-trash"></i></a>
+                        </div>
+                    </div>
+                @endif
     		@endif
         </div>
 	</div>

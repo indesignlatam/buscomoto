@@ -51,7 +51,7 @@ class TipsEmail extends Command {
 
 		if(count($listings) > 0){
 			$this->info('Started sending '.count($listings).' tip emails');
-			// $this->output->progressStart(count($listings));//Only for laravel 5.1
+			$this->output->progressStart(count($listings));//Only for laravel 5.1
 
 			$ids = [];
 			foreach ($listings as $listing) {
@@ -60,14 +60,14 @@ class TipsEmail extends Command {
 					Queue::push(new SendTipsEmail($listing));
 					
 					$ids[] = $listing->user->id;
-					// $this->output->progressAdvance();//Only for laravel 5.1
+					$this->output->progressAdvance();//Only for laravel 5.1
 				}
 			}
 
 			DB::table('users')
 	            ->whereIn('id', $ids)
 	            ->update(['tips_sent_at' => Carbon::now()]);
-			// $this->output->progressFinish(); //Only for laravel 5.1
+			$this->output->progressFinish(); //Only for laravel 5.1
 			$this->info('Finished sending tip emails');
 		}else{
 			$this->info('There are no listings to send tips');

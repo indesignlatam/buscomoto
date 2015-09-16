@@ -42,6 +42,7 @@ class WelcomeController extends Controller {
 							 ->with('listingType')
 							 ->orderBy('featured_type', 'DESC')
 							 ->orderBy('featured_expires_at', 'DESC')
+							 ->orderBy('id', 'DESC')
 							 ->take(20)
 							 ->get();
 

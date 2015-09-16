@@ -102,8 +102,9 @@
 		                                <div class="uk-dropdown uk-dropdown-small">
 		                                    <ul class="uk-nav uk-nav-dropdown">
 		                                        <li><a href="{{ url('/admin/listings/'.$listing->id.'/edit') }}">{{ trans('admin.edit') }}</a></li>
-		                                        <li><a href="{{ url('/admin/listings/'.$listing->id.'/edit') }}">{{ trans('admin.edit') }}</a></li>
-		                                        <li><a href="bikes/types/clone/{{ $listing->id }}">{{ trans('admin.clone') }}</a></li>
+		                                        <li><a href="{{ url('/admin/messages/'.$listing->id) }}">{{ trans('admin.view_messages') }}</a></li>
+		                                        <li><a href="{{ url('admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.renovate') }}</a></li>
+		                                        <li><a href="#send_mail" onclick="setListing({{ $listing->id }})" data-uk-modal="{center:true}">{{ trans('admin.send_mail') }}</a></li>
 		                                        <li><a id="{{ $listing->id }}" onclick="deleteObject(this)">{{ trans('admin.delete') }}</a></li>
 		                                    </ul>
 		                                </div>
@@ -120,50 +121,54 @@
 
 			<hr>
 			@if(count($listings) > 0)
-			    <div class="">
-			        <a class="uk-button uk-button-large uk-button-primary" href="{{ url('/admin/listings/create') }}">{{ trans('admin.publish_listing') }}</a>
-			        <a class="uk-button uk-button-large" href="{{ url('/admin/listings/?deleted=true') }}" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.eliminated_listings') }}"><i class="uk-icon-trash"></i></a>
+				@if(Agent::isMobile())
+					<a class="uk-button uk-button-large uk-button-primary uk-width-1-1" href="{{ url('/admin/listings/create') }}">{{ trans('admin.publish_listing') }}</a>
+				@else
+				    <div class="">
+				        <a class="uk-button uk-button-large uk-button-primary" href="{{ url('/admin/listings/create') }}">{{ trans('admin.publish_listing') }}</a>
+				        <a class="uk-button uk-button-large" href="{{ url('/admin/listings/?deleted=true') }}" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.eliminated_listings') }}"><i class="uk-icon-trash"></i></a>
 
-			        <form action="{{url(Request::path())}}" method="GET" class="uk-form uk-align-right uk-hidden-small">
-			        	<input type="text" name="search" placeholder="{{ trans('admin.search') }}" class="uk-form-width-small" value="{{ Request::get('search') }}">
-						<select name="take" onchange="this.form.submit()">
-					    	<option value="">{{ trans('admin.elements_amount') }}</option>
-					    	@if(Request::get('take') == 50)
-					    		<option value="50" selected>{{ trans('admin.elements_50') }}</option>
-					    	@else
-					    		<option value="50">{{ trans('admin.elements_50') }}</option>
-					    	@endif
+				        <form action="{{url(Request::path())}}" method="GET" class="uk-form uk-align-right uk-hidden-small">
+				        	<input type="text" name="search" placeholder="{{ trans('admin.search') }}" class="uk-form-width-small" value="{{ Request::get('search') }}">
+							<select name="take" onchange="this.form.submit()">
+						    	<option value="">{{ trans('admin.elements_amount') }}</option>
+						    	@if(Request::get('take') == 50)
+						    		<option value="50" selected>{{ trans('admin.elements_50') }}</option>
+						    	@else
+						    		<option value="50">{{ trans('admin.elements_50') }}</option>
+						    	@endif
 
-					    	@if(Request::get('take') == 30)
-					    		<option value="30" selected>{{ trans('admin.elements_30') }}</option>
-					    	@else
-					    		<option value="30">{{ trans('admin.elements_30') }}</option>
-					    	@endif
+						    	@if(Request::get('take') == 30)
+						    		<option value="30" selected>{{ trans('admin.elements_30') }}</option>
+						    	@else
+						    		<option value="30">{{ trans('admin.elements_30') }}</option>
+						    	@endif
 
-					    	@if(Request::get('take') == 10)
-					    		<option value="10" selected>{{ trans('admin.elements_10') }}</option>
-					    	@else
-					    		<option value="10">{{ trans('admin.elements_10') }}</option>
-					    	@endif
-					    </select>
+						    	@if(Request::get('take') == 10)
+						    		<option value="10" selected>{{ trans('admin.elements_10') }}</option>
+						    	@else
+						    		<option value="10">{{ trans('admin.elements_10') }}</option>
+						    	@endif
+						    </select>
 
-					    <select name="order_by" onchange="this.form.submit()">
-					    	<option value="">{{ trans('admin.order_by') }}</option>
-				    		
-					    	@if(Request::get('order_by') == 'id_desc')
-					    		<option value="id_desc" selected>{{ trans('admin.order_newer_first') }}</option>
-					    	@else
-					    		<option value="id_desc">{{ trans('admin.order_newer_first') }}</option>
-					    	@endif
+						    <select name="order_by" onchange="this.form.submit()">
+						    	<option value="">{{ trans('admin.order_by') }}</option>
+					    		
+						    	@if(Request::get('order_by') == 'id_desc')
+						    		<option value="id_desc" selected>{{ trans('admin.order_newer_first') }}</option>
+						    	@else
+						    		<option value="id_desc">{{ trans('admin.order_newer_first') }}</option>
+						    	@endif
 
-					    	@if(Request::get('order_by') == 'exp_desc')
-					    		<option value="exp_desc" selected>{{ trans('admin.order_expiring_first') }}</option>
-					    	@else
-					    		<option value="exp_desc">{{ trans('admin.order_expiring_first') }}</option>
-					    	@endif
-					    </select>
-					</form>
-			    </div>
+						    	@if(Request::get('order_by') == 'exp_desc')
+						    		<option value="exp_desc" selected>{{ trans('admin.order_expiring_first') }}</option>
+						    	@else
+						    		<option value="exp_desc">{{ trans('admin.order_expiring_first') }}</option>
+						    	@endif
+						    </select>
+						</form>
+				    </div>
+				@endif
 			@endif
 			
 			@if(!Request::get('deleted') && count($listings) > 0)
@@ -360,7 +365,7 @@
 			    		UIkit.notify('<i class="uk-icon-remove"></i> '+result.error, {pos:'top-right', status:'danger', timeout: 5000});
 			    	}
 		        });
-			}, {labels:{Ok:'{{trans("admin.yes")}}', Cancel:'{{trans("admin.cancel")}}'}});
+			}, {labels:{Ok:'{{trans("admin.yes")}}', Cancel:'{{trans("admin.cancel")}}'}, center: true});
 	    }
 
 	    function sendMail(sender) {
