@@ -122,20 +122,68 @@ class ImageController extends Controller {
 		}
 
 		// Rotate the image if necessary
+		$imgSize = null;
 		if($rotation != 0){
 			$img = Image::open(public_path().'/images/temp/'.$name);
 			$img->rotate($rotation);
 			$img->save('images/temp/'.$name);
 		}
+
+
+		//Create the color background
+		$palette = new \Imagine\Image\Palette\RGB();
+		$colorImage = Image::create(new \Imagine\Image\Box(960, 540), $palette->color('#fff'));
+		$colorSize = $colorImage->getSize();
+
+		//Open the image
+		$uImage = Image::make('/images/temp/'.$name);
+		$imageSize = $uImage->getSize();
+		$ratio = $imageSize->getWidth() / $imageSize->getHeight();
+		$newW = 540*$ratio;
+		$uImage = $uImage->thumbnail(new \Imagine\Image\Box($newW, 540));
+
+		// Get new imageSize
+		$imageSize = $uImage->getSize();
+
+		// Put watermark
+		$watermark 		= Image::open(public_path().'/images/watermark_contrast.png');// Or use watermark.png for color watermark
+		$wSize     		= $watermark->getSize();
+
+		// Set watermark if it fits
+		$wPut = false;
+		if(($imageSize->getWidth() - $wSize->getWidth()-15) > 0 && ($imageSize->getHeight() - $wSize->getHeight()-15) > 0){
+			$wPut = true;
+			$bottomRight = new \Imagine\Image\Point($imageSize->getWidth() - $wSize->getWidth()-15, $imageSize->getHeight() - $wSize->getHeight()-15);
+			$uImage->paste($watermark, $bottomRight);
+		}
+		
+		//Get the center point
+		$x = ($colorSize->getWidth() - $imageSize->getWidth())/2;
+		$y = ($colorSize->getHeight() - $imageSize->getHeight())/2;
+		$centerPoint = new \Imagine\Image\Point($x, $y);
+
+		//Paste the image on the color background and save
+		$colorImage->paste($uImage, $centerPoint);
+
+		// If watermark is not set set it now
+		if(!$wPut){
+			$bottomRight = new \Imagine\Image\Point($colorSize->getWidth() - $wSize->getWidth()-15, $colorSize->getHeight() - $wSize->getHeight()-15);
+			$colorImage->paste($watermark, $bottomRight);
+		}
+
+		// Save final image
+		$colorImage->save('images/listings/full/'.$name);
+
+
 		
 		// Crop image, watermark
-		$img 			= Image::make('/images/temp/'.$name, ['width' => 960, 'height' => 540, 'crop' => true]);
-		$watermark 		= Image::open(public_path().'/images/watermark_contrast.png');// Or use watermark.png for color watermark
-		$size      		= $img->getSize();
-		$wSize     		= $watermark->getSize();
-		$bottomRight 	= new \Imagine\Image\Point($size->getWidth() - $wSize->getWidth()-15, $size->getHeight() - $wSize->getHeight()-15);
-		$img->paste($watermark, $bottomRight);
-		$img->save('images/listings/full/'.$name);
+		// $img 			= Image::make('/images/temp/'.$name, ['width' => 960, 'height' => 540, 'crop' => true]);
+		// $watermark 		= Image::open(public_path().'/images/watermark_contrast.png');// Or use watermark.png for color watermark
+		// $size      		= $img->getSize();
+		// $wSize     		= $watermark->getSize();
+		// $bottomRight 	= new \Imagine\Image\Point($size->getWidth() - $wSize->getWidth()-15, $size->getHeight() - $wSize->getHeight()-15);
+		// $img->paste($watermark, $bottomRight);
+		// $img->save('images/listings/full/'.$name);
 
 		// Delete the temp file
 		File::delete(public_path().'/images/temp/'.$name);
