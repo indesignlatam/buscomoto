@@ -351,7 +351,22 @@
 	    			@if(count($related))
 	    				<h2>{{ trans('frontend.similar_listings') }}</h2>
 		    			<div class="uk-grid">
+		    			@if(Agent::isMobile())
 		    				@foreach($related as $rlisting)
+		    				<div class="uk-width-large-1-4 uk-width-medium-1-4 uk-margin-bottom">
+			    				<a href="{{ url($rlisting->path()) }}" class="uk-panel uk-panel-box">
+			    					<img src="{{ asset(Image::url( $rlisting->image_path(), ['map_mini']) ) }}" alt="{{$rlisting->title}}" data-uk-scrollspy="{cls:'uk-animation-fade'}">
+				    				<div class="uk-margin-small-top">
+				    					<h3 class="uk-margin-remove">{{ $rlisting->title }}</h4>
+									    <span class="uk-margin-top-remove">
+									    	{{ money_format('$%!.0i', $rlisting->price) }} | {{ number_format($rlisting->odometer) }} kms
+									    </span>
+									</div>
+								</a>
+							</div>
+							@endforeach
+						@else
+							@foreach($related as $rlisting)
 		    				<div class="uk-width-large-1-4 uk-width-medium-1-4">
 			    				<div class="uk-overlay uk-overlay-hover uk-margin-small">
 			    					<img src="{{ asset(Image::url( $rlisting->image_path(), ['map_mini']) ) }}" alt="{{$rlisting->title}}" data-uk-scrollspy="{cls:'uk-animation-fade'}">
@@ -363,6 +378,7 @@
 								</div>
 							</div>
 							@endforeach
+						@endif
 		    			</div>
 	    			@endif
 	    		</div>
