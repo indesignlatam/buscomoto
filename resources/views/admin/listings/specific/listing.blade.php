@@ -36,7 +36,7 @@
     				@if($listing->odometer >= 0)
     					<li><i class="uk-text-muted">{{ trans('admin.odometer') }}</i> {{ number_format($listing->odometer) }} kms</li>
     				@endif
-    				<li><i class="uk-text-muted">{{ trans('admin.code') }}</i> #{{ $listing->code }}</li>
+    				<li><i class="uk-text-muted">{{ trans('admin.views') }}:</i> {{ $listing->views }}</li>
     			</ul>
 
     			<ul class="uk-list uk-list-line uk-width-4-10">
