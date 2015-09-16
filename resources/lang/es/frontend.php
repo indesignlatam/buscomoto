@@ -52,7 +52,8 @@ return [
     'latest_listings_naked'     => 'Nuevas motos deportivas y naked',
     'latest_listings_street'    => 'Nuevas motos de calle',
     'latest_listings_cross'     => 'Nuevas motos de enduro, cross y motard',
-
+    'already_have_account'      => 'Ya tengo una cuenta',
+    
     //Featured
     'featured_listing'          => 'Publicaciones destacadas',
     'listing_featured'          => 'Publicación destacada',

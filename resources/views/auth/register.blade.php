@@ -79,9 +79,10 @@
 
 			<div class="uk-form-row">
 				<button type="submit" class="uk-button uk-button-success uk-width-large-8-10 uk-button-large">{{ trans('auth.register_button') }}</button>
+				<a href="{{ url('/auth/login') }}" class="uk-button uk-button-large uk-button-primary uk-width-1-1 uk-margin-small-top uk-visible-small">{{ trans('frontend.already_have_account') }}</a>
 			</div>
 
-			<a class="uk-button uk-button-primary uk-button-large uk-width-large-8-10 uk-margin-small-top" href="{{ url('/social-auth/facebook') }}"><i class="uk-icon-facebook"></i> {{ trans('auth.facebook_register') }}</a>
+			<a class="uk-button uk-button-primary uk-button-large uk-width-large-8-10 uk-margin-small-top uk-hidden-small" href="{{ url('/social-auth/facebook') }}"><i class="uk-icon-facebook"></i> {{ trans('auth.facebook_register') }}</a>
 
 		</form>
 
