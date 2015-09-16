@@ -154,7 +154,7 @@ class HomeController extends Controller {
 												 ]);
 		}
 		
-		return redirect('/admin/listings');
+		return redirect('/admin/user/not_confirmed');
 	}
 
 	/**
