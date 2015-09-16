@@ -95,6 +95,7 @@ return [
     'aditional_check_tooltip'   => 'No has escrito una descripción adicional completa',
     'features_check_tooltip'    => 'Tu publicación no tiene suficientes características',
     'no_listings_found'         => 'No encontramos ninguna publicación',
+    'send_mail'                 => 'Enviar por correo',
 
     // Create & edit Listing ================================================================== ==================================================================
     'new_listing' 				=> 'Nueva publicación',

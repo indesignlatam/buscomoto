@@ -102,8 +102,9 @@
 		                                <div class="uk-dropdown uk-dropdown-small">
 		                                    <ul class="uk-nav uk-nav-dropdown">
 		                                        <li><a href="{{ url('/admin/listings/'.$listing->id.'/edit') }}">{{ trans('admin.edit') }}</a></li>
-		                                        <li><a href="{{ url('/admin/listings/'.$listing->id.'/edit') }}">{{ trans('admin.edit') }}</a></li>
-		                                        <li><a href="bikes/types/clone/{{ $listing->id }}">{{ trans('admin.clone') }}</a></li>
+		                                        <li><a href="{{ url('/admin/messages/'.$listing->id) }}">{{ trans('admin.view_messages') }}</a></li>
+		                                        <li><a href="{{ url('admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.renovate') }}</a></li>
+		                                        <li><a href="#send_mail" onclick="setListing({{ $listing->id }})" data-uk-modal="{center:true}">{{ trans('admin.send_mail') }}</a></li>
 		                                        <li><a id="{{ $listing->id }}" onclick="deleteObject(this)">{{ trans('admin.delete') }}</a></li>
 		                                    </ul>
 		                                </div>
