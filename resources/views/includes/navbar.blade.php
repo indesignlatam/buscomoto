@@ -43,14 +43,14 @@
             @if(Auth::check())
                 @role('admin')
                     <li class="uk-parent" data-uk-dropdown="">
-                        <a href="{{ url('/admin/config') }}">{{ trans('admin.system') }}<b class="uk-icon-caret-down uk-margin-small-left"></b></a>
+                        <a href="{{ url('/admin') }}">{{ trans('admin.system') }}<b class="uk-icon-caret-down uk-margin-small-left"></b></a>
                         <div class="uk-dropdown uk-dropdown-navbar">
                             <ul class="uk-nav uk-nav-navbar">
-                                <li><a href="{{ url('/admin/config') }}">{{ trans('admin.configuration') }}</a></li>
-                                <li class="uk-nav-divider"></li>
                                 <li><a href="{{ url('/admin/users') }}">{{ trans('admin.users') }}</a></li>
                                 <li><a href="{{ url('/admin/roles') }}">{{ trans('admin.roles') }}</a></li>
-                                <li><a href="{{ url('/admin/permissions') }}">{{ trans('admin.permissions') }}</a></li> 
+                                <li><a href="{{ url('/admin/permissions') }}">{{ trans('admin.permissions') }}</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="{{ url('/admin/config') }}">{{ trans('admin.configuration') }}</a></li>
                             </ul>
                         </div>
                     </li>
