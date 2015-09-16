@@ -212,9 +212,7 @@
     					<li><i class="uk-text-muted">{{ trans('admin.year') }}</i> {{ $listing->year }}</li>
     				@endif
 
-    				@if($listing->odometer)
-    					<li><i class="uk-text-muted">{{ trans('admin.odometer') }}</i> 0 kms</li>
-    				@else
+    				@if(!is_null($listing->odometer))
     					<li><i class="uk-text-muted">{{ trans('admin.odometer') }}</i> {{ number_format($listing->odometer) }} kms</li>
     				@endif
 
