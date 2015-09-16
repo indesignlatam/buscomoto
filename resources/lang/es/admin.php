@@ -193,7 +193,8 @@ return [
     'confirmation_sent_spam'    => 'Revisa tu cuenta de correo, si no encuentras el mensaje en tu carpeta de recibidos revisa la carpeta de spam.',
     //
     'user_data'                 => 'Mis datos',
-    'change_image' 				=> 'Cambiar imagen',
+    'change_image'              => 'Cambiar imagen',
+    'change_background_image'   => 'Cambiar imagen de portada',
     'name' 						=> 'Nombre',
     'phone_alt' 				=> 'Teléfono 2',
     'phone' 					=> 'Teléfono',
@@ -206,6 +207,8 @@ return [
     'drag_user_image_or'        => 'Arrastra una imagen para tu perfil o ',
     'change_password'           => 'Cambiar contraseña',
     'change_profile_image'      => 'Seleccionar imagen principal',
+    'change_background_image'   => 'Seleccionar imagen de portada',
+    'change_background_recomendations' => 'La imagen debe ser de 1250px x 450px, si es de un tamaño diferente la imagen sera cortada automaticamente.',
     'current_password'          => 'Contraseña actual',
     'new_password'              => 'Nueva contraseña',
     'confirm_new_password'      => 'Confirmar contraseña',

@@ -12,18 +12,13 @@
 
 <div class="uk-cover-background uk-position-relative">
 	@if(Auth::user()->image_path)
-    	<img class="" src="{{ asset(Auth::user()->image_path) }}" width="100%" alt="Auth::user()->name">
+    	<img class="" src="{{ asset(Auth::user()->image_path) }}" width="100%" alt="{{Auth::user()->name}}">
 	@else
-    	<img class="" src="{{ asset(Image::url('/images/defaults/user_front.jpg',['full_page'])) }}" width="100%" alt="Auth::user()->name">
+    	<img class="" src="{{ asset('/images/defaults/user_front.jpg') }}" width="100%" alt="{{Auth::user()->name}}">
 	@endif
 
-    <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle uk-visible-small">
-        <h1 class="uk-text-contrast uk-text-bold">{{ strtoupper($user->name) }}</h1>
-    </div>
-    <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle uk-hidden-small">
-		<h1 class="uk-text-contrast uk-text-bold" style="font-size:60px; margin-left:-30%;">{{ strtoupper($user->name) }}</h1>
-
-		<div style="position:absolute; right:0px; top:0px; width:5%" class="uk-margin-top uk-margin-right uk-text-center">
+    <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
+		<div style="position:absolute; right:10px; top:0px; width:5%" class="uk-margin-top uk-margin-right uk-text-center">
 			<a href="#upload_modal" data-uk-modal="{center:true}">
 	    		<i class="uk-icon-image uk-icon-large uk-text-contrast"></i>
 	    	</a>
@@ -102,6 +97,11 @@
 				</div>
 
 				<div class="uk-width-large-1-4 uk-width-medium-1-4">
+					<div class="uk-margin-bottom uk-visible-small">
+						<a href="#upload_modal" class="uk-button uk-button-large uk-button-primary uk-width-1-1" data-uk-modal="{center:true}">{{ trans('admin.change_background_image') }}</a>
+						<a href="#password_modal" class="uk-button uk-button-large uk-width-1-1 uk-margin-small-top" data-uk-modal="{center:true}">{{ trans('admin.change_password') }}</a>
+					</div>
+
 					<div class="uk-panel uk-panel-box uk-panel-box-primary">
 						<h3 class="uk-panel-title">{{ trans('admin.configuration') }}</h3>
 
@@ -151,16 +151,22 @@
 							</div>
 						</div>
 					</div>
-					<div class="uk-margin-top">
-						<a href="#password_modal" class="uk-button uk-width-1-1" data-uk-modal="{center:true}">{{ trans('admin.change_password') }}</a>
+					<div class="uk-margin-top uk-hidden-small">
+						<a href="#upload_modal" class="uk-button uk-button-large uk-button-primary uk-width-1-1" data-uk-modal="{center:true}">{{ trans('admin.change_background_image') }}</a>
+						<a href="#password_modal" class="uk-button uk-button-large uk-width-1-1 uk-margin-small-top" data-uk-modal="{center:true}">{{ trans('admin.change_password') }}</a>
 					</div>
 				</div>
 			</div>
 		</form>
 		
-		<div class="uk-margin">
+		<div class="uk-margin uk-hidden-small">
 		    <button form="create_form" type="submit" class="uk-button uk-button-large uk-button-success uk-form-width-medium" onclick="blockUI()">{{ trans('admin.save') }}</button>
 			<a class="uk-button uk-button-large" href="{{ url('/admin/listings') }}">{{ trans('admin.close') }}</a>
+		</div>
+
+		<div class="uk-margin uk-visible-small">
+		    <button form="create_form" type="submit" class="uk-button uk-button-large uk-button-success uk-width-1-1" onclick="blockUI()">{{ trans('admin.save') }}</button>
+			<a class="uk-button uk-button-large uk-width-1-1 uk-margin-small-top" href="{{ url('/admin/listings') }}">{{ trans('admin.close') }}</a>
 		</div>
 
 	</div>
@@ -171,13 +177,15 @@
     <div class="uk-modal-dialog">
         <a href="" class="uk-modal-close uk-close uk-close-alt"></a>
         <div class="uk-modal-header uk-text-bold">
-        	{{ trans('admin.change_profile_image') }}
+        	{{ trans('admin.change_background_image') }}
         </div>
+
+        <p>{{ trans('admin.change_background_recomendations') }}</p>
 
         <div class="uk-grid uk-grid-collapse">
         	<div class="uk-width-1-1">
         		<div id="upload_drop_modal" class="uk-placeholder uk-placeholder-large uk-text-center uk-margin-top">
-				    <i class="uk-icon-large uk-icon-cloud-upload"></i> {{ trans('admin.drag_user_image_or') }} <a class="uk-form-file">{{ trans('admin.select_an_image') }}<input id="upload_select_modal" type="file" multiple></a>
+				    <a class="uk-form-file">{{ trans('admin.select_an_image') }}<input id="upload_select_modal" type="file" multiple></a>
 				</div>
 
 				<div id="progressbar_modal" class="uk-progress uk-hidden">
@@ -210,7 +218,7 @@
 				<div class="uk-form-row uk-margin-small-top">
 			        <label class="uk-form-label">{{ trans('admin.current_password') }}</label>
 			        <div class="uk-form-controls">
-			        	<input class="uk-form-large" type="password" name="current_password">
+			        	<input class="uk-form-large uk-width-1-1" type="password" name="current_password">
 					</div>
 				</div>
 			</div>
@@ -218,7 +226,7 @@
 				<div class="uk-form-row uk-margin-small-top">
 			        <label class="uk-form-label">{{ trans('admin.new_password') }}</label>
 			        <div class="uk-form-controls">
-			        	<input class="uk-form-large" type="password" name="password">
+			        	<input class="uk-form-large uk-width-1-1" type="password" name="password">
 					</div>
 				</div>
 			</div>
@@ -226,7 +234,7 @@
 				<div class="uk-form-row uk-margin-small-top">
 			        <label class="uk-form-label">{{ trans('admin.confirm_new_password') }}</label>
 			        <div class="uk-form-controls">
-			        	<input class="uk-form-large" type="password" name="password_confirmation">
+			        	<input class="uk-form-large uk-width-1-1" type="password" name="password_confirmation">
 					</div>
 				</div>
 			</div>
