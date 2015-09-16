@@ -32,7 +32,6 @@
             <div class="uk-panel uk-panel-box uk-panel-box-primary uk-width-3-10" style="position:absolute; top: 5%; left:10%">
                 <h1 class="uk-text-primary uk-text-bold">{{ strtoupper(trans('frontend.search_intro')) }}</h1>
                 <form id="search_form" class="uk-form" method="GET" action="{{ url('/buscar') }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="engine_size_min" value id="engine_size_min">
                     <input type="hidden" name="engine_size_max" value id="engine_size_max">
 
