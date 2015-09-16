@@ -31,6 +31,18 @@
 		<div class="uk-visible-small">
 			<img src="{{ asset('favicon.ico') }}" style="max-width: 30%; margin-top: -60px" class="uk-align-center">
 			<h2 class="uk-text-primary uk-text-bold uk-margin-top-remove uk-text-center">{{ strtoupper($user->name) }}</h2>
+
+			<div class="uk-text-center">
+				@if($user->phone_1)
+					<h3>{{ $user->phone_1 }}
+				@endif
+
+				@if($user->phone_2)
+					{{ $user->phone_2 }}</h3>
+				@else
+					</h3>
+				@endif
+			</div>
 		</div>
 		
 		<h3 id="description">{{ $user->description }}</h3>
