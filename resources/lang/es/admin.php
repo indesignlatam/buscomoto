@@ -175,7 +175,7 @@ return [
     // Confirmation
     'user_not_confirmed'        => 'No has confirmado tu cuenta de correo',
     'confirm_email'             => 'Confirma tu cuenta de correo electrónico',
-    'user_not_confirmed_title'  => 'Aun no haz confirmado tu cuenta de correo electrónico',
+    'user_not_confirmed_title'  => 'Aun no has confirmado tu cuenta de correo electrónico',
     'user_not_confirmed_text'   => 'Al no tener confirmada tu cuenta de correo electrónico no podrás acceder a las siguientes funciones de nuestra plataforma.',
     'free_listings'             => 'Publicaciones Gratis',
     'notifications'             => 'Notificaciones automáticas',
@@ -190,7 +190,7 @@ return [
     'confirmation_sent'         => 'Mensaje de confirmación enviado',
     'confirmation_sent_text'    => 'En tu cuenta de correo electrónico encontrarás un mensaje del Equipo BuscoMoto.co con un enlace para confirmar tu cuenta y poder recibir mensajes de clientes potenciales y acceder a todos los beneficios de BuscoMoto.co',
     'confirmation_sent_title'   => 'Hemos enviado un mensaje a tu cuenta de correo electrónico',
-    'confirmation_sent_spam'    => 'Revisa tu cuenta de correo, si no encuentras el mensaje en tu carpeta de recibidos revisa la carpeta de spam.',
+    'confirmation_sent_spam'    => 'Revisa tu cuenta de correo. Si no encuentras el mensaje en tu carpeta de recibidos revisa la carpeta de spam.',
     //
     'user_data'                 => 'Mis datos',
     'change_image'              => 'Cambiar imagen',
@@ -325,7 +325,7 @@ return [
     // Listings limit
     'listings_limit_title'      => 'Alcanzaste la cantidad máxima de publicaciones gratis',
     'listings_limit_text'       => 'Puedes destacar alguno de tus publicaciones, estos no cuentan entre el total de publicaciones gratis. También puedes intentar eliminando alguno de tus otros inmuebles. ',
-    'listings_limit_explanation'=> 'Haz alcanzado el limite maximo de 10 publicaciones gratis.',
+    'listings_limit_explanation'=> 'Has alcanzado el limite maximo de 10 publicaciones gratis.',
     'listings_limit_reached'    => 'Alcanzaste la cantidad máxima de publicaciones gratis',
 
     // Renovate listing

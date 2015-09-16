@@ -14,10 +14,26 @@
 		<h1>{{ trans('admin.user_not_confirmed_title') }}</h1>
 
 		<p>{{ trans('admin.user_not_confirmed_text') }}</p>
+		
+		@if(Agent::isMobile())
+			<div class="uk-width-1-1">
+				<div class="uk-panel">
+					<ul class="uk-list uk-list-line">
+						<li class="uk-h3">{{ trans('admin.free_listings') }} 1</li>
+						<li class="uk-h3">{{ trans('admin.max_listing_images') }} 2</li>
+						<li class="uk-h3">{{ trans('admin.dashboard') }} <i class="uk-icon-remove uk-text-danger"></i></li>
+						<li class="uk-h3">{{ trans('admin.notifications') }} <i class="uk-icon-remove uk-text-danger"></i></li>
+						<li class="uk-h3">{{ trans('admin.answer_messages') }} <i class="uk-icon-remove uk-text-danger"></i></li>
+					</ul>
+					<a href="{{ url('/admin/user/send_confirmation_email') }}" class="uk-button uk-button-large uk-button-success uk-width-1-1">{{ trans('admin.send_verification_email') }}</a>
+				</div>
+			</div>
+		@endif
 
 		<p class="uk-text-bold">{{ trans('admin.confirmation_sent_spam') }}</p>
 
 		<div class="uk-panel uk-panel-box uk-panel-box-secondary">
+		@if(!Agent::isMobile())
 			<div class="uk-grid uk-grid-match" data-uk-grid-match="{target:'.uk-panel'}">
 				<div class="uk-width-1-3">
 					<div class="uk-panel">
@@ -65,7 +81,8 @@
 						<a href="{{ url('/admin/user/send_confirmation_email') }}" class="uk-button uk-button-large uk-button-success uk-width-1-1">{{ trans('admin.send_verification_email') }}</a>
 					</div>
 				</div>
-			</div>
+			</div>			
+		@endif
 		</div>
 	</div>
 </div>
