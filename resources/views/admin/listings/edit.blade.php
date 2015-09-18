@@ -392,16 +392,37 @@
 	        	{{ trans('admin.add_images_to_listing') }}
 	        </div>
 
-	        <p>{{ trans('admin.no_images_text') }}</p>
+	        <p class="uk-hidden-small">{{ trans('admin.no_images_text') }}</p>
 
 	        <div class="uk-grid uk-grid-collapse">
 	        	<div class="uk-width-1-1">
-	        		<div id="upload_drop_modal" class="uk-placeholder uk-placeholder-large uk-text-center uk-margin-top uk-hidden-small">
-					    <i class="uk-icon-large uk-icon-cloud-upload"></i> {{ trans('admin.drag_listing_images_or') }} 
+	        	@if(!Agent::isMobile())
+	        		<div id="upload_drop_modal" class="uk-placeholder uk-placeholder-large uk-text-center uk-margin-top">
+					    <i class="uk-icon-large uk-icon-cloud-upload"></i> {{ trans('admin.drag_listing_images_or') }} <a class="uk-form-file uk-text-primary">{{ trans('admin.select_an_image') }}<input id="upload_select_modal" type="file" multiple></a>
 					</div>
+				@else
+					<h3 class="uk-text-primary">{{ ucfirst(trans('admin.images_recomendations')) }}</h3>
+					
+					<div class="">
+						<a class="uk-form-file uk-grid">
+							<div class="uk-width-1-2">
+								<img src="{{ asset('/images/support/listings/photos/type_1.png') }}" class="uk-margin-top">
+							</div>
+							<div class="uk-width-1-2">
+								<img src="{{ asset('/images/support/listings/photos/type_2.png') }}" class="uk-margin-top">
+							</div>
 
-					<a class="uk-form-file uk-text-primary uk-text-bold uk-h3 uk-visible-small">{{ ucfirst(trans('admin.select_an_image_mobile')) }}<input id="upload_select_modal" type="file" multiple></a>
+							<div class="uk-width-1-2">
+								<img src="{{ asset('/images/support/listings/photos/type_3.png') }}" class="uk-margin-top">
+							</div>
+							<div class="uk-width-1-2">
+								<img src="{{ asset('/images/support/listings/photos/type_4.png') }}" class="uk-margin-top">
+							</div>
 
+							<input id="upload_select_modal" type="file" multiple>
+						</a>
+					</div>
+				@endif
 					<div id="progressbar_modal" class="uk-progress uk-hidden">
 					    <div class="uk-progress-bar" style="width: 0%;"></div>
 					</div>

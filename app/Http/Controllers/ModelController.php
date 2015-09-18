@@ -114,7 +114,7 @@ class ModelController extends Controller{
      */
     public function show($id){
         //
-        $models = Model::selectRaw('id, name AS text')->where('manufacturer_id', $id)->get();
+        $models = Model::selectRaw('id, name AS text')->where('manufacturer_id', $id)->orderBy('name', 'ASC')->get();
 
         return $models;
     }
