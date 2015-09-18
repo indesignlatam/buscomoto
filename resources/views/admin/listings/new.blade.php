@@ -282,9 +282,9 @@
 	        <div class="uk-text-center">
 	        	<img src="{{ asset('images/support/user/welcome.png') }}" style="width:80%">
 
-	        	<h3>{{ trans('admin.welcome_new_user') }}</h3>
+	        	<p>{{ trans('admin.welcome_new_user') }}</p>
 
-	        	<a class="uk-button uk-button-large uk-button-success" id="open" href="" target="_blank">{{ trans('admin.open') }}</a>
+	        	<a class="uk-button uk-button-large uk-button-success uk-modal-close" id="open" href="" target="_blank">{{ trans('admin.open') }}</a>
 	        </div>
 	    </div>
 	</div>
