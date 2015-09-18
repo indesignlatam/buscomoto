@@ -30,7 +30,7 @@ return [
     'search_price_max'          => 'Precio maximo',
     'search_price'              => 'Precio',
     'search_code'               => 'Codigo',
-    'search_year'               => 'Modelo',
+    'search_year'               => 'Modelo (Año)',
     'search_year_min'           => 'Año mínimo',
     'search_year_max'           => 'Año máximo',
     'search_odometer'           => 'Kilometraje',
@@ -72,6 +72,13 @@ return [
     'no_listings_left'          => 'No encontramos mas publicaciones.',
     'load_more'                 => 'Cargar más',
     'hide'                      => 'Ocultar',
+    'filter'                    => 'Filtrar',
+    'order'                     => 'Ordenar',
+    'no_max_price'              => 'Sin precio máximo',
+    'no_min_year'               => 'Desde',
+    'no_max_year'               => 'Hasta',
+    'no_min_engine_size'        => 'Cilindraje min',
+    'no_max_engine_size'        => 'Cilindraje max',
 
     // Listings show -------------------------------------------------------------------
     'oops'                      => 'Whoops!.',

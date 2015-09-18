@@ -139,14 +139,16 @@
                     <option value>{{ trans('frontend.search_price') }}</option>
                     @foreach($priceRanges as $range)
                         @if($range['id'] == Request::get('price_range'))
+                            <option value="{{ $range['id'] }}" selected>hasta {{ $range['name'] }}</option>
+                        @elseif($range['id'] == 50000000)
                             <option value="{{ $range['id'] }}" selected>{{ $range['name'] }}</option>
                         @else
-                            <option value="{{ $range['id'] }}">{{ $range['name'] }}</option>
+                            <option value="{{ $range['id'] }}">hasta {{ $range['name'] }}</option>
                         @endif
                     @endforeach
                 </select>
 
-                 <select class="uk-width-1-1 uk-margin-small-bottom uk-form-large" id="search_manufacturer_mobile" name="manufacturers" multiple="multiple">
+                 <select class="uk-width-1-1 uk-margin-small-bottom uk-form-large" id="search_manufacturer_mobile" name="manufacturers[]" multiple="multiple">
                     @foreach($manufacturers as $manufacturer)
                         @if(is_array(Request::get('manufacturers')) && in_array($manufacturer->id, Request::get('manufacturers')))
                             <option value="{{ $manufacturer->id }}" selected>{{ $manufacturer->text }}</option>
@@ -287,8 +289,8 @@
             </div>
 
             <div class="uk-visible-small">
-                <h1 class="uk-text-contrast">Pronto podrás encontrar nuestra aplicación para dispositivos móviles</h1>
-                <img src="{{ asset('/images/fp/app_store.png') }}" style="max-width: 300px" class="uk-align-center">
+                <h2 class="uk-text-contrast">Pronto podrás encontrar nuestra aplicación para dispositivos móviles</h2>
+                <img src="{{ asset('/images/fp/app_store.png') }}" style="max-width: 250px" class="uk-align-center">
                 <img src="{{ asset('/images/fp/app.png') }}" class="uk-align-center" style="margin-bottom:-20px">
             </div>
         </div>

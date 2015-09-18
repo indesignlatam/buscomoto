@@ -251,7 +251,7 @@ return [
     // Confirm payment
     'confirm_payment'           => 'Confirmar pago',
     'confirm_payment_title'     => 'Por favor verifica todos los datos de la transacción',
-    'confirm_payment_text'      => 'A continuación serás redirigido de forma segura al sitio web de PayU Latino América en donde podrás elegir un medio de pago para realizar tu transacción y destacar tu publicación en BuscoCasa.co.',
+    'confirm_payment_text'      => 'A continuación serás redirigido de forma segura al sitio web de PayU Latino América en donde podrás elegir un medio de pago para realizar tu transacción y destacar tu publicación en BuscoMoto.co.',
     
     // Payment response
     'transaction_result'        => 'Resultado de la transacción',
@@ -353,7 +353,7 @@ return [
 
     // Welcome
     'view_more_listings'        => 'Ver más publicaciones',
-    'welcome_new_user'          => 'Estás un paso mas cerca de publicar tu moto. Te hemos enviado un mensaje para que confirmes tu correo electrónico y puedas acceder a todos los beneficios de BuscoCasa.co',
+    'welcome_new_user'          => 'Estás un paso mas cerca de publicar tu moto. Te hemos enviado un mensaje para que confirmes tu correo electrónico y puedas acceder a todos los beneficios de BuscoMoto.co',
     'open'                      => 'Ir a',
 
     // Navbar
@@ -365,6 +365,7 @@ return [
     'elements_30'               => 'Ver 30',
     'elements_10'               => 'Ver 10',
     'order_by'                  => 'Ordenar por',
+    'order_by_relevance'        => 'Ordenar por relevancia',
     'order_newer_first'         => 'Recientes primero',
     'order_older_first'         => 'Antiguos primero',
     'order_expensive_first'     => 'Mayor a menor precio',
