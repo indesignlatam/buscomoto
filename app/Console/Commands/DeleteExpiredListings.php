@@ -43,16 +43,16 @@ class DeleteExpiredListings extends Command {
                      	   ->get();
 
         $this->info('Listings to delete: '.count($listings));
-        // $this->output->progressStart(count($listings));//Only for laravel 5.1
+        $this->output->progressStart(count($listings));//Only for laravel 5.1
 
         foreach ($listings as $listing) {
         	$listing->delete();
         	$this->info('Listing: '.$listing->id);
-        	// $this->output->progressAdvance();//Only for laravel 5.1
+        	$this->output->progressAdvance();//Only for laravel 5.1
         }
 
         $this->info('Listings succesfuly deleted');
-        // $this->output->progressFinish(); //Only for laravel 5.1
+        $this->output->progressFinish(); //Only for laravel 5.1
 	}
 
 }

@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel {
         \App\Console\Commands\TestEmail::class,
         \App\Console\Commands\FlushCache::class,
         \App\Console\Commands\NullFeaturedTypeFromExpiredListing::class,
+        \App\Console\Commands\CalculateListingsPoints::class,
     ];
 
     /**
