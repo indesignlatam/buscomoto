@@ -287,8 +287,8 @@
             </div>
 
             <div class="uk-visible-small">
-                <h1 class="uk-text-contrast">Pronto podrás encontrar nuestra aplicación para dispositivos móviles</h1>
-                <img src="{{ asset('/images/fp/app_store.png') }}" style="max-width: 300px" class="uk-align-center">
+                <h2 class="uk-text-contrast">Pronto podrás encontrar nuestra aplicación para dispositivos móviles</h2>
+                <img src="{{ asset('/images/fp/app_store.png') }}" style="max-width: 250px" class="uk-align-center">
                 <img src="{{ asset('/images/fp/app.png') }}" class="uk-align-center" style="margin-bottom:-20px">
             </div>
         </div>
