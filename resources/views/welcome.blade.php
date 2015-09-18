@@ -139,9 +139,11 @@
                     <option value>{{ trans('frontend.search_price') }}</option>
                     @foreach($priceRanges as $range)
                         @if($range['id'] == Request::get('price_range'))
+                            <option value="{{ $range['id'] }}" selected>hasta {{ $range['name'] }}</option>
+                        @elseif($range['id'] == 50000000)
                             <option value="{{ $range['id'] }}" selected>{{ $range['name'] }}</option>
                         @else
-                            <option value="{{ $range['id'] }}">{{ $range['name'] }}</option>
+                            <option value="{{ $range['id'] }}">hasta {{ $range['name'] }}</option>
                         @endif
                     @endforeach
                 </select>
