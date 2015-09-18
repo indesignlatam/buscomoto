@@ -78,6 +78,7 @@
 		                    <th>{{ trans('admin.title') }}</th>
 		                    <th style="width:20px">{{ trans('admin.user') }}</th>
 		                    <th style="width:20px">{{ trans('admin.views') }}</th>
+		                    <th style="width:20px">{{ trans('admin.points') }}</th>
 		                    <th style="width:80px">{{ trans('admin.expires') }}</th>
 		                    <th style="width:120px">{{ trans('admin.actions_button') }}</th>
 		                </tr>
@@ -96,6 +97,7 @@
 		                        	</a>
 		                        </td>
 		                        <td>{{ $listing->views }}</td>
+		                        <td>{{ $listing->points }}</td>
 		                        <td>{{ $listing->expires_at->diffForHumans() }}</td>
 		                        <td>
 		                            <!-- This is the container enabling the JavaScript -->

@@ -175,6 +175,20 @@ class ListingController extends Controller {
 	    }
 	    $listing->features()->attach($featuresSelected);
 
+
+	    // Calculate points
+	    $points = 0;
+	    if(count($featuresSelected) > 0){
+	    	$points += count($featuresSelected) * 2;
+	    }
+
+	    if($listing->description && strlen($listing->description) > 30){
+	    	$points += strlen($listing->description) * 0.2;
+	    }
+
+	    $listing->points = $points;
+	    // Calculate points
+
 	    $listing->save();
 
 		return redirect('admin/listings/'.$listing->id.'/edit')->withSuccess([trans('responses.listing_created')]);
@@ -300,6 +314,27 @@ class ListingController extends Controller {
 		    	}
 		    }
 	    }
+
+	    // Calculate points
+	    $points = 0;
+	    if(isset($listing->images) && count($listing->images) > 0){
+	    	if(count($listing->images) == 1){
+	    		$points += 50;
+	    	}else if(count($listing->images) > 1){
+	    		$points += 50 + (count($listing->images)-1) * 10;
+	    	}
+	    }
+
+	    if(count($featuresSelected) > 0){
+	    	$points += count($featuresSelected) * 2;
+	    }
+
+	    if($listing->description && strlen($listing->description) > 30){
+	    	$points += strlen($listing->description) * 0.2;
+	    }
+
+	    $listing->points = $points;
+	    // Calculate points
 	    
 
 	    // Save the listing and its relationships
