@@ -6,7 +6,7 @@
             {{ trans('frontend.contact_vendor') }}
         </div>
 
-        <h3>{{ $listing->title }}</h3>
+        <h3 class="uk-margin-top-remove uk-text-bold">{{ $listing->title }}</h3>
         
         @if(!Cookie::get('listing_message_'.$listing->id) || Cookie::get('listing_message_'.$listing->id) > Carbon::now())
             @if (count($errors) > 0)
@@ -27,12 +27,12 @@
             @else
                 @if($listing->user->phone_1)
                     <div class="uk-h3">
-                        Tel 1: <b id="phone_1">{{ $listing->user->phone_1 }}</b>
+                        Tel 1: <b id="phone_1" class="uk-text-primary">{{ $listing->user->phone_1 }}</b>
                     </div>
                 @endif
                 @if($listing->user->phone_2)
                     <div class="uk-h3">
-                        Tel 2: <b id="phone_2">{{ $listing->user->phone_2 }}</b>
+                        Tel 2: <b id="phone_2" class="uk-text-primary">{{ $listing->user->phone_2 }}</b>
                     </div>
                 @endif
             @endif
@@ -83,8 +83,8 @@
     		</form>
 
     		<div class="uk-modal-footer">
-    			<button form="send_message" type="submit" class="uk-button uk-button-primary">{{ trans('frontend.contact_button') }}</button>
-    	        <a href="" class="uk-button uk-modal-close">{{ trans('admin.cancel') }}</a>
+    			<button form="send_message" type="submit" class="uk-button uk-button-large uk-button-primary">{{ trans('frontend.contact_button') }}</button>
+    	        <a href="" class="uk-button uk-button-large uk-modal-close">{{ trans('admin.cancel') }}</a>
     	    </div>
         @else
             <h3 class="uk-text-primary">{{ trans('frontend.already_contacted_vendor') }}</h3>

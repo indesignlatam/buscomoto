@@ -70,6 +70,7 @@
 					    		</li>
 					    	@endforeach		    	
 					    </ul>
+
 					    @if(isset(Cookie::get('likes')[$listing->id]) && Cookie::get('likes')[$listing->id] || $listing->like)
 					    	<a onclick="like()"><i style="position:absolute; top:5px; right:5px" class="uk-icon-heart uk-icon-large uk-text-danger" id="like_button_image"></i></a>
 					    @else
@@ -584,8 +585,8 @@
 		}
 
 		function trackContactVendor(label){
-			if({{ env('APP_ENV') }} == 'production'){
-				ga('send', 'contact_vendor', 'contact', 'button_click', label]);
+			if("{{ env('APP_ENV') }}" == 'production'){
+				ga('send', 'contact_vendor', 'contact', 'button_click', label);
 			}
 		}
     </script>
