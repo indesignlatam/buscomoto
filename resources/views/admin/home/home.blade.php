@@ -75,7 +75,7 @@
                          value: {{ $counts['listings'] }},
                          color: "#46BFBD",
                          highlight: "#5AD3D1",
-                         label: "Listings images"
+                         label: "Listings with images"
                         }];
             var ctx = $("#no_images_chart").get(0).getContext("2d");
             var myDoughnutChart = new Chart(ctx).Doughnut(data4);

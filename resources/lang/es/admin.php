@@ -189,7 +189,7 @@ return [
     'unconfirmed'               => 'Sin confirmar',
     'confirmed'                 => 'Confirmado',
     'send_verification_email'   => 'Enviar correo de verificación',
-    'features111'               => 'publicados',
+    'sure_send_confirmation'    => '¿Esta seguro de querer enviar el correo de confirmación?',
 
     // Confirmation sent
     'confirmation_sent'         => 'Mensaje de confirmación enviado',

@@ -20,3 +20,5 @@ Thumbs.db
 *.sql
 *.sqlite
 public/images/defaults/listing-image(map_mini).jpg
+
+public/images/defaults/listing-image(mini_image_2x).jpg

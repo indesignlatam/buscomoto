@@ -50,7 +50,7 @@
 	                                    <ul class="uk-nav uk-nav-dropdown">
 	                                        <li><a href="{{ url('admin/users/'.$user->id.'/edit') }}">Edit</a></li>
 	                                        <li><a>Send message</a></li>
-	                                        <li><a>Send confirmation</a></li>
+	                                        <li><a onclick="sendConfirmation({{ $user->id }})">Send confirmation</a></li>
 	                                        <li><a>Delete</a></li>
 	                                    </ul>
 	                                </div>
@@ -70,4 +70,19 @@
 @section('js')
 	@parent
 	<script src="/js/components/datepicker.min.js"></script>
+
+	<script type="text/javascript">
+		function sendConfirmation(id){
+			UIkit.modal.confirm("{{ trans('admin.sure_send_confirmation') }}", function(){
+			    // will be executed on confirm.
+			    $.get("{{ url('/admin/user/send_confirmation_email') }}/" + id, {_token: "{{ csrf_token() }}"}, function(result){
+			    	if(result.success){
+			    		UIkit.notify('<i class="uk-icon-check-circle"></i> '+result.success, {pos:'top-right', status:'success', timeout: 5000});
+			    	}else if(result.error){
+			    		UIkit.notify('<i class="uk-icon-remove"></i> '+result.error, {pos:'top-right', status:'danger', timeout: 5000});
+			    	}
+		        });
+			}, {labels:{Ok:'{{trans("admin.yes")}}', Cancel:'{{trans("admin.cancel")}}'}, center: true});
+		}
+	</script>
 @endsection

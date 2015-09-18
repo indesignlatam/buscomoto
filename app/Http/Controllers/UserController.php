@@ -203,17 +203,37 @@ class UserController extends Controller {
 		return redirect('/admin/user/'.$id.'/edit')->withSuccess([trans('responses.account_confirmed'), trans('responses.complete_profile')]);
 	}
 
-	public function sendConfirmationEmail(){
-		if(!Auth::user()->confirmed){
-			Auth::user()->confirmation_code = str_random(64);
-			Auth::user()->save();
+	public function sendConfirmationEmail($id = null, Request $request){
+		$user = null;
+		if($id && Auth::check() && Auth::user()->isAdmin()){
+			$user = User::find($id);
+		}else{
+			$user = Auth::user();
+		}
 
-			Queue::push(new SendUserConfirmationEmail(Auth::user()));
+		if(!$user){
+			if($request->ajax()){
+				return response()->json(['errors' => trans('responses.no_permission')]);
+			}
+			return redirect('admin')->withErrors([trans('responses.no_permission')]);
+		}
 
+		if(!$user->confirmed){
+			$user->confirmation_code = str_random(64);
+			$user->save();
+
+			Queue::push(new SendUserConfirmationEmail($user));
+
+			if($request->ajax()){
+				return response()->json(['success' => trans('responses.confirmation_sent')]);
+			}
 			return view('admin.users.confirmation_sent');
 		}
 
-		return redirect('admin')->withErrors([trans('responses.no_permission')]);
+		if($request->ajax()){
+			return response()->json(['errors' => trans('responses.account_already_confirmed')]);
+		}
+		return redirect('admin')->withErrors([trans('responses.account_already_confirmed')]);
 	}
 
 	public function notConfirmed(){
