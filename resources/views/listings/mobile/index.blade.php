@@ -15,7 +15,7 @@
 
 @section('content')
 
-<div class="uk-container uk-container-center uk-margin-top uk-margin-bottom">
+<div class="uk-container uk-container-center uk-margin-bottom">
 	<div class="uk-panel">
 		<!-- Register button for mobiles -->
         <a href="{{ url('/auth/register') }}" class="uk-button uk-button-primary uk-button-large uk-width-1-1">{{ trans('admin.register_publish_free') }}</a>
@@ -40,7 +40,7 @@
 		    		@include('listings.mobile.mosaic')
 		    		<!-- Listing list view -->
 			    @endforeach
-			    <div class="uk-margin-small-top">
+			    <div class="uk-margin-top">
 			    	<?php echo $listings->appends(Request::all())->render(); ?>
 			    </div>
 		    @else
