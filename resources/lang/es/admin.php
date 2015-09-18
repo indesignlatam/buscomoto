@@ -365,6 +365,7 @@ return [
     'elements_30'               => 'Ver 30',
     'elements_10'               => 'Ver 10',
     'order_by'                  => 'Ordenar por',
+    'order_by_relevance'        => 'Ordenar por relevancia',
     'order_newer_first'         => 'Recientes primero',
     'order_older_first'         => 'Antiguos primero',
     'order_expensive_first'     => 'Mayor a menor precio',
