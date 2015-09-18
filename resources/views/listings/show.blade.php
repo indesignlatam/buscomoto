@@ -82,6 +82,8 @@
 				@else
 					<img src="{{ asset($listing->image_path()) }}" alt="{{ $listing->title }}" >
 				@endif
+
+				<button class="uk-button uk-button-large uk-margin-small-top uk-button-primary uk-width-1-1 uk-hidden-large" data-uk-modal="{target:'#new_message_modal'}">{{ trans('frontend.contact_vendor') }}</button>
 			</div>
 
 			<div class="uk-width-3-10 uk-hidden-small">
