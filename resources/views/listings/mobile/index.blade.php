@@ -7,6 +7,8 @@
     <meta property="og:image" content="{{ asset('/images/facebook-share.jpg') }}"/>
     <meta property="og:type" content="website"/>
     <meta property="og:description" content="{{ Settings::get('listings_description') }}" />
+
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
 @endsection
 
 @section('css')
