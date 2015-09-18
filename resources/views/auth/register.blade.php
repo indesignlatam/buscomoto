@@ -6,9 +6,6 @@
 
 @section('css')
 	<link href="{{ asset('/css/uikit.flat.min.css') }}" rel="stylesheet">
-	@if(!Agent::isMobile())
-	<link href="{{ asset('/css/strength.min.css') }}" rel="stylesheet">
-	@endif
 
 	<style type="text/css">
 		html{
@@ -49,7 +46,7 @@
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 			<div class="uk-form-row">
-				<input type="text" class="uk-width-large-8-10 uk-form-large" name="name" placeholder="{{ trans('auth.name') }}" value="{{ old('name') }}">
+				<input type="text" class="uk-width-large-8-10 uk-form-large" name="name" id="name" placeholder="{{ trans('auth.name') }}" value="{{ old('name') }}" onkeyup="checkName()">
 			</div>
 
 			<div class="uk-form-row uk-hidden">
@@ -57,15 +54,19 @@
 			</div>
 
 			<div class="uk-form-row">
-				<input type="email" class="uk-width-large-8-10 uk-form-large" name="email" placeholder="{{ trans('auth.email') }}" value="{{ old('email') }}">
+				<input type="email" class="uk-width-large-8-10 uk-form-large" name="email" id="email" placeholder="{{ trans('auth.email') }}" value="{{ old('email') }}" onkeyup="checkEmail()">
 			</div>
 
 			<div class="uk-form-row">
-				<input type="text" class="uk-width-large-8-10 uk-form-large" name="phone" placeholder="{{ trans('auth.phone') }}" value="{{ old('phone') }}">
+				<input type="email" class="uk-width-large-8-10 uk-form-large" name="email_confirmation" id="confirm_email" placeholder="{{ trans('auth.confirm_email') }}" value="{{ old('email_confirmation') }}" onkeyup="checkConfirmEmail()">
 			</div>
 
 			<div class="uk-form-row">
-				<input type="password" id="password" class="uk-width-large-8-10 uk-form-large" placeholder="{{ trans('auth.password') }}" name="password" style="z-index:10;">
+				<input type="number" class="uk-width-large-8-10 uk-form-large" name="phone" id="phone" placeholder="{{ trans('auth.phone') }}" value="{{ old('phone') }}" onkeyup="checkPhone()">
+			</div>
+
+			<div class="uk-form-row">
+				<input type="password" id="password" class="uk-width-large-8-10 uk-form-large" placeholder="{{ trans('auth.password') }}" name="password" style="z-index:10;" onkeyup="checkPassword()">
 			</div>
 
 			@if(!Agent::isMobile())
@@ -79,9 +80,10 @@
 
 			<div class="uk-form-row">
 				<button type="submit" class="uk-button uk-button-success uk-width-large-8-10 uk-button-large">{{ trans('auth.register_button') }}</button>
+				<a href="{{ url('/auth/login') }}" class="uk-button uk-button-large uk-button-primary uk-width-1-1 uk-margin-small-top uk-visible-small">{{ trans('frontend.already_have_account') }}</a>
 			</div>
 
-			<a class="uk-button uk-button-primary uk-button-large uk-width-large-8-10 uk-margin-small-top" href="{{ url('/social-auth/facebook') }}"><i class="uk-icon-facebook"></i> {{ trans('auth.facebook_register') }}</a>
+			<a class="uk-button uk-button-primary uk-button-large uk-width-large-8-10 uk-margin-small-top uk-hidden-small" href="{{ url('/social-auth/facebook') }}"><i class="uk-icon-facebook"></i> {{ trans('auth.facebook_register') }}</a>
 
 		</form>
 
@@ -104,18 +106,72 @@
 
 @if(!Agent::isMobile())
 	<script async src='https://www.google.com/recaptcha/api.js'></script>
-    <script async src="{{ asset('/js/strength.min.js') }}"></script>
 
     <script>
 		$(document).ready(function($) {
-			$('#password').strength({
-	            strengthClass: 'strength',
-	            strengthMeterClass: 'strength_meter',
-	            strengthButtonClass: 'button_strength',
-	            strengthButtonText: 'Show Password',
-	            strengthButtonTextToggle: 'Hide Password'
-	        });
+			if($('#name').val().length > 0){
+				checkName();
+			}
+
+			if($('#email').val().length > 0){
+				checkEmail();
+			}
+
+			if($('#phone').val().length > 0){
+				checkPhone();
+			}
+
+			if($('#password').val().length > 0){
+				checkPassword();
+			}
 		});
+
+		function checkName(){
+			str = $('#name').val();
+			if($('#name').val().split(' ').length < 2 ){
+				$('#name').removeClass('uk-form-success').addClass('uk-form-danger');
+			}else{
+				$('#name').removeClass('uk-form-danger').addClass('uk-form-success');
+			}
+			$('#name').val( str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) );
+		}
+
+		function checkEmail(){
+			if(validateEmail($('#email').val())){
+				$('#email').removeClass('uk-form-danger').addClass('uk-form-success');
+			}else{
+				$('#email').removeClass('uk-form-success').addClass('uk-form-danger');
+			}
+		}
+
+		function checkConfirmEmail(){
+			if($('#email').val() != $('#confirm_email').val()){
+				$('#confirm_email').addClass('uk-form-danger');
+			}else{
+				$('#confirm_email').removeClass('uk-form-danger').addClass('uk-form-success');
+			}
+		}
+
+		function checkPhone(){
+			if($('#phone').val().length >= 7){
+				$('#phone').removeClass('uk-form-danger').addClass('uk-form-success');
+			}else{
+				$('#phone').removeClass('uk-form-success').addClass('uk-form-danger');
+			}
+		}
+
+		function checkPassword(){
+			if($('#password').val().length >= 6){
+				$('#password').removeClass('uk-form-danger').addClass('uk-form-success');
+			}else{
+				$('#password').removeClass('uk-form-success').addClass('uk-form-danger');
+			}
+		}
+
+		function validateEmail(email) {
+		    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+		    return re.test(email);
+		}
 	</script>
 @endif
 @endsection

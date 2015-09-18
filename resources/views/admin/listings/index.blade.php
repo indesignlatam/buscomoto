@@ -89,8 +89,12 @@
 		                        <td>{{ $listing->id }}</td>
 		                        <td class="uk-text-center">@if($listing->published)<i class="uk-icon-check"></i>@else<i class="uk-icon-remove"></i>@endif</td>
 		                        <td><img src="{{ asset(Image::url($listing->image_path(),['map_mini'])) }}"></td>
-		                        <td><a href="{{ url('/admin/listings/'.$listing->id.'/edit') }}">{{ $listing->title }}</a></td>
-		                        <td>{{ $listing->user->id }} <i class="uk-icon-user" data-uk-tooltip="{pos:'top'}" title="{{ $listing->user->name }}"></i></td>
+		                        <td><a href="{{ url($listing->pathEdit()) }}">{{ $listing->title }}</a></td>
+		                        <td>
+		                        	<a href="{{ url('/admin/user/'.$listing->user->id.'/edit') }}">
+		                        		<i class="uk-icon-user" data-uk-tooltip="{pos:'top'}" title="{{ $listing->user->id. ' | ' .$listing->user->name }}"></i>
+		                        	</a>
+		                        </td>
 		                        <td>{{ $listing->views }}</td>
 		                        <td>{{ $listing->expires_at->diffForHumans() }}</td>
 		                        <td>
@@ -101,9 +105,10 @@
 		                                <!-- This is the dropdown -->
 		                                <div class="uk-dropdown uk-dropdown-small">
 		                                    <ul class="uk-nav uk-nav-dropdown">
-		                                        <li><a href="{{ url('/admin/listings/'.$listing->id.'/edit') }}">{{ trans('admin.edit') }}</a></li>
+		                                        <li><a href="{{ url($listing->pathEdit()) }}">{{ trans('admin.edit') }}</a></li>
+		                                        <li><a href="{{ url($listing->path()) }}" target="_blank">{{ trans('admin.view_listing') }}</a></li>
 		                                        <li><a href="{{ url('/admin/messages/'.$listing->id) }}">{{ trans('admin.view_messages') }}</a></li>
-		                                        <li><a href="{{ url('admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.renovate') }}</a></li>
+		                                        <li><a href="{{ url('/admin/listings/'.$listing->id.'/renovate') }}">{{ trans('admin.renovate') }}</a></li>
 		                                        <li><a href="#send_mail" onclick="setListing({{ $listing->id }})" data-uk-modal="{center:true}">{{ trans('admin.send_mail') }}</a></li>
 		                                        <li><a id="{{ $listing->id }}" onclick="deleteObject(this)">{{ trans('admin.delete') }}</a></li>
 		                                    </ul>

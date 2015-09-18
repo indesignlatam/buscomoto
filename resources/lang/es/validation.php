@@ -152,6 +152,7 @@ return [
             'min'       => 'La contraseña debe contener al menos :min caracteres.',
         ],
         'email' => [
+            'confirmed' => 'El campo correo electrónico debe coincidir con la confirmación.',
             'required'  => 'El campo correo electrónico es obligatorio.',
             'min'       => 'El correo electrónico debe contener al menos :min caracteres.',
             'unique'    => 'El correo electrónico ya fue registrado.',

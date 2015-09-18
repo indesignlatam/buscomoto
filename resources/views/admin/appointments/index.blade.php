@@ -75,11 +75,14 @@
 		            <tbody>
 		                @foreach($appointments as $appointment)
 		                    <tr id="message-{{ $appointment->id }}">
-		                        <td style="max-width:100px" class="uk-hidden-small"><img src="{{ asset($appointment->listing->image_path()) }}" style="width:100px"></td>
+		                        <td style="max-width:100px" class="uk-hidden-small">
+		                        	<a href="{{ $appointment->listing->path() }}" target="_blank">
+		                        		<img src="{{ asset($appointment->listing->image_path()) }}" style="width:100px">
+		                        	</a>
+		                        </td>
 		                        <td class="uk-visible-small">#{{ $appointment->listing->code }}</td>
-		                        <td style="width:20%"><b class="uk-h4">{{ $appointment->name }}</b><br>{{ $appointment->phone }}</td>
-		                        <td class="uk-hidden-small">{{ $appointment->email }}</td>
-		                        <td>{{ $appointment->comments }}</td>
+		                        <td style="width:20%"><b class="uk-h4">{{ $appointment->name }}</b><br>{{ $appointment->email }}</td>
+		                        <td class="uk-text-small">{{ $appointment->comments . ' | ' . $appointment->phone }}</td>
 		                        <td style="max-width:120px" class="uk-text-right">
 		                        	<div class="uk-grid uk-grid-small" data-uk-grid-margin>
 		                        		<!-- Reply button -->

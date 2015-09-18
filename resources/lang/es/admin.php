@@ -134,6 +134,8 @@ return [
     'add_images_to_listing'     => 'Agrega imágenes para mejorar la visibilidad de tu publicación.',
     'drag_listing_images_or'    => 'Arrastra aca las imágenes de la moto o',
     'select_an_image'           => 'haz click aquí para seleccionar una imagen de tu computador.',
+    'select_an_image_mobile'    => 'haz click aquí para seleccionar una imagen de tu celular.',
+    'no_images_text'            => 'Tu publicación tendra muy pocas visitas si no agregas al menos una foto. Ademas las publicaciones sin fotos no saldran en la página principal y tendras menos posibilidades de vender tu moto.',
     'saving_wait'               => 'Guardando publicación, porfavor espere.',
 
     //

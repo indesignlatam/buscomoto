@@ -392,11 +392,15 @@
 	        	{{ trans('admin.add_images_to_listing') }}
 	        </div>
 
+	        <p>{{ trans('admin.no_images_text') }}</p>
+
 	        <div class="uk-grid uk-grid-collapse">
 	        	<div class="uk-width-1-1">
-	        		<div id="upload_drop_modal" class="uk-placeholder uk-placeholder-large uk-text-center uk-margin-top">
-					    <i class="uk-icon-large uk-icon-cloud-upload"></i> {{ trans('admin.drag_listing_images_or') }} <a class="uk-form-file uk-text-primary">{{ trans('admin.select_an_image') }}<input id="upload_select_modal" type="file" multiple></a>
+	        		<div id="upload_drop_modal" class="uk-placeholder uk-placeholder-large uk-text-center uk-margin-top uk-hidden-small">
+					    <i class="uk-icon-large uk-icon-cloud-upload"></i> {{ trans('admin.drag_listing_images_or') }} 
 					</div>
+
+					<a class="uk-form-file uk-text-primary uk-text-bold uk-h3 uk-visible-small">{{ ucfirst(trans('admin.select_an_image_mobile')) }}<input id="upload_select_modal" type="file" multiple></a>
 
 					<div id="progressbar_modal" class="uk-progress uk-hidden">
 					    <div class="uk-progress-bar" style="width: 0%;"></div>
@@ -408,8 +412,12 @@
 						
 			</div>
 
-		    <div class="uk-modal-footer">
+		    <div class="uk-modal-footer uk-hidden-small">
 		    	<a href="" class="uk-button uk-button-success uk-modal-close">{{ trans('admin.save') }}</a>
+		    </div>
+
+		    <div class="uk-modal-footer uk-visible-small">
+		    	<a id="image_modal_save" href="" class="uk-button uk-button-success uk-button-large uk-width-1-1 uk-modal-close uk-hidden">{{ trans('admin.save') }}</a>
 		    </div>
 	    </div>
 	</div>
@@ -629,6 +637,7 @@
 
 		            		// Insite uploader images
 		            		$("#images-div").append('<li data-id="'+response.image.id+'" class="uk-width-large-1-4 uk-width-medium-1-3 uk-panel uk-margin-bottom" id="image-'+response.image.id+'"><i class="uk-close uk-close-alt uk-panel-badge" id="'+response.image.id+'" onclick="deleteImage(this)" data-uk-tooltip="{pos:"top"}" title="{{ trans("admin.eliminate_image") }}"></i><input type="hidden" name="image['+response.image.id+']" value><img src="{{asset("/")}}'+response.image.image_path+'"><div class="uk-badge uk-badge-notification uk-panel-badge" style="right:40%;">0</div></li>');
+		            		$('#image_modal_save').removeClass('uk-hidden');
 		            		setOrdering(sortable);
 		            	}else if(response.error){
 		            		if(response.error instanceof Array){
