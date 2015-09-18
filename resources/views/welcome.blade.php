@@ -146,7 +146,7 @@
                     @endforeach
                 </select>
 
-                 <select class="uk-width-1-1 uk-margin-small-bottom uk-form-large" id="search_manufacturer_mobile" name="manufacturers" multiple="multiple">
+                 <select class="uk-width-1-1 uk-margin-small-bottom uk-form-large" id="search_manufacturer_mobile" name="manufacturers[]" multiple="multiple">
                     @foreach($manufacturers as $manufacturer)
                         @if(is_array(Request::get('manufacturers')) && in_array($manufacturer->id, Request::get('manufacturers')))
                             <option value="{{ $manufacturer->id }}" selected>{{ $manufacturer->text }}</option>
