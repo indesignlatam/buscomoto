@@ -83,7 +83,7 @@
 					<img src="{{ asset($listing->image_path()) }}" alt="{{ $listing->title }}" >
 				@endif
 
-				<button class="uk-button uk-button-large uk-margin-small-top uk-button-primary uk-width-1-1 uk-hidden-large" data-uk-modal="{target:'#new_message_modal'}">{{ trans('frontend.contact_vendor') }}</button>
+				<button class="uk-button uk-button-large uk-margin-small-top uk-button-primary uk-width-1-1 uk-hidden-large" data-uk-modal="{target:'#new_message_modal'}" onclick="trackContactVendor('mobile')">{{ trans('frontend.contact_vendor') }}</button>
 			</div>
 
 			<div class="uk-width-3-10 uk-hidden-small">
@@ -158,7 +158,7 @@
 					@endif
 					
 					<div class="uk-margin-small-top uk-flex">
-						<button class="uk-button uk-button-large uk-width-1-1" data-uk-toggle="{target:'#phones'}"><i class="uk-icon-phone"></i></button>
+						<button class="uk-button uk-button-large uk-width-1-1" data-uk-toggle="{target:'#phones'}" onclick="trackContactVendor('dt_phone')"><i class="uk-icon-phone"></i></button>
 						<button onclick="like()" class="uk-button uk-button-large uk-width-1-1 uk-margin-small-left">
 					    	@if(isset(Cookie::get('likes')[$listing->id]) && Cookie::get('likes')[$listing->id] || $listing->like)
 								<i id="like_button" class="uk-icon-heart uk-text-danger"></i>
@@ -237,7 +237,7 @@
     				<li><i class="uk-text-muted">{{ trans('admin.code') }}</i> <b>#{{ $listing->code }}</b></li>
     			</ul>
 
-				<button class="uk-button uk-button-large uk-button-primary uk-width-1-1 uk-hidden-large" data-uk-modal="{target:'#new_message_modal'}">{{ trans('frontend.contact_vendor') }}</button>
+				<button class="uk-button uk-button-large uk-button-primary uk-width-1-1 uk-hidden-large" data-uk-modal="{target:'#new_message_modal'}" onclick="trackContactVendor('mobile')">{{ trans('frontend.contact_vendor') }}</button>
 				<button class="uk-button uk-button-large uk-margin-small-top uk-width-1-1" onclick="select(this)" id="{{ $listing->id }}">{{ trans('frontend.compare') }}</button>
     			<a href="{{ url($listing->user->path()) }}" class="uk-button uk-button-large uk-width-1-1 uk-margin-small-top uk-margin-bottom">{{ trans('frontend.other_user_listings') }}</a>
 	    	</div>
@@ -581,6 +581,12 @@
 					}
 		    	}
 	        });
+		}
+
+		function trackContactVendor(label){
+			if({{ env('APP_ENV') }} == 'production'){
+				ga('send', 'contact_vendor', 'contact', 'button_click', label]);
+			}
 		}
     </script>
 @endsection
