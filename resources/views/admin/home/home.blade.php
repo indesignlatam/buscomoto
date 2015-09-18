@@ -18,21 +18,27 @@
     <div class="uk-grid">
         <div class="uk-width-1-2">
             <div class="uk-panel uk-panel-box uk-panel-box-secondary">
-                <h2>Registered users</h2>
+                <h2>Registered users <i class="uk-text-primary uk-h4">({{ $counts['listings'] }})</i></h2>
                 <canvas id="users_chart" width="500" height="250"></canvas>
             </div>
         </div>
         <div class="uk-width-1-2">
             <div class="uk-panel uk-panel-box uk-panel-box-secondary">
-                <h2>Created listings</h2>
+                <h2>Created listings <i class="uk-text-primary uk-h4">({{ $counts['users'] }})</i></h2>
                 <canvas id="listings_chart" width="500" height="250px"></canvas>
             </div>
         </div>
 
         <div class="uk-width-1-2">
             <div class="uk-panel uk-panel-box uk-panel-box-primary">
-                <h2>Messages sent</h2>
+                <h2>Messages sent <i class="uk-text-primary uk-h4">({{ $counts['messages'] }})</i></h2>
                 <canvas id="messages_chart" width="500" height="250px"></canvas>
+            </div>
+        </div>
+        <div class="uk-width-1-2">
+            <div class="uk-panel uk-panel-box uk-panel-box-primary">
+                <h2>No images listings <i class="uk-text-primary uk-h4">({{ $counts['points_avg'] }} points avg)</i></h2>
+                <canvas id="no_images_chart" width="500" height="250px"></canvas>
             </div>
         </div>
     </div>
@@ -59,6 +65,20 @@
             // Get the context of the canvas element we want to select
             var ctx = $("#messages_chart").get(0).getContext("2d");
             var myNewChart = new Chart(ctx).Line(data3);
+
+
+            var data4 = [{value: {{ $counts['nIListings'] }},
+                         color:"#F7464A",
+                         highlight: "#FF5A5E",
+                         label: "Listings with no images"
+                        },{
+                         value: {{ $counts['listings'] }},
+                         color: "#46BFBD",
+                         highlight: "#5AD3D1",
+                         label: "Listings images"
+                        }];
+            var ctx = $("#no_images_chart").get(0).getContext("2d");
+            var myDoughnutChart = new Chart(ctx).Doughnut(data4);
         });
     </script>
 @endsection

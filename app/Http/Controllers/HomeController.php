@@ -95,11 +95,25 @@ class HomeController extends Controller {
 			$data3 = ['labels' => $labels,
 					  'datasets' => $datasets,
 					 ];
+
+
+			// Counts
+			$listingCount = Listing::count();
+			$nIListingCount = Listing::whereNull('image_path')->orWhere('image_path', '')->count();
+			$pointsAVG = Listing::avg('points');
+			$userCount = User::count();
+			$messageCount = Appointment::count();
 			
 
-			return view('admin.home.home', ['data' => $data,
-											'data2'=> $data2,
-											'data3'=> $data3,
+			return view('admin.home.home', ['data' 		=> $data,
+											'data2'		=> $data2,
+											'data3'		=> $data3,
+											'counts' 	=> ['listings' 	=> $listingCount,
+															'users' 	=> $userCount,
+															'messages' 	=> $messageCount,
+															'nIListings'=> $nIListingCount,
+															'points_avg'=> $pointsAVG,
+														 	],
 											]);
 		}elseif(Auth::user()->confirmed){
 			$messages 				= Appointment::remember(Settings::get('query_cache_time_extra_short'))
