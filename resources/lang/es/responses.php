@@ -35,6 +35,8 @@ return [
 
     // UserController
     'account_confirmed'                     => 'Tu cuenta ha sido confirmada exitosamente.',
+    'account_already_confirmed'             => 'Tu cuenta ya habia sido confirmada.',
+    'confirmation_sent'                     => 'Correo de confirmación enviado.',
     'complete_profile'                      => 'Por favor completa la información de tu perfil para que los clientes te puedan contactar con facilidad.',
     'account_removed'                       => 'La cuenta fue eliminada.',
     'your_account_removed'                  => 'Tu cuenta fue eliminada.',
