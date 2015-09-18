@@ -133,6 +133,15 @@ class AppointmentController extends Controller {
 		// Analytics event
 		Analytics::trackEvent('Contact Vendor', 'button', $appointment->listing_id, 1);
 
+		// User is not confirmed
+		$listing = Listing::find($request->listing_id);
+		if(!$listing->user->confirmed){
+		return redirect()->back()->withSuccess([trans('responses.message_user_not_confirmed'), 
+												'Tel 1:'.$listing->user->phone_1,
+												'Tel 2:'.$listing->user->phone_2
+												]);
+		}
+
 		return redirect()->back()->withSuccess([trans('responses.message_success')]);
 	}
 

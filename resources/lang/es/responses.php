@@ -7,6 +7,7 @@ return [
     'message_sent'                          => 'El mensaje fue enviado exitosamente.',
     'message_marked_0'                      => 'El mensaje fue marcado como no visto.',
     'message_marked_1'                      => 'El mensaje fue marcado como visto.',
+    'message_user_not_confirmed'            => 'El mensaje fue guardado pero el cliente no ha confirmado su correo electrónico, te recomendamos que lo llames a su numero de telefono.',
 
     // ListingController
     'listing_created' 				        => 'Su publicación fue creada exitosamente.',
