@@ -19,3 +19,4 @@ Thumbs.db
 *.log
 *.sql
 *.sqlite
+public/images/defaults/listing-image(map_mini).jpg
