@@ -77,10 +77,17 @@
 		                    <tr id="message-{{ $appointment->id }}">
 		                        <td style="max-width:100px" class="uk-hidden-small">
 		                        	<a href="{{ $appointment->listing->path() }}" target="_blank">
-		                        		<img src="{{ asset($appointment->listing->image_path()) }}" style="width:100px">
+		                        		<img src="{{ asset($appointment->listing->image_path()) }}" style="max-width:100px">
 		                        	</a>
 		                        </td>
 		                        <td class="uk-visible-small">#{{ $appointment->listing->code }}</td>
+
+		                        @if($appointment->listing->user->confirmed)
+		                        <td style="width:15px"><i class="uk-icon-user uk-text-success" data-uk-tooltip="{pos:'top'}" title="{{ $appointment->listing->user->name }}"></i></td>
+		                        @else
+		                        <td style="width:15px"><i class="uk-icon-user uk-text-warning" data-uk-tooltip="{pos:'top'}" title="{{ $appointment->listing->user->name }}"></i></td>
+		                        @endif
+		                        
 		                        <td style="width:20%"><b class="uk-h4">{{ $appointment->name }}</b><br>{{ $appointment->email }}</td>
 		                        <td class="uk-text-small">{{ $appointment->comments . ' | ' . $appointment->phone }}</td>
 		                        <td style="max-width:120px" class="uk-text-right">
@@ -198,9 +205,8 @@
 		                        <td style="max-width:100px" class="uk-hidden-small"><img src="{{ asset($appointment->listing->image_path()) }}" style="width:100px"></td>
 		                        <td class="uk-visible-small">#{{ $appointment->listing->code }}</td>
 		                        <td style="width:20%"><b class="uk-h4">{{ $appointment->name }}</b><br>{{ $appointment->phone }}</td>
-		                        <td class="uk-hidden-small">{{ $appointment->email }}</td>
-		                        <td>{{ $appointment->comments }}</td>
-		                        <td style="max-width:120px" class="uk-text-right">
+		                        <td>{{ $appointment->comments }} | {{ $appointment->email }}</td>
+		                        <td style="max-width:150px" class="uk-text-right">
 		                        	<div class="uk-grid uk-grid-small" data-uk-grid-margin>
 		                        		<!-- Reply button -->
 		                        		@if(Auth::user()->confirmed)

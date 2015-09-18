@@ -45,7 +45,7 @@ class AppointmentController extends Controller {
 
 		if(Auth::user()->is('admin')){
 			// Create the principal query
-			$query = Appointment::with('listing');
+			$query = Appointment::with('listing', 'listing.user');
 		}else{
 			// Create the principal query
 			$query = Appointment::leftJoin('listings',
