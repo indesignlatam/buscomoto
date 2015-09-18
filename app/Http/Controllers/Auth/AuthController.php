@@ -57,7 +57,7 @@ class AuthController extends Controller {
             'name'      => 'required|max:255',
             'username'  => 'alpha_dash|max:255|unique:users',
             'phone'     => 'required|digits_between:7,15|unique:users,phone_1|unique:users,phone_2',
-            'email'     => 'required|email|max:255|unique:users',
+            'email'     => 'required|email|confirmed|max:255|unique:users',
             'password'  => 'required|min:6',
         ]);
     }

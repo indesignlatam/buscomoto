@@ -14,6 +14,7 @@ return [
     'reset_button' 				=> 'Enviar',
     'name' 						=> 'Nombre',
     'email'                     => 'Correo electrónico',
+    'confirm_email'             => 'Confirmar correo electrónico',
     'phone'                     => 'Teléfono',
     'cellphone'                 => 'Celular',
     'confirm_password' 			=> 'Confirmar contraseña',
