@@ -140,6 +140,9 @@ class ImageController extends Controller {
 		$imageSize = $uImage->getSize();
 		$ratio = $imageSize->getWidth() / $imageSize->getHeight();
 		$newW = 540*$ratio;
+		if($newW > 960){
+			$newW = 960;
+		}
 		$uImage = $uImage->thumbnail(new \Imagine\Image\Box($newW, 540));
 
 		// Get new imageSize

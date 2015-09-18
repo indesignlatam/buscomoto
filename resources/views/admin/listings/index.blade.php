@@ -89,7 +89,7 @@
 		                        <td>{{ $listing->id }}</td>
 		                        <td class="uk-text-center">@if($listing->published)<i class="uk-icon-check"></i>@else<i class="uk-icon-remove"></i>@endif</td>
 		                        <td><img src="{{ asset(Image::url($listing->image_path(),['map_mini'])) }}"></td>
-		                        <td><a href="{{ url($listing->path()) }}">{{ $listing->title }}</a></td>
+		                        <td><a href="{{ url($listing->pathEdit()) }}">{{ $listing->title }}</a></td>
 		                        <td>
 		                        	<a href="{{ url('/admin/user/'.$listing->user->id.'/edit') }}">
 		                        		<i class="uk-icon-user" data-uk-tooltip="{pos:'top'}" title="{{ $listing->user->id. ' | ' .$listing->user->name }}"></i>
