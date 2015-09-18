@@ -46,17 +46,29 @@ class CalculateListingsPoints extends Command{
                 if(isset($listing->images) && count($listing->images) > 0){
                     if(count($listing->images) == 1){
                         $points += 50;
-                    }else if(count($listing->images) > 1){
+                    }else if(count($listing->images) > 1 && count($listing->images) < 5){
                         $points += 50 + (count($listing->images)-1) * 10;
+                    }else{
+                        $points += 80;
                     }
                 }
 
                 if(count($listing->features) > 0){
-                    $points += count($listing->features) * 2;
+                    $pointsFeatures = count($listing->features) * 2;
+                    if($pointsFeatures > 20){
+                        $points += 20;
+                    }else{
+                        $points += $pointsFeatures;
+                    }
                 }
 
                 if($listing->description && strlen($listing->description) > 30){
-                    $points += strlen($listing->description) * 0.2;
+                    $pointsDescription = strlen($listing->description) * 0.1;
+                    if($pointsDescription > 30){
+                        $points += 30;
+                    }else{
+                        $points += $pointsDescription;
+                    }
                 }
 
                 $listing->points = $points;
