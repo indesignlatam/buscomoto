@@ -65,7 +65,7 @@ class ImageController extends Controller {
 		// Image number limit
 		if(!$listing->user->confirmed){
 			if(count($listing->images) >= Settings::get('unconfirmed_image_limit', 2)){
-				return response()->json(['error' => trans('responses.image_limit'),
+				return response()->json(['error' => trans('responses.image_limit_confirmation'),
 										 'image' => null
 										 ]);
 			}

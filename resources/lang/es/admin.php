@@ -137,7 +137,7 @@ return [
     'select_an_image'           => 'haz click aquí para seleccionar una imagen de tu computador.',
     'select_an_image_mobile'    => 'haz click aquí para seleccionar una imagen de tu celular.',
     'no_images_text'            => 'Tu publicación tendra muy pocas visitas si no agregas al menos una foto.',
-    'images_recomendations'     => 'Te recomendamos que subas las siguientes fotos de tu moto. Haz click en ellas para subir una foto.',
+    'images_recomendations'     => 'Te recomendamos que subas las fotos de tu moto en los siguientes angulos. Haz click en ellas para subir una foto.',
     'saving_wait'               => 'Guardando publicación, porfavor espere.',
 
     //
