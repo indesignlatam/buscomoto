@@ -75,6 +75,7 @@
 		            <tbody>
 		                @foreach($appointments as $appointment)
 		                    <tr id="message-{{ $appointment->id }}">
+		                    @if(isset($appointment->listing) && isset($appointment->listing->user))
 		                        <td style="max-width:100px" class="uk-hidden-small">
 		                        	<a href="{{ $appointment->listing->path() }}" target="_blank">
 		                        		<img src="{{ asset($appointment->listing->image_path()) }}" style="max-width:100px">
@@ -87,6 +88,7 @@
 		                        @else
 		                        <td style="width:15px"><i class="uk-icon-user uk-text-warning" data-uk-tooltip="{pos:'top'}" title="{{ $appointment->listing->user->name }}"></i></td>
 		                        @endif
+		                    @endif
 		                        
 		                        <td style="width:20%"><b class="uk-h4">{{ $appointment->name }}</b><br>{{ $appointment->email }}</td>
 		                        <td class="uk-text-small">{{ $appointment->comments . ' | ' . $appointment->phone }}</td>

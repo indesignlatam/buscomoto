@@ -78,7 +78,13 @@ class ListingController extends Controller {
 			$objects = $query->with('listingType', 'featuredType', 'images', 'features')->paginate($take);
 		}
 
-		return view('admin.listings.index', ['listings' => $objects]);
+		// Serve correct view for Desktop or mobile
+		$view = 'admin.listings.index';
+		if(Agent::isMobile()){
+			$view = 'admin.listings.mobile.index';
+		}
+
+		return view($view, ['listings' => $objects]);
 	}
 
 	/**
