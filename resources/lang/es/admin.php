@@ -130,14 +130,18 @@ return [
     'eliminate_image'           => 'Eliminar imagen',
     'set_as_main_image'         => 'Seleccionar como imagen principal',
     'share_social'              => 'Comparte en redes',
-    'images_notice'             => 'Para cargar imágenes debes guardar el publicación primero.',
+    'images_notice'             => 'Para cargar imágenes debes guardar la publicación primero.',
     'order_images'              => 'Puedes ordenar las imágenes que cargues arrastrándolas a la posición que desees. La primera imagen sera la imagen principal.',
     'add_images_to_listing'     => 'Agrega imágenes para mejorar la visibilidad de tu publicación.',
+    'images_modal'              => 'Sube tus fotos',
     'drag_listing_images_or'    => 'Arrastra aca las imágenes de la moto o',
     'select_an_image'           => 'haz click aquí para seleccionar una imagen de tu computador.',
     'select_an_image_mobile'    => 'haz click aquí para seleccionar una imagen de tu celular.',
     'no_images_text'            => 'Tu publicación tendra muy pocas visitas si no agregas al menos una foto.',
-    'images_recomendations'     => 'Te recomendamos que subas las fotos de tu moto en los siguientes angulos. Haz click en ellas para subir una foto.',
+    'no_images_warning'         => 'Al no publicar fotos de tu moto estas perdiendo clientes.',
+    'upload_image'              => 'Publica una foto',
+    'click_upload_image'        => 'Haz click aquí para subir una foto',
+    'images_recomendations'     => 'Te recomendamos que subas las fotos de tu moto en los siguientes angulos.',
     'saving_wait'               => 'Guardando publicación, porfavor espere.',
 
     //
@@ -180,6 +184,7 @@ return [
     // Confirmation
     'user_not_confirmed'        => 'No has confirmado tu cuenta de correo',
     'confirm_email'             => 'Confirma tu cuenta de correo electrónico',
+    'confirm_email_modal'       => 'Confirma tu correo electrónico',
     'user_not_confirmed_title'  => 'Aun no has confirmado tu cuenta de correo electrónico',
     'user_not_confirmed_text'   => 'Al no tener confirmada tu cuenta de correo electrónico no podrás acceder a las siguientes funciones de nuestra plataforma.',
     'free_listings'             => 'Publicaciones Gratis',
@@ -353,7 +358,8 @@ return [
 
     // Welcome
     'view_more_listings'        => 'Ver más publicaciones',
-    'welcome_new_user'          => 'Estás un paso mas cerca de publicar tu moto. Te hemos enviado un mensaje para que confirmes tu correo electrónico y puedas acceder a todos los beneficios de BuscoMoto.co',
+    'welcome_new_user_title'    => 'estás un paso mas cerca de publicar tu moto.',
+    'welcome_new_user'          => 'Te hemos enviado un correo para que confirmes tu cuenta y puedas recibir mensajes de clientes interesados y acceder a todos los beneficios de BuscoMoto.co',
     'open'                      => 'Ir a',
 
     // Navbar

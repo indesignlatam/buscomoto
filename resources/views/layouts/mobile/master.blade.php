@@ -2,11 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <!-- No zoom -->
         <meta name="viewport" content="width=device-width, user-scalable=no"/>
-        <!-- No zoom -->
         <meta name="author" content="{{ Settings::get('site_name') }}">
         <meta name="description" content="{{ Settings::get('site_description') }}">
         @section('head')
@@ -39,7 +36,7 @@
             <script src="{{ asset('/js/uikit.min.js') }}"></script>
 
             <!-- Other Scripts -->
-            <link href="{{ asset('/css/components/notify.almost-flat.css') }}" rel="stylesheet">
+            <link href="{{ asset('/css/components/notify.css') }}" rel="stylesheet">
             <script src="{{ asset('/js/components/notify.min.js') }}"></script>
         @show
 
