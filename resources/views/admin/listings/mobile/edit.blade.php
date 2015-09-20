@@ -272,7 +272,7 @@
 				<h3 class="uk-text-primary uk-text-bold" style="text-transform: uppercase">{{ trans('admin.images') }}</h3>
 			</div>
 
-			<p class="uk-margin-remove">{{ trans('admin.order_images') }}</p>
+			<p class="uk-margin-remove">{{ trans('admin.order_images_mobile') }}</p>
 
 
 			<div class="uk-form-file uk-width-1-1 uk-margin-top">
