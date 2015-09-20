@@ -94,7 +94,7 @@
 								<p>{{ $appointment->comments }}</p>
 							</div>
 
-							<div class="uk-width-1-1 uk-margin-small-top">
+							<div class="uk-width-1-1 uk-margin-small-top buttons">
 								<div class="uk-flex">
 		                    		<!-- Reply button -->
 		                    		@if(Auth::user()->confirmed)
