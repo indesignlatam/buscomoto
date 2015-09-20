@@ -9,6 +9,7 @@ use Auth;
 use Carbon;
 use Settings;
 use Queue;
+use Agent;
 
 use App\Models\Listing;
 use App\Models\EngineSize;
@@ -77,7 +78,13 @@ class ListingController extends Controller {
 			$objects = $query->with('listingType', 'featuredType', 'images', 'features')->paginate($take);
 		}
 
-		return view('admin.listings.index', ['listings' => $objects]);
+		// Serve correct view for Desktop or mobile
+		$view = 'admin.listings.index';
+		if(Agent::isMobile()){
+			$view = 'admin.listings.mobile.index';
+		}
+
+		return view($view, ['listings' => $objects]);
 	}
 
 	/**
@@ -103,7 +110,13 @@ class ListingController extends Controller {
 		$fuels 			= FuelType::remember(Settings::get('query_cache_time'))->get();
 
 
-		return view('admin.listings.new', [ 'manufacturers' 	=> $manufacturers, 
+		// Serve correct view for Desktop or mobile
+		$view = 'admin.listings.new';
+		if(Agent::isMobile()){
+			$view = 'admin.listings.mobile.new';
+		}
+
+		return view($view, [ 'manufacturers' 	=> $manufacturers, 
 											'listingTypes' 		=> $listingTypes, 
 											'cities' 			=> $cities,
 											'features' 			=> $features, 
@@ -238,15 +251,20 @@ class ListingController extends Controller {
 		$transmissions 	= TransmissionType::remember(Settings::get('query_cache_time'))->get();
 		$fuels 			= FuelType::remember(Settings::get('query_cache_time'))->get();
 
+		// Serve correct view for Desktop or mobile
+		$view = 'admin.listings.edit';
+		if(Agent::isMobile()){
+			$view = 'admin.listings.mobile.edit';
+		}
 
-		return view('admin.listings.edit', ['listing'			=> $listing,
-											'manufacturers' 	=> $manufacturers, 
-											'listingTypes' 		=> $listingTypes, 
-											'cities' 			=> $cities,
-											'features' 			=> $features, 
-											'transmissions' 	=> $transmissions, 
-											'fuels' 			=> $fuels, 
-											]);
+		return view($view, ['listing'			=> $listing,
+							'manufacturers' 	=> $manufacturers, 
+							'listingTypes' 		=> $listingTypes, 
+							'cities' 			=> $cities,
+							'features' 			=> $features, 
+							'transmissions' 	=> $transmissions, 
+							'fuels' 			=> $fuels, 
+							]);
 	}
 
 	/**

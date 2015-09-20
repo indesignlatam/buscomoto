@@ -44,6 +44,7 @@ return [
 
     // ImageController
     'image_limit'                           => 'Has alcanzado tu limite máximo de fotos.',
+    'image_limit_confirmation'              => 'Debes confirmar tu cuenta de correo para cargar más de 2 fotos',
     
     // PaymentController
     'payment_canceled'                      => 'Pago cancelado exitosamente',
