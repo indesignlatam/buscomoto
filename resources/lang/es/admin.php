@@ -179,6 +179,7 @@ return [
     'reply'                     => 'Responder mensaje',
     'mark_as_answered'          => 'Marcar como respondido',
     'delete_message'            => 'Eliminar mensaje',
+    'answer_message_modal'      => 'Responder mensaje',
     'emails'                    => 'Correos electrónicos (Separados por coma)',
     'listing_shared'            => 'La publicación fue compartida',
 
@@ -233,7 +234,7 @@ return [
     'sure'                      => '¿Estás seguro? Esta acción eliminará el objeto permanentemente.',
     'sure_leave'                => '¿Estás seguro que deseas salir de esta página? Si has realizado cambios estos no serán guardados.',
     'yes' 				        => 'Si',
-    'answer_message_prompt' 	=> 'Escribe un mensaje para el cliente interesado, adjunto se le enviará la información de la publicación.',
+    'answer_message_prompt' 	=> 'Adjunto se le enviará la información de la publicación.',
     'view_messages' 			=> 'Ver mensajes',
     'send' 				        => 'Enviar',
     'show_deleted_messages'     => 'Buscar en los mensajes eliminados',

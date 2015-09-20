@@ -90,7 +90,14 @@ class AppointmentController extends Controller {
 		// Execute the query
 		$objects = $query->paginate($take);
 
-		return view('admin.appointments.index', ['appointments' => $objects]);
+
+		// Serve correct view for Desktop or mobile
+		$view = 'admin.appointments.index';
+		if(Agent::isMobile()){
+			$view = 'admin.appointments.mobile.index';
+		}
+
+		return view($view, ['appointments' => $objects]);
 	}
 
 	/**
