@@ -276,7 +276,7 @@
 
 
 			<div class="uk-form-file uk-width-1-1 uk-margin-top">
-			    <h3 class="uk-width-1-1 uk-text-center uk-text-primary uk-margin-bottom-remove">Haz click aqui para subir una foto</h3>
+			    <h3 class="uk-width-1-1 uk-text-center uk-text-primary uk-margin-bottom-remove">{{ trans('admin.click_upload_image') }}</h3>
 				<div class="uk-width-1-1 uk-text-center uk-margin-top-remove"><i class="uk-icon-chevron-down uk-icon-medium"></i></div>
 
 				<div class="uk-grid">
@@ -301,14 +301,12 @@
 			    <div class="uk-progress-bar" style="width: 0%;"></div>
 			</div>
 
-			<ul class="uk-sortable uk-margin-top uk-grid" data-uk-sortable="{handleClass:'handle'}" id="images-div">
+			<ul class="uk-margin-top uk-grid" id="images-div">
 			@foreach($listing->images->sortBy('ordering') as $image)
 				<li data-id="{{ $image->id }}" class="uk-width-1-1 uk-margin-small-bottom" id="image-{{ $image->id }}" style="position:relative">
 					<i class="uk-close uk-close-alt uk-panel-badge" id="{{ $image->id }}" onclick="deleteImage(this)"></i>
 					<input type="hidden" name="image[{{ $image->id }}]" value="{{ $image->ordering }}">
 			    	<img src="{{ asset($image->image_path) }}">
-			    	<div class="uk-badge uk-badge-notification uk-panel-badge" style="right:40%;">0</div>
-					<div class="handle"><i class="uk-icon-medium uk-icon-arrows uk-text-primary" style="position:absolute; top:10px; left:30px"></i></div>
 				</li>
 			@endforeach
 			</ul>
@@ -448,7 +446,6 @@
 	@parent
 
 	<!-- CSS -->
-    <link href="{{ asset('/css/components/sortable.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/components/form-file.almost-flat.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/components/upload.almost-flat.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/components/progress.almost-flat.min.css') }}" rel="stylesheet">
@@ -457,7 +454,6 @@
 	<!-- CSS -->
 
 	<!-- JS -->
-    <script src="{{ asset('/js/components/sortable.min.js') }}"></script>
 	<script src="{{ asset('/js/components/upload.min.js') }}"></script>
 	<script src="{{ asset('/js/accounting.min.js') }}"></script>
 	<script src="{{ asset('/js/select2.min.js') }}"></script>
@@ -656,11 +652,11 @@
 		            		UIkit.notify('<i class="uk-icon-check-circle"></i> '+response.success, {pos:'top-right', status:'success', timeout: 3000});
 
 		            		// Modal image
-		            		$("#images_div_modal").append('<li data-id="'+response.image.id+'" class="uk-width-1-1 uk-margin-small-bottom" id="image-modal-'+response.image.id+'" style="position:relative"><i class="uk-close uk-close-alt uk-panel-badge" id="'+response.image.id+'" onclick="deleteImage(this, true)"></i><input type="hidden" name="image['+response.image.id+']" value><img src="{{asset("/")}}'+response.image.image_path+'"><div class="handle"><i class="uk-icon-medium uk-icon-arrows uk-text-primary" style="position:absolute; top:10px; left:30px"></i></div></li>');
+		            		$("#images_div_modal").append('<li data-id="'+response.image.id+'" class="uk-width-1-1 uk-margin-small-bottom" id="image-modal-'+response.image.id+'" style="position:relative"><i class="uk-close uk-close-alt uk-panel-badge" id="'+response.image.id+'" onclick="deleteImage(this, true)"></i><input type="hidden" name="image['+response.image.id+']" value><img src="{{asset("/")}}'+response.image.image_path+'"></li>');
 		            		$("#image-modal-"+response.image.id).show('normal');
 
 		            		// Insite image
-		            		$("#images-div").append('<li data-id="'+response.image.id+'" class="uk-width-1-1 uk-margin-small-bottom" id="image-'+response.image.id+'"><i class="uk-close uk-close-alt uk-panel-badge" id="'+response.image.id+'" onclick="deleteImage(this)"></i><input type="hidden" name="image['+response.image.id+']" value><img src="{{asset("/")}}'+response.image.image_path+'"><div class="uk-badge uk-badge-notification uk-panel-badge" style="right:40%;">0</div><div class="handle"><i class="uk-icon-medium uk-icon-arrows uk-text-primary" style="position:absolute; top:10px; left:30px"></i></div></li>');
+		            		$("#images-div").append('<li data-id="'+response.image.id+'" class="uk-width-1-1 uk-margin-small-bottom" id="image-'+response.image.id+'" style="position:relative"><i class="uk-close uk-close-alt uk-panel-badge" id="'+response.image.id+'" onclick="deleteImage(this)"></i><input type="hidden" name="image['+response.image.id+']" value><img src="{{asset("/")}}'+response.image.image_path+'"></li>');
 
 		            		// Show save button in modal
 		            		$('#image_modal_save').removeClass('uk-hidden');

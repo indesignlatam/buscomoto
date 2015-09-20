@@ -131,7 +131,7 @@ return [
     'set_as_main_image'         => 'Seleccionar como imagen principal',
     'share_social'              => 'Comparte en redes',
     'images_notice'             => 'Para cargar imágenes debes guardar la publicación primero.',
-    'order_images'              => 'Puedes ordenar las imágenes que cargues arrastrándolas a la posición que desees. La primera imagen sera la imagen principal.',
+    'order_images'              => 'Recuerda que la primera imagen que cargues sera la imagen principal.',
     'add_images_to_listing'     => 'Agrega imágenes para mejorar la visibilidad de tu publicación.',
     'images_modal'              => 'Sube tus fotos',
     'drag_listing_images_or'    => 'Arrastra aca las imágenes de la moto o',
