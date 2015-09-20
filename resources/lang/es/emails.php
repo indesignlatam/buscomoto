@@ -44,6 +44,12 @@ return [
     'confirm_user'                          => '¡Confirmar correo!',
     'confirm_user_not_working'              => 'Si no funciona el enlace anterior, copia y pega el siguiente enlace en la barra de navegacion:',
 
+    // User confirmation reminder
+    'user_confirmation_reminder_title'      => 'Te recordamos que para poder recibir y responder mensajes de clientes interesados en tu moto y tener acceso a todos los beneficios de BuscoMoto.co debes confirmar tu cuenta de correo.',
+    'click_here_to_confirm_reminder'        => 'Haz click en el siguiente boton para confirmar tu cuenta',
+    'confirm_user_reminder'                 => '¡Confirmar cuenta!',
+
+
     // Message answer
     'message_answer_subject'                => 'El vendedor ha respondido tu solicitud...',
     'message_answer_title'                  => 'El vendedor de la siguiente publicación ha respondido tu solicitud de información.',
