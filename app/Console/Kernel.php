@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel {
         \App\Console\Commands\FlushCache::class,
         \App\Console\Commands\NullFeaturedTypeFromExpiredListing::class,
         \App\Console\Commands\CalculateListingsPoints::class,
+        \App\Console\Commands\NotifyUnconfirmedAccounts::class,
     ];
 
     /**
@@ -28,19 +29,22 @@ class Kernel extends ConsoleKernel {
      * @return void
      */
     protected function schedule(Schedule $schedule){
+        $schedule->command('mail:unconfirmed_users')
+                 ->dailyAt('20:00');
+
         $schedule->command('mail:expiring_listings')
-                 ->dailyAt('5:00');
+                 ->dailyAt('18:00');
 
         $schedule->command('mail:tips')
-                 ->dailyAt('7:00');
+                 ->dailyAt('7:30');
 
         $schedule->command('listings:archive')
-                 ->dailyAt('1:10');
+                 ->dailyAt('3:10');
 
         $schedule->command('images:clean_temp')
                  ->dailyAt('1:00');
 
         $schedule->command('listings:null_featured_expired')
-                 ->hourly();
+                 ->hourly();        
     }
 }

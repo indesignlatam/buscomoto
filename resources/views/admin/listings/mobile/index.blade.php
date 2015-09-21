@@ -107,7 +107,7 @@
 				<?php echo $listings->appends(Request::all())->render(); ?>
 			</div>
 		@else
-			<h1>{{ trans('admin.my_listings') }}</h1>
+			<h2>{{ trans('admin.my_listings') }}</h2>
 
 			<hr>
 

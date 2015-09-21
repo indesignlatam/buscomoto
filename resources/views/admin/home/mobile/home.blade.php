@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.mobile.master')
 
 @section('head')
     <title>{{ trans('admin.dashboard') }} - {{ Settings::get('site_name') }}</title>
@@ -11,34 +11,34 @@
 @section('content')
 
 <div class="uk-container uk-container-center uk-margin-large-top">
-    <h1 class="uk-text-center" style="margin-top:-30px">Dashboard</h1>
+    <h2 class="uk-text-center" style="margin-top:-30px">{{ trans('admin.dashboard') }}</h2>
 
     <hr>
 
     <div class="uk-grid">
-        <div class="uk-width-1-2">
-            <div class="uk-panel uk-panel-box uk-panel-box-secondary">
-                <h2>Registered users <i class="uk-text-primary uk-h4">({{ $counts['users'] }})</i></h2>
-                <canvas id="users_chart" width="500" height="250"></canvas>
+        <div class="uk-width-1-1 uk-margin-small-bottom">
+            <div class="uk-panel uk-panel-box uk-panel-box-primary">
+                <h2>Registered users <i class="uk-text-primary uk-h4">({{ $counts['listings'] }})</i></h2>
+                <canvas id="users_chart" width="280px" height="200px"></canvas>
             </div>
         </div>
-        <div class="uk-width-1-2">
-            <div class="uk-panel uk-panel-box uk-panel-box-secondary">
-                <h2>Created listings <i class="uk-text-primary uk-h4">({{ $counts['listings'] }})</i></h2>
-                <canvas id="listings_chart" width="500" height="250px"></canvas>
+        <div class="uk-width-1-1 uk-margin-small-bottom">
+            <div class="uk-panel uk-panel-box uk-panel-box-primary">
+                <h2>Created listings <i class="uk-text-primary uk-h4">({{ $counts['users'] }})</i></h2>
+                <canvas id="listings_chart" width="280px" height="200px"></canvas>
             </div>
         </div>
 
-        <div class="uk-width-1-2">
+        <div class="uk-width-1-1 uk-margin-small-bottom">
             <div class="uk-panel uk-panel-box uk-panel-box-primary">
                 <h2>Messages sent <i class="uk-text-primary uk-h4">({{ $counts['messages'] }})</i></h2>
-                <canvas id="messages_chart" width="500" height="250px"></canvas>
+                <canvas id="messages_chart" width="280px" height="200px"></canvas>
             </div>
         </div>
-        <div class="uk-width-1-2">
+        <div class="uk-width-1-1 uk-margin-small-bottom">
             <div class="uk-panel uk-panel-box uk-panel-box-primary">
                 <h2>No images listings <i class="uk-text-primary uk-h4">({{ $counts['points_avg'] }} points avg)</i></h2>
-                <canvas id="no_images_chart" width="500" height="250px"></canvas>
+                <canvas id="no_images_chart" width="280px" height="200px"></canvas>
             </div>
         </div>
     </div>

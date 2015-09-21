@@ -68,7 +68,7 @@
 				<button type="submit" class="uk-button uk-button-success uk-width-large-8-10 uk-button-large">
 					{{ trans('auth.login_button') }}
 				</button>
-				<a class="uk-button uk-button-success uk-button-large uk-width-large-8-10 uk-margin-small-top" href="{{ url('/social-auth/facebook') }}" style="background-color:#2089cf;"><i class="uk-icon-facebook"></i> {{ trans('auth.facebook_login') }}</a>
+				<a class="uk-button uk-button-success uk-button-large uk-width-large-8-10 uk-margin-small-top uk-hidden-small" href="{{ url('/social-auth/facebook') }}" style="background-color:#2089cf;"><i class="uk-icon-facebook"></i> {{ trans('auth.facebook_login') }}</a>
 			</div>
 			<div class="uk-margin-small-top">
 				<a class="uk-text-muted" href="{{ url('/password/email') }}">{{ trans('auth.forgot_password') }}</a>

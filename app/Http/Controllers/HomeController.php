@@ -9,6 +9,8 @@ use Auth;
 use App\User;
 use Carbon;
 use Settings;
+use Agent;
+
 use App\Models\Appointment;
 use App\Models\Listing;
 
@@ -105,16 +107,22 @@ class HomeController extends Controller {
 			$messageCount = Appointment::count();
 			
 
-			return view('admin.home.home', ['data' 		=> $data,
-											'data2'		=> $data2,
-											'data3'		=> $data3,
-											'counts' 	=> ['listings' 	=> $listingCount,
-															'users' 	=> $userCount,
-															'messages' 	=> $messageCount,
-															'nIListings'=> $nIListingCount,
-															'points_avg'=> $pointsAVG,
-														 	],
-											]);
+			// Serve correct view for Desktop or mobile
+			$view = 'admin.home.home';
+			if(Agent::isMobile()){
+				$view = 'admin.home.mobile.home';
+			}
+
+			return view($view, ['data' 		=> $data,
+								'data2'		=> $data2,
+								'data3'		=> $data3,
+								'counts' 	=> ['listings' 	=> $listingCount,
+												'users' 	=> $userCount,
+												'messages' 	=> $messageCount,
+												'nIListings'=> $nIListingCount,
+												'points_avg'=> $pointsAVG,
+											 	],
+								]);
 		}elseif(Auth::user()->confirmed){
 			$messages 				= Appointment::remember(Settings::get('query_cache_time_extra_short'))
 												  ->leftJoin('listings',
@@ -160,12 +168,19 @@ class HomeController extends Controller {
 						  ];
 			}
 
-			return view('admin.home.dashboard', ['messages' 	=> $messages,
-												 'listings' 	=> $listings,
-												 'listingCount' => count($listingsAll),
-												 'notAnsweredMessages' 	=> $notAnsweredMessages,
-												 'data' 		=> $data
-												 ]);
+
+			// Serve correct view for Desktop or mobile
+			$view = 'admin.home.dashboard';
+			if(Agent::isMobile()){
+				$view = 'admin.home.mobile.dashboard';
+			}
+
+			return view($view, ['messages' 	=> $messages,
+								'listings' 	=> $listings,
+								'listingCount' => count($listingsAll),
+								'notAnsweredMessages' => $notAnsweredMessages,
+								'data' 		=> $data
+								]);
 		}
 		
 		return redirect('/admin/user/not_confirmed');
