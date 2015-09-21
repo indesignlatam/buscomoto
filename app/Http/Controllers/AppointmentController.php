@@ -195,9 +195,16 @@ class AppointmentController extends Controller {
 		// Execute the query
 		$appointments = $query->with('listing', 'listing.images')->paginate($take);
 
-		return view('admin.appointments.index', ['appointments' => $appointments,
-												 'listing'		=> $listing
-												 ]);
+
+		// Serve correct view for Desktop or mobile
+		$view = 'admin.appointments.index';
+		if(Agent::isMobile()){
+			$view = 'admin.appointments.mobile.index';
+		}
+
+		return view($view, ['appointments' 	=> $appointments,
+							'listing'		=> $listing
+							]);
 	}
 
 	/**
