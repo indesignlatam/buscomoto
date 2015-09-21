@@ -10,6 +10,7 @@ use Auth;
 use Log;
 use Settings;
 use Queue;
+use Agent;
 
 use App\Models\Payment;
 use	App\Models\Listing;
@@ -67,7 +68,14 @@ class PaymentController extends Controller {
 						  
 		$payments = $query->paginate($take);
 
-		return view('admin.payments.index', ['payments' => $payments]);
+
+		// Serve correct view for Desktop or mobile
+		$view = 'admin.payments.index';
+		if(Agent::isMobile()){
+			$view = 'admin.payments.mobile.index';
+		}
+
+		return view($view, ['payments' => $payments]);
 	}
 
 	/**
