@@ -17,7 +17,7 @@
 
     <body>
         @section('navbar')
-            @include('includes.navbar')
+            @include('includes.mobile.navbar')
         @show
 
         @section('header')
@@ -26,7 +26,7 @@
         @yield ('content')
         
         @section('footer')
-            @include('includes.footer')
+            @include('includes.mobile.footer')
         @show
         
         <!-- Scripts -->
@@ -41,7 +41,7 @@
         @show
 
         @section('alerts')
-            @include('includes.alerts')
+            @include('includes.mobile.alerts')
         @show
 
         @if(env('APP_ENV') == 'production')

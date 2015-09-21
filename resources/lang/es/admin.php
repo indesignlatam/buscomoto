@@ -43,6 +43,7 @@ return [
     'information'               => 'Información',
     'select_option'             => 'Seleccione una opción',
     'featured_listing'          => 'Publicación destacada',
+    'hello'                     => 'Hola',
 
 
     // Featured Categories

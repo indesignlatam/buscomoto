@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Queue;
 use Hash;
+use Agent;
 
 use App\User;
 use App\Jobs\SendUserConfirmationEmail;
@@ -34,7 +35,14 @@ class UserController extends Controller {
 	public function index(){
 		//
 		$users = User::with('listingCount')->orderBy('id', 'DESC')->paginate(30);
-		return view('admin.users.index', ['users' => $users]);
+
+		// Serve correct view for Desktop or mobile
+		$view = 'admin.users.index';
+		if(Agent::isMobile()){
+			$view = 'admin.users.mobile.index';
+		}
+
+		return view($view, ['users' => $users]);
 	}
 
 	/**
@@ -97,7 +105,13 @@ class UserController extends Controller {
 			abort(404);
 		}
 
-		return view('admin.users.edit', ['user' => $user]);
+		// Serve correct view for Desktop or mobile
+		$view = 'admin.users.edit';
+		if(Agent::isMobile()){
+			$view = 'admin.users.mobile.edit';
+		}
+
+		return view($view, ['user' => $user]);
 	}
 
 	/**
