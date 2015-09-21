@@ -18,13 +18,13 @@
     <div class="uk-grid">
         <div class="uk-width-1-2">
             <div class="uk-panel uk-panel-box uk-panel-box-secondary">
-                <h2>Registered users <i class="uk-text-primary uk-h4">({{ $counts['listings'] }})</i></h2>
+                <h2>Registered users <i class="uk-text-primary uk-h4">({{ $counts['users'] }})</i></h2>
                 <canvas id="users_chart" width="500" height="250"></canvas>
             </div>
         </div>
         <div class="uk-width-1-2">
             <div class="uk-panel uk-panel-box uk-panel-box-secondary">
-                <h2>Created listings <i class="uk-text-primary uk-h4">({{ $counts['users'] }})</i></h2>
+                <h2>Created listings <i class="uk-text-primary uk-h4">({{ $counts['listings'] }})</i></h2>
                 <canvas id="listings_chart" width="500" height="250px"></canvas>
             </div>
         </div>
