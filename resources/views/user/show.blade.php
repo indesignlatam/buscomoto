@@ -16,13 +16,17 @@
 @section('content')
 
 <div class="uk-cover-background uk-position-relative">
-	@if($user->image_path)
-    	<img class="" src="{{ asset($user->image_path) }}" width="100%" alt="">
-	@else
-    	<img class="" src="{{ asset('/images/defaults/user_front.jpg') }}" width="100%" alt="">
-	@endif
-    <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle uk-hidden-small">
-        <h1 class="uk-text-contrast uk-text-bold" style="font-size:60px; margin-left:-30%;">{{ strtoupper($user->name) }}</h1>
+	<div class="uk-overlay">
+        @if($user->image_path)
+	    	<img class="" src="{{ asset($user->image_path) }}" width="100%" alt="">
+		@else
+	    	<img class="" src="{{ asset('/images/defaults/user_front.jpg') }}" width="100%" alt="">
+		@endif
+        <div class="uk-overlay-panel uk-overlay-background uk-overlay-bottom">
+        	<div class="uk-container uk-container-center">
+            	<h1 class="uk-margin-remove">{{ strtoupper($user->name) }}</h1>
+        	</div>
+        </div>
     </div>
 </div>
 
@@ -45,7 +49,32 @@
 			</div>
 		</div>
 		
-		<h3 id="description">{{ $user->description }}</h3>
+		<div class="uk-grid">
+			<div class="uk-width-large-7-10 uk-width-medium-7-10">
+				<h3 id="description">{{ $user->description }}</h3>
+			</div>
+			<div class="uk-width-large-3-10 uk-width-medium-3-10 uk-hidden-small">
+				<div class="uk-panel uk-panel-box uk-panel-box-primary">
+					<h3>Datos del vendedor</h3>
+					
+					<button class="uk-button uk-button-large uk-button-primary uk-width-1-1 user_data" data-uk-toggle="{target:'.user_data'}">Ver datos</button>
+
+					<ul class="uk-list uk-list-line uk-hidden user_data" id="user_data">
+						<li>{{ $user->name }}</li>
+
+						@if($user->phone_1)
+						<li>{{ $user->phone_1 }}</li>
+						@endif
+
+						@if($user->phone_2)
+						<li>{{ $user->phone_2 }}</li>
+						@endif
+
+						<li>{{ $user->email }}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 
 		<!-- user listings -->
         @if(count($user->listings) > 0)
