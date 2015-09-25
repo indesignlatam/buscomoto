@@ -217,7 +217,7 @@ class UserController extends Controller {
 		return redirect('/admin/user/'.$id.'/edit')->withSuccess([trans('responses.account_confirmed'), trans('responses.complete_profile')]);
 	}
 
-	public function sendConfirmationEmail($id = null, Request $request){
+	public function sendConfirmationEmail(Request $request, $id = NULL){
 		$user = null;
 		if($id && Auth::check() && Auth::user()->isAdmin()){
 			$user = User::find($id);
