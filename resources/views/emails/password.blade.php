@@ -4,12 +4,16 @@
 @endsection
 
 @section('content')
-	<p>{{ trans('emails.password_reset_title') }}</p>
+	<p class="uk-text-bold">{{ trans('emails.password_reset_title') }}</p>
+
+	<div class="uk-text-center">
+		<h3> {{ trans('emails.click_here_to_reset') }}</h3>
+		<a class="uk-button uk-button-large uk-button-primary" href="{{ url('password/reset/'.$token) }}">{{ trans('emails.reset_password') }}</a>
+	</div>
 
 	<img src="{{ $message->embed(public_path().'/images/support/password/reset.png') }}" style="max-width:600px" class="uk-align-center">
 
 	<div class="uk-text-center">
-		<h3> {{ trans('emails.click_here_to_reset') }}</h3>
 		<a class="uk-button uk-button-large uk-button-primary" href="{{ url('password/reset/'.$token) }}">{{ trans('emails.reset_password') }}</a>
 	</div>
 
