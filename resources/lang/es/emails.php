@@ -37,6 +37,12 @@ return [
     'expiring_listing_title'                => 'Una de tus publicaciones está apunto de expirar, si aún no lo has vendido te invitamos a que renueves tu publicación.',
     'renovate_listing_now'                  => '¡Renueva tu publicación ahora mismo!',
 
+    // No image listing
+    'no_image_listing_subject'              => 'Sube fotos de tu moto',
+    'no_image_listing_title'                => 'No haz subido fotos de tu moto a la publicación',
+    'no_image_listing_text'                 => 'Al no subir fotos de tu moto tu publicación aparecera entre las ultimas en los resultados de las busquedas, entre mas y mejores fotos subas tendras mas puntos y tu moto aparecera en una mejor posición y tendras mas oportunidades de venderla.',
+    'upload_images_listing'                 => 'Sube tus fotos YA',
+
     // User confirmation
     'user_confirmation_subject'             => 'Confirma tu correo electrónico.',
     'user_confirmation_title'               => 'Te damos la bienvenida a la comunidad BuscoMoto.co. Te invitamos a confirmar tu cuenta de correo electrónico para que puedas acceder a todos los beneficios y funciones de nuestra plataforma.',

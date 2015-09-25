@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel {
         \App\Console\Commands\NullFeaturedTypeFromExpiredListing::class,
         \App\Console\Commands\CalculateListingsPoints::class,
         \App\Console\Commands\NotifyUnconfirmedAccounts::class,
+        \App\Console\Commands\NotifyNoImageListings::class,
     ];
 
     /**
@@ -45,6 +46,9 @@ class Kernel extends ConsoleKernel {
                  ->dailyAt('1:00');
 
         $schedule->command('listings:null_featured_expired')
-                 ->hourly();        
+                 ->hourly();
+
+        $schedule->command('mail:no_image_listings')
+                 ->twiceDaily(7, 20);
     }
 }
