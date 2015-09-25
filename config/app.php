@@ -157,6 +157,9 @@ return [
 		GrahamCampbell\Throttle\ThrottleServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
         Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider::class,
+        LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider::class,
+        LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider::class,
+
     ],
 
     /*
@@ -216,7 +219,8 @@ return [
 		'Settings'  => Efriandika\LaravelSettings\Facades\Settings::class,
 		'Throttle' 	=> GrahamCampbell\Throttle\Facades\Throttle::class,
         'Agent'     => Jenssegers\Agent\Facades\Agent::class,
-    	'Bugsnag' => Bugsnag\BugsnagLaravel\BugsnagFacade::class,
+    	'Bugsnag'   => Bugsnag\BugsnagLaravel\BugsnagFacade::class,
+        'Authorizer'=> LucaDegasperi\OAuth2Server\Facades\Authorizer::class,
     ],
 
 ];
