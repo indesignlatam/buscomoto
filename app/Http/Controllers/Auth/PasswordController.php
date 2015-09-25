@@ -39,10 +39,6 @@ class PasswordController extends Controller {
      * @return Response
      */
     public function postEmail(Request $request){
-        if(!$captcha['success']){
-            return redirect('/password/email')->withErrors([trans('auth.youre_bot')])->withInput();
-        }
-
         $this->validate($request, ['email' => 'required|email']);
 
         $response = Password::sendResetLink($request->only('email'), function (Message $message) {
