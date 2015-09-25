@@ -31,30 +31,4 @@ class PasswordController extends Controller {
         // Translate the password reset email subject
         $this->subject = trans('emails.password_reset_subject');
     }
-
-    /**
-     * Send a reset link to the given user.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
-    public function postEmail(Request $request){
-        if(!$captcha['success']){
-            return redirect('/password/email')->withErrors([trans('auth.youre_bot')])->withInput();
-        }
-
-        $this->validate($request, ['email' => 'required|email']);
-
-        $response = Password::sendResetLink($request->only('email'), function (Message $message) {
-            $message->subject($this->getEmailSubject());
-        });
-
-        switch ($response) {
-            case Password::RESET_LINK_SENT:
-                return redirect()->back()->with('status', trans($response));
-
-            case Password::INVALID_USER:
-                return redirect()->back()->withErrors(['email' => trans($response)]);
-        }
-    }
 }
