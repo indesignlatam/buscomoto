@@ -299,10 +299,6 @@ class Listing extends IndesignModel {
         return $this->belongsTo('App\User', 'user_id');
     }
 
-    public function engineSize(){
-        return $this->belongsTo('App\Models\EngineSize', 'engine_size');
-    }
-
     public function fuelType(){
         return $this->belongsTo('App\Models\FuelType', 'fuel_type');
     }
