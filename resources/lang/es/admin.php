@@ -44,6 +44,7 @@ return [
     'select_option'             => 'Seleccione una opción',
     'featured_listing'          => 'Publicación destacada',
     'hello'                     => 'Hola',
+    'username'                  => 'Nombre de usuario',
 
 
     // Featured Categories

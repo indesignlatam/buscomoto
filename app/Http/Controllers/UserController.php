@@ -139,7 +139,7 @@ class UserController extends Controller {
 		$input['phone_2'] 		= preg_replace("/[^0-9]/", "", $input['phone_2']);
 		$input['description'] 	= preg_replace("/[^a-zA-Z0-9.,?¿#%&ñáéíóú ]+/", "", $input['description']);
 
-		if (!$user->validate($input, null, null, $id)){
+		if (!$user->validate($input, null, false, $id)){
 	        return redirect('/admin/user/'.$id.'/edit')->withErrors($user->errors());
 	    }
 
