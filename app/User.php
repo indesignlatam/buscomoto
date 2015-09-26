@@ -26,10 +26,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $rules = ['name'                          => 'required|string|max:255',
-                        'username'                      => 'alpha_dash|unique:users,username,{:id}',
+                        'username'                      => 'required|alpha_dash|min:4|unique:users,username,{:id}',
                         'email'                         => 'required|email|unique:users,email,{:id}',
                         'password'                      => 'string|min:6|max:100',
-                        'phone_1'                       => 'digits_between:7,15',
+                        'phone_1'                       => 'required|digits_between:7,15',
                         'phone_2'                       => 'digits_between:7,15',
                         'description'                   => 'string|max:1500',
                         'email_notifications'           => 'required|boolean',

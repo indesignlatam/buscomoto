@@ -160,6 +160,11 @@ return [
         'name' => [
             'required'  => 'El campo nombre es obligatorio.',
         ],
+        'username' => [
+            'required'          => 'El campo nombre de usuario es obligatorio.',
+            'min'               => 'El nombre de usuario debe ser de minimo :min caracteres.',
+            'unique'            => 'El nombre de usuario ya fue registrado.',
+        ],
         'phone' => [
             'required'          => 'El campo teléfono es obligatorio.',
             'digits_between'    => 'El teléfono debe contener entre :min y :max caracteres.',
