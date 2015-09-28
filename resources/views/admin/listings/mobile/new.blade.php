@@ -74,7 +74,6 @@
 		        <label class="uk-form-label" for="">{{ trans('admin.city') }} <i class="uk-text-danger">*</i></label>
 		        <div class="uk-form-controls">
 		        	<select class="uk-width-large-10-10 uk-form-large" id="cities" type="text" name="city_id">
-		                
 		                @if(old('city_id'))
 							<option value="{{ old('city_id') }}" selected></option>
 	                	@else
