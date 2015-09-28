@@ -105,7 +105,6 @@ class ListingController extends Controller {
 		$manufacturers 	= Manufacturer::selectRaw('id, name AS text')->orderBy('name', 'ASC')->remember(Settings::get('query_cache_time'))->get();
 		$listingTypes 	= ListingType::remember(Settings::get('query_cache_time'))->get();
 		$features 		= Feature::remember(Settings::get('query_cache_time'))->with('category')->get();
-		$cities 		= City::remember(Settings::get('query_cache_time'))->orderBy('ordering', 'ASC')->with('department')->get();
 		$transmissions 	= TransmissionType::remember(Settings::get('query_cache_time'))->get();
 		$fuels 			= FuelType::remember(Settings::get('query_cache_time'))->get();
 
@@ -116,13 +115,12 @@ class ListingController extends Controller {
 			$view = 'admin.listings.mobile.new';
 		}
 
-		return view($view, [ 'manufacturers' 	=> $manufacturers, 
-											'listingTypes' 		=> $listingTypes, 
-											'cities' 			=> $cities,
-											'features' 			=> $features, 
-											'transmissions' 	=> $transmissions, 
-											'fuels' 			=> $fuels, 
-											]);
+		return view($view, ['manufacturers' 	=> $manufacturers, 
+							'listingTypes' 		=> $listingTypes, 
+							'features' 			=> $features, 
+							'transmissions' 	=> $transmissions, 
+							'fuels' 			=> $fuels, 
+							]);
 	}
 
 	/**
@@ -247,7 +245,6 @@ class ListingController extends Controller {
 		$manufacturers 	= Manufacturer::selectRaw('id, name AS text')->orderBy('name', 'ASC')->remember(Settings::get('query_cache_time'))->get();
 		$listingTypes 	= ListingType::remember(Settings::get('query_cache_time'))->get();
 		$features 		= Feature::remember(Settings::get('query_cache_time'))->with('category')->get();
-		$cities 		= City::remember(Settings::get('query_cache_time'))->orderBy('ordering', 'ASC')->with('department')->get();
 		$transmissions 	= TransmissionType::remember(Settings::get('query_cache_time'))->get();
 		$fuels 			= FuelType::remember(Settings::get('query_cache_time'))->get();
 
@@ -260,7 +257,6 @@ class ListingController extends Controller {
 		return view($view, ['listing'			=> $listing,
 							'manufacturers' 	=> $manufacturers, 
 							'listingTypes' 		=> $listingTypes, 
-							'cities' 			=> $cities,
 							'features' 			=> $features, 
 							'transmissions' 	=> $transmissions, 
 							'fuels' 			=> $fuels, 

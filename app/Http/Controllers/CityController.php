@@ -25,6 +25,20 @@ class CityController extends Controller {
 	}
 
 	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function APIIndex(Request $request){
+		//
+		$searchTerm = $request->get('q');
+		$cities = City::remember(5)->selectRaw('id, name AS text')->where('name', 'LIKE', "%$searchTerm%")->get();
+
+		return response()->json($cities);
+	}
+
+	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response

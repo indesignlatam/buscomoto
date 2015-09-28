@@ -74,14 +74,12 @@
 		        <label class="uk-form-label" for="">{{ trans('admin.city') }} <i class="uk-text-danger">*</i></label>
 		        <div class="uk-form-controls">
 		        	<select class="uk-width-large-10-10 uk-form-large" id="cities" type="text" name="city_id">
-		                <option value="">{{ trans('admin.select_option') }}</option>
-		                @foreach($cities as $city)
-		                	@if(old('city_id') == $city->id)
-								<option value="{{ $city->id }}" selected>{{ $city->name }} ({{ $city->department->name }})</option>
-		                	@else
-		                		<option value="{{ $city->id }}">{{ $city->name }} ({{ $city->department->name }})</option>
-		                	@endif	
-		                @endforeach
+		                
+		                @if(old('city_id'))
+							<option value="{{ old('city_id') }}" selected></option>
+	                	@else
+	                		<option value="">{{ trans('admin.select_option') }}</option>
+	                	@endif
 	            	</select>
 		        </div>
 		    </div>
@@ -291,14 +289,12 @@
 	@parent
 
 	<!-- CSS -->
-	<link href="{{ asset('/css/components/tooltip.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/select2.min.css') }}" rel="stylesheet" />
 	<!-- CSS -->
 
 	<!-- JS -->
-    <script src="{{ asset('/js/components/tooltip.min.js') }}"></script>
-	<script src="{{ asset('/js/accounting.min.js') }}"></script>
 	<script src="{{ asset('/js/select2.min.js') }}"></script>
+	<script src="{{ asset('/js/accounting.min.js') }}"></script>
 	<!-- JS -->
 
 	<script type="text/javascript">
@@ -313,20 +309,66 @@
 					    data: function (params) {
 					      return {
 					        q: params.term, // search term
-					        page: params.page
 					      };
 					    },
 					    processResults: function (data, page) {
-					      return {
-					        results: data
-					      };
-					    },
-					    cache: true
-					  },
+					      	return {
+					        	results: data
+					      	};
+						},
+						cache: true
+						},
+					  	minimumInputLength: 2,
+					  	language: {
+							// You can find all of the options in the language files provided in the
+							// build. They all must be functions that return the string that should be
+							// displayed.
+							inputTooShort: function () {
+								return "Debes escribir mínimo 2 letras";
+							},
+							noMatches: function () {
+								return "No encontramos ningun resultado";
+							},
+							searching: function () {
+								return "Buscando...";
+							},
+						}
 		        });
 		    }).trigger('change');
 
-		  	$("#cities").select2();
+		  	$('#cities').removeClass('select2-offscreen').select2({
+	        	ajax: {
+				    url: "{{ url('/api/cities') }}",
+				    dataType: 'json',
+				    delay: 250,
+				    data: function (params) {
+				      return {
+				        q: params.term, // search term
+				      };
+				    },
+				    processResults: function (data, page) {
+				      return {
+				        results: data
+				      };
+				    },
+				    cache: true
+				  	},
+				  	minimumInputLength: 3,
+				  	language: {
+						// You can find all of the options in the language files provided in the
+						// build. They all must be functions that return the string that should be
+						// displayed.
+						inputTooShort: function () {
+							return "Debes escribir mínimo 3 letras";
+						},
+						noMatches: function () {
+							return "No encontramos ningun resultado";
+						},
+						searching: function () {
+							return "Buscando...";
+						},
+					}
+	        });
 
 			@if(Session::pull('new_user'))
 				$("#open").html('{{ trans('admin.open') }}'+' '+emailProvider('{{ Auth::user()->email }}'));

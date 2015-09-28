@@ -112,9 +112,10 @@ class ModelController extends Controller{
      * @param  int  $id
      * @return Response
      */
-    public function show($id){
+    public function show($id, Request $request){
         //
-        $models = Model::selectRaw('id, name AS text')->where('manufacturer_id', $id)->orderBy('name', 'ASC')->get();
+        $q = $request->get('q');
+        $models = Model::selectRaw('id, name AS text')->where('manufacturer_id', $id)->where('name', 'LIKE', "%$q%")->orderBy('name', 'ASC')->get();
 
         return $models;
     }
