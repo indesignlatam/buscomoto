@@ -102,7 +102,7 @@
 						        <label class="uk-form-label" for="">{{ trans('admin.city') }} <i class="uk-text-danger">*</i> <i class="uk-icon-info-circle" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.city_tooltip') }}"></i></label>
 						        <div class="uk-form-controls">
 						        	<select class="uk-width-large-10-10 uk-form-large" id="cities" type="text" name="city_id">
-						                <option value="">{{ trans('admin.select_option') }}</option>
+						        		<option value="{{ $listing->city->id }}">{{ $listing->city->name }}</option>
 					            	</select>
 						        </div>
 						    </div>
