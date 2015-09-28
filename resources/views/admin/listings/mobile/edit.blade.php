@@ -18,8 +18,8 @@
 	    
 	    <!-- Action buttons -->
 		<div class="uk-flex uk-margin-small-bottom">
-			<button class="uk-button uk-button-large uk-width-1-2" onclick="leave()">{{ trans('admin.close') }}</button>
 	        <button form="create_form" type="submit" class="uk-button uk-button-large uk-button-success uk-width-1-2" onclick="blockUI()">{{ trans('admin.save') }}</button>
+			<button class="uk-button uk-button-large uk-width-1-2" onclick="leave()">{{ trans('admin.close') }}</button>
 	    </div>
 		<button form="create_form" type="submit" class="uk-button uk-button-large uk-button-success uk-width-1-1 uk-margin-small-bottom" onclick="saveClose()" >{{ trans('admin.save_close') }}</button>
 	    <!-- Action buttons -->
@@ -90,14 +90,7 @@
 		        <label class="uk-form-label" for="">{{ trans('admin.city') }} <i class="uk-text-danger">*</i></label>
 		        <div class="uk-form-controls">
 		        	<select class="uk-width-1-1 uk-form-large" id="cities" type="text" name="city_id">
-		                <option value="">{{ trans('admin.select_option') }}</option>
-		                @foreach($cities as $city)
-		                	@if($listing->city->id == $city->id)
-								<option value="{{ $city->id }}" selected>{{ $city->name }} ({{ $city->department->name }})</option>
-		                	@else
-		                		<option value="{{ $city->id }}">{{ $city->name }} ({{ $city->department->name }})</option>
-		                	@endif	
-		                @endforeach
+		                <option value="{{ $listing->city->id }}">{{ $listing->city->name }} ({{ $listing->city->department->name }})</option>
 	            	</select>
 		        </div>
 		    </div>
@@ -444,20 +437,16 @@
 
 @section('js')
 	@parent
-
-	<!-- CSS -->
-	<link href="{{ asset('/css/components/form-file.almost-flat.min.css') }}" rel="stylesheet">
-	<link href="{{ asset('/css/components/upload.almost-flat.min.css') }}" rel="stylesheet">
-	<link href="{{ asset('/css/components/progress.almost-flat.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/select2.min.css') }}" rel="stylesheet" />
-	<link href="{{ asset('/css/selectize.min.css') }}" rel="stylesheet"/>
+	<script src="{{ asset('/js/select2.min.js') }}"></script>
+	<!-- CSS -->
+	<link href="{{ asset('/css/components/form-file.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('/css/components/progress.min.css') }}" rel="stylesheet">
 	<!-- CSS -->
 
 	<!-- JS -->
 	<script src="{{ asset('/js/components/upload.min.js') }}"></script>
 	<script src="{{ asset('/js/accounting.min.js') }}"></script>
-	<script src="{{ asset('/js/select2.min.js') }}"></script>
-	<script src="{{ asset('/js/selectize.min.js') }}"></script>
 	<!-- JS -->
 
 	<script type="text/javascript">
@@ -472,32 +461,70 @@
 					    data: function (params) {
 					      return {
 					        q: params.term, // search term
-					        page: params.page
 					      };
 					    },
 					    processResults: function (data, page) {
-					      return {
-					        results: data
-					      };
-					    },
-					    cache: true
-					  },
+						  	return {
+						    	results: data
+						  	};
+						},
+						cache: true
+						},
+						minimumInputLength: 2,
+					  	language: {
+							// You can find all of the options in the language files provided in the
+							// build. They all must be functions that return the string that should be
+							// displayed.
+							inputTooShort: function () {
+								return "Debes escribir mínimo 3 letras";
+							},
+							noMatches: function () {
+								return "No encontramos ningun resultado";
+							},
+							searching: function () {
+								return "Buscando...";
+							},
+						}
 		        });
 		    }).trigger('change');
 
-		  	$("#cities").select2();
+		  	$('#cities').removeClass('select2-offscreen').select2({
+	        	ajax: {
+				    url: "{{ url('/api/cities') }}",
+				    dataType: 'json',
+				    delay: 250,
+				    data: function (params) {
+				      return {
+				        q: params.term, // search term
+				      };
+				    },
+				    processResults: function (data, page) {
+				      return {
+				        results: data
+				      };
+				    },
+				    cache: true
+				  	},
+				  	minimumInputLength: 3,
+				  	language: {
+						// You can find all of the options in the language files provided in the
+						// build. They all must be functions that return the string that should be
+						// displayed.
+						inputTooShort: function () {
+							return "Debes escribir mínimo 3 letras";
+						},
+						noMatches: function () {
+							return "No encontramos ningun resultado";
+						},
+						searching: function () {
+							return "Buscando...";
+						},
+					}
+	        });
 		});
 
 		var sortable = null;
 		$(function() {
-			sortable = $('[data-uk-sortable]');
-            sortable.on('stop.uk.sortable', function (e, el, type) {
-                setOrdering(sortable, el);
-            });
-            setOrdering(sortable);
-
-			$("#city").select2();
-
 			$('#price').val(accounting.formatNumber($('#price').val()));
 			$('#odometer').val(accounting.formatNumber($('#odometer').val()));
 			$('#engine_size').val(accounting.formatNumber($('#engine_size').val()));
@@ -512,63 +539,6 @@
 			var modal = UIkit.modal("#upload_modal");
 			modal.show()
 		@endif
-
-			var REGEX_EMAIL = '([a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@' +
-                  '(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)';
-
-			$('#emails').selectize({
-			    persist: false,
-			    maxItems: 5,
-			    valueField: 'email',
-			    labelField: 'name',
-			    searchField: ['name', 'email'],
-			    options: [],
-			    render: {
-			        item: function(item, escape) {
-			            return '<div>' +
-			                (item.name ? '<span class="name">' + escape(item.name) + '</span>' : '') +
-			                (item.email ? '<span class="email">' + escape(item.email) + '</span>' : '') +
-			            '</div>';
-			        },
-			        option: function(item, escape) {
-			            var label = item.name || item.email;
-			            var caption = item.name ? item.email : null;
-			            return '<div>' +
-			                '<span class="label">' + escape(label) + '</span>' +
-			                (caption ? '<span class="caption">' + escape(caption) + '</span>' : '') +
-			            '</div>';
-			        }
-			    },
-			    createFilter: function(input) {
-			        var match, regex;
-
-			        // email@address.com
-			        regex = new RegExp('^' + REGEX_EMAIL + '$', 'i');
-			        match = input.match(regex);
-			        if (match) return !this.options.hasOwnProperty(match[0]);
-
-			        // name <email@address.com>
-			        regex = new RegExp('^([^<]*)\<' + REGEX_EMAIL + '\>$', 'i');
-			        match = input.match(regex);
-			        if (match) return !this.options.hasOwnProperty(match[2]);
-
-			        return false;
-			    },
-			    create: function(input) {
-			        if ((new RegExp('^' + REGEX_EMAIL + '$', 'i')).test(input)) {
-			            return {email: input};
-			        }
-			        var match = input.match(new RegExp('^([^<]*)\<' + REGEX_EMAIL + '\>$', 'i'));
-			        if (match) {
-			            return {
-			                email : match[2],
-			                name  : $.trim(match[1])
-			            };
-			        }
-			        alert('Correo electrónico invalido.');
-			        return false;
-			    }
-			});
 
 		});
 
@@ -600,9 +570,9 @@
         function deleteImage(sender, modal) {
 	        $.post("{{ url('/admin/images') }}/" + sender.id, {_token: "{{ csrf_token() }}", _method:"DELETE"}, function(result){
 	        	if(result.success){
-	        		$("#image-"+sender.id).fadeOut(500, function() { $(this).remove(); setOrdering(sortable); });
+	        		$("#image-"+sender.id).fadeOut(500, function() { $(this).remove(); });
 	        		if(modal){
-	            		$("#image-modal-"+sender.id).fadeOut(500, function() { $(this).remove(); setOrdering(sortable); });
+	            		$("#image-modal-"+sender.id).fadeOut(500, function() { $(this).remove(); });
 	        		}
 	        		
 	                UIkit.notify('<i class="uk-icon-check-circle"></i> '+result.success, {pos:'top-right', status:'info', timeout: 5000});
@@ -666,7 +636,7 @@
 		            		$('#no_images_notification').addClass('uk-hidden');
 
 		            		// Set images ordering
-		            		setOrdering(sortable);
+		            		
 		            	}else if(response.error){
 		            		if(response.error instanceof Array){
 		            			response.error.forEach(function(entry) {
@@ -691,53 +661,6 @@
 	        var select_modal 	= UIkit.uploadSelect($("#upload_select_modal"), settings);
 	        var select 			= UIkit.uploadSelect($("#upload-select"), settings);
 	    });
-		// Uploaders
-
-
-       	function setListing(id){
-			$('#listingId').val(id);
-			$("#emails").val('');
-			$("#message").val('');
-		}
-
-		function sendMail(sender) {
-	    	$('#sendMail').prop('disabled', true);
-	    	var message = $('#message').val();
-	    	var emails = $('#emails').val().replace(/ /g,'').split(',');
-	    	var validemails = [];
-	    	$.each(emails, function( index, value ) {
-			  	if(validateEmail(value)){
-			  		validemails.push(value);
-			  	}
-			});
-
-			if(validemails.length < 1){
-				UIkit.notify('<i class="uk-icon-remove"></i> {{ trans('admin.no_emails') }}', {pos:'top-right', status:'danger', timeout: 3000});
-				$('#sendMail').prop('disabled', false);
-				return;
-			}
-
-			if(message.length < 1){
-				UIkit.notify('<i class="uk-icon-remove"></i> {{ trans('admin.no_message') }}', {pos:'top-right', status:'danger', timeout: 3000});
-				$('#sendMail').prop('disabled', false);
-				return;
-			}
-
-	    	$.post("{{ url('/admin/listings') }}/"+ $('#listingId').val() +"/share", {_token: "{{ csrf_token() }}", email: validemails, message: message}, function(result){
-		    	$('#sendMail').prop('disabled', false);
-		    	if(result.success){
-		    		UIkit.modal("#send_mail").hide();
-		    		UIkit.notify('<i class="uk-icon-check-circle"></i> '+result.success, {pos:'top-right', status:'success', timeout: 3000});
-		    	}else if(result.error || !result){
-		    		UIkit.notify('<i class="uk-icon-remove"></i> '+result.error, {pos:'top-right', status:'danger', timeout: 3000});
-		    	}
-	        });
-	    }
-
-	    function validateEmail(email) {
-		    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-		    return re.test(email);
-		}
 
        	function saveClose(){
        		$("#save_close").val('1');
@@ -749,37 +672,5 @@
 			    window.location.replace("{{ url('/admin/listings') }}");
 			}, {labels:{Ok:'{{trans("admin.yes")}}', Cancel:'{{trans("admin.cancel")}}'}, center: true});
 	    }
-
-
-
-	    window.fbAsyncInit = function() {
-        	FB.init({
-         		appId      : {{ Settings::get('facebook_app_id') }},
-          		xfbml      : true,
-          		version    : 'v2.3'
-        	});
-      	};
-      	(function(d, s, id){
-         	var js, fjs = d.getElementsByTagName(s)[0];
-         	if (d.getElementById(id)) {return;}
-         	js = d.createElement(s); js.id = id;
-         	js.src = "//connect.facebook.net/en_US/sdk.js";
-         	fjs.parentNode.insertBefore(js, fjs);
-       	}(document, 'script', 'facebook-jssdk'));
-
-       	function share(path){
-       		FB.ui({
-			  	method: 'share_open_graph',
-			  	action_type: 'og.shares',
-			  	action_properties: JSON.stringify({
-			    object: path,
-			})
-			}, function(response){
-				UIkit.notify('<i class="uk-icon-check-circle"></i> {{ trans("admin.listing_shared") }}', {pos:'top-right', status:'success', timeout: 3000});
-				$.post("{{ url('/cookie/set') }}", {_token: "{{ csrf_token() }}", key: "shared_listing_"+{{ $listing->id }}, value: true, time:11520}, function(result){
-	                
-	            });
-			});
-       	}
 	</script>
 @endsection
