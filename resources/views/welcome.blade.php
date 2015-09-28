@@ -11,9 +11,17 @@
 
 @section('css')
 	@parent
+    <style type="text/css">
+        .swiper-container {
+            width: 100%;
+            height: 75vw;
+        } 
+    </style>
     <script type="text/javascript">
-        loadCSS("{{ asset('/css/jquery/jquery-slider.min.css') }}");
         loadCSS("{{ asset('/css/select2.min.css') }}");
+        @if(Agent::isMobile())
+        loadCSS("{{ asset('/css/swiper.min.css') }}");
+        @endif
     </script>
 @endsection
 
@@ -186,31 +194,63 @@
 
         <!-- latest listings on turism-->
         @if(count($newBikes) > 0)
-            <div>
-                <h1 class="uk-text-bold uk-display-inline">{{ trans('frontend.latest_listings') }}</h1>
-                <a href="{{ url('/buscar') }}" class="uk-hidden-small uk-text-primary"> {{ trans('admin.view_more_listings') }} <i class="uk-icon-angle-right uk-text-bold"></i></a>
-            </div>
+            @if(Agent::isMobile())
+                <div>
+                    <h2 class="uk-text-bold">{{ trans('frontend.latest_listings') }}</h2>
+                </div>
 
-            <div class="uk-slidenav-position" data-uk-slideset="{small: 1, medium: 4, large: 4, autoplay: true}">
-                <ul class="uk-grid uk-slideset">
+                <!-- Slider main container -->
+                <div class="swiper-container">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
                     @foreach($newBikes as $bike)
-                    <li class="uk-margin-top">
-                        <a href="{{ url($bike->path()) }}">
-                            <img src="{{ asset(Image::url($bike->image_path(),['mini_front_2x'])) }}">
-                        </a>
-                        <div>
-                            <a href="{{ url($bike->path()) }}">{{ $bike->title }}</a>
-                            <p class="uk-text-muted" style="font-size:10px;margin-top:-4px; margin-bottom:0px">
-                                {{ money_format('$%!.0i', $bike->price) }} | {{ number_format($bike->odometer) }}
-                            </p>
+                        <div class="swiper-slide">
+                            <a href="{{ url($bike->path()) }}">
+                                <img src="{{ asset(Image::url($bike->image_path(),['mini_front_2x'])) }}">
+                            </a>
+                            <div class="uk-h3">
+                                <a href="{{ url($bike->path()) }}">{{ $bike->title }}</a>
+                                <p class="uk-text-muted" style="margin-top:-4px; margin-bottom:0px">
+                                    {{ money_format('$%!.0i', $bike->price) }} | {{ number_format($bike->odometer) }}
+                                </p>
+                            </div>
                         </div>
-                    </li>
                     @endforeach
-                </ul>
-                <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-previous uk-slidenav-contrast" data-uk-slideset-item="previous"></a>
-                <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-next uk-slidenav-contrast" data-uk-slideset-item="next"></a>
-            </div>
-            
+                    </div>
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination"></div>
+                    
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            @else
+                <div>
+                    <h1 class="uk-text-bold uk-display-inline">{{ trans('frontend.latest_listings') }}</h1>
+                    <a href="{{ url('/buscar') }}" class="uk-hidden-small uk-text-primary"> {{ trans('admin.view_more_listings') }} <i class="uk-icon-angle-right uk-text-bold"></i></a>
+                </div>
+
+                <div class="uk-slidenav-position" data-uk-slideset="{small: 1, medium: 4, large: 4, autoplay: true}">
+                    <ul class="uk-grid uk-slideset">
+                        @foreach($newBikes as $bike)
+                        <li class="uk-margin-top">
+                            <a href="{{ url($bike->path()) }}">
+                                <img src="{{ asset(Image::url($bike->image_path(),['mini_front_2x'])) }}">
+                            </a>
+                            <div>
+                                <a href="{{ url($bike->path()) }}">{{ $bike->title }}</a>
+                                <p class="uk-text-muted" style="font-size:10px;margin-top:-4px; margin-bottom:0px">
+                                    {{ money_format('$%!.0i', $bike->price) }} | {{ number_format($bike->odometer) }}
+                                </p>
+                            </div>
+                        </li>
+                        @endforeach
+                    </ul>
+                    <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-previous uk-slidenav-contrast" data-uk-slideset-item="previous"></a>
+                    <a href="" style="margin-top:-60px" class="uk-slidenav uk-slidenav-next uk-slidenav-contrast" data-uk-slideset-item="next"></a>
+                </div>
+            @endif
             <hr>
         @endif
         <!-- latest listings on turism -->
@@ -301,11 +341,34 @@
 @section('js')
 	@parent
 
-    <noscript><link href="{{ asset('/css/jquery/jquery-slider.min.css') }}" rel="stylesheet"></noscript>
+    <noscript><link href="{{ asset('/css/swiper.min.css') }}" rel="stylesheet"/></noscript>
     <noscript><link href="{{ asset('/css/select2front.min.css') }}" rel="stylesheet"/></noscript>
     <script src="{{ asset('/js/select2.min.js') }}"></script>
-    <script src="{{ asset('/js/components/slideset.min.js') }}"></script>
     <script src="{{ asset('/js/accounting.min.js') }}"></script>
+
+    @if(Agent::isMobile())
+    <script src="{{ asset('/js/swiper.jquery.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var mySwiper = new Swiper ('.swiper-container', {
+                // Optional parameters
+                direction: 'horizontal',
+                loop: true,
+                
+                // If we need pagination
+                pagination: '.swiper-pagination',
+                
+                // Navigation arrows
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
+                
+                
+            });
+        });
+    </script>
+    @else
+    <script src="{{ asset('/js/components/slideset.min.js') }}"></script>
+    @endif
 
     <script type="text/javascript">
         $(document).ready(function() {
