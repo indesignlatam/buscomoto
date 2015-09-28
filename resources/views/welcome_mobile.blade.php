@@ -180,21 +180,37 @@
     </div>
     <!-- Register and publish -->
 
-    <div class="uk-container uk-container-center uk-margin-top">
+    <div class="uk-container uk-container-center uk-margin-top uk-margin-bottom">
         <!-- Featured listings -->
         @if(count($featured) > 0)
             <h2 class="uk-margin-bottom uk-margin-top uk-text-bold">{{ trans('frontend.featured_listing') }}</h2>
 
-            @foreach ($featured as $featuredListing)
-                <div class="uk-width-1-1">
-                    <a href="{{ url($featuredListing->path()) }}">
-                        <img src="{{ asset(Image::url( $featuredListing->image_path(), ['mini_front_2x']) ) }}" alt="{{$featuredListing->title}}">
-                        <h3 class="uk-text-bold uk-margin-remove">{{ strtoupper($featuredListing->title) }}</h3>
-                        <h3 class="uk-h4 uk-margin-remove">{{ money_format('$%!.0i', $featuredListing->price) }} | {{ number_format($featuredListing->odometer) }} kms</h3>
-                    </a>
+            <!-- Slider main container -->
+            <div class="swiper-container" id="swiper-featured">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                <!-- Slides -->
+                @foreach($featured as $bike)
+                    <div class="swiper-slide">
+                        <a href="{{ url($bike->path()) }}">
+                            <img src="{{ asset(Image::url($bike->image_path(),['mini_front_2x'])) }}">
+                        </a>
+                        <div class="uk-h3">
+                            <a href="{{ url($bike->path()) }}">{{ $bike->title }}</a>
+                            <p class="uk-text-muted uk-h4" style="margin-top:-4px; margin-bottom:0px">
+                                {{ money_format('$%!.0i', $bike->price) }} | {{ number_format($bike->odometer) }}
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
                 </div>
-                <hr>
-            @endforeach        
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+                
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>       
         @endif
         <!-- Featured listings -->
     </div>
@@ -220,6 +236,16 @@
     <script type="text/javascript">
         $(document).ready(function() {
             var mySwiper = new Swiper ('.swiper-container', {
+                // Optional parameters
+                direction: 'horizontal',
+                loop: true,
+                
+                // Navigation arrows
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',                
+            });
+
+            var featured = new Swiper ('#swiper-featured', {
                 // Optional parameters
                 direction: 'horizontal',
                 loop: true,
