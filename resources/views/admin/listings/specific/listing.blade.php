@@ -108,7 +108,7 @@
                     <!-- Featured button -->
                     @if($listing->featured_type && $listing->featured_expires_at && $listing->featured_expires_at > Carbon::now())
                         <button class="uk-button uk-button-success uk-width-1-1 uk-margin-small-bottom" disabled>{{ trans('admin.feature') }}</button>
-                    @else
+                    @elseif(Auth::user()->isAdmin())
                         <a class="uk-button uk-button-success uk-width-1-1 uk-margin-small-bottom" href="{{ url('admin/destacar/'.$listing->id) }}" data-uk-tooltip="{pos:'top'}" title="{{ trans('admin.feature_listing') }}">{{ trans('admin.feature') }}</a>
                     @endif
                     <!-- Featured button -->
