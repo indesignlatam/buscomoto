@@ -23,6 +23,7 @@
 */
 Route::group(['prefix' => 'api'], function(){
 	Route::get('listings', 'ListingFEController@indexAPI');
+	Route::get('cities', 'CityController@APIIndex');
 });
 
 /*
