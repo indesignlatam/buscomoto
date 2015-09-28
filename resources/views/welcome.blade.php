@@ -340,13 +340,13 @@
 
 @section('js')
 	@parent
-
-    <noscript><link href="{{ asset('/css/swiper.min.css') }}" rel="stylesheet"/></noscript>
+    
     <noscript><link href="{{ asset('/css/select2front.min.css') }}" rel="stylesheet"/></noscript>
     <script src="{{ asset('/js/select2.min.js') }}"></script>
     <script src="{{ asset('/js/accounting.min.js') }}"></script>
 
     @if(Agent::isMobile())
+    <noscript><link href="{{ asset('/css/swiper.min.css') }}" rel="stylesheet"/></noscript>
     <script src="{{ asset('/js/swiper.jquery.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {

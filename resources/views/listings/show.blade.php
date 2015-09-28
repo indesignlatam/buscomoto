@@ -17,10 +17,15 @@
 @section('css')
 	@parent
 	<script type="text/javascript">
-		loadCSS("{{ asset('/css/components/slideshow.min.css') }}");
-		loadCSS("{{ asset('/css/components/slidenav.almost-flat.min.css') }}");
 		loadCSS("{{ asset('/css/components/tooltip.min.css') }}");
 		loadCSS("{{ asset('/css/selectize.min.css') }}");
+
+		@if(Agent::isMobile())
+		loadCSS("{{ asset('/css/swiper.min.css') }}");
+		@else
+		loadCSS("{{ asset('/css/components/slideshow.min.css') }}");
+		loadCSS("{{ asset('/css/components/slidenav.almost-flat.min.css') }}");
+		@endif
 	</script>
 @endsection
 
@@ -60,26 +65,54 @@
 		@endif
 
 		<div class="uk-grid uk-margin-small-top">
-			<div class="uk-width-large-7-10 uk-width-medium-7-10 uk-width-small-1-1">	
+			<div class="uk-width-large-7-10 uk-width-medium-7-10 uk-width-small-1-1" style="position:relative">	
 				@if(count($listing->images) > 0)
-					<div class="uk-slidenav-position" data-uk-slideshow="{autoplay:true, autoplayInterval:7000}">
-					    <ul class="uk-slideshow">
-					    	@foreach($listing->images->sortBy('ordering') as $image)
-					    		<li>
-					    			<img src="{{ asset($image->image_path) }}" alt="{{ $listing->title }}" style="max-width:960px; max-height:540px">
-					    		</li>
-					    	@endforeach		    	
-					    </ul>
+					@if(Agent::isMobile())
+		                <!-- Slider main container -->
+		                <div class="swiper-container">
+		                    <!-- Additional required wrapper -->
+		                    <div class="swiper-wrapper">
+		                    <!-- Slides -->
+		                    @foreach($listing->images->sortBy('ordering') as $image)
+					    		<div class="swiper-slide">
+					    			<img src="{{ asset($image->image_path) }}" alt="{{ $listing->title }}">
+					    		</div>
+					    	@endforeach	
+		                    </div>
+		                    
+		                    <!-- If we need pagination -->
+		                    <div class="swiper-pagination"></div>
+		                    
+		                    <!-- If we need navigation buttons -->
+		                    <div class="swiper-button-prev"></div>
+		                    <div class="swiper-button-next"></div>
+		                </div>
 
-					    @if(isset(Cookie::get('likes')[$listing->id]) && Cookie::get('likes')[$listing->id] || $listing->like)
-					    	<a onclick="like()"><i style="position:absolute; top:5px; right:5px" class="uk-icon-heart uk-icon-large uk-text-danger" id="like_button_image"></i></a>
+		                @if(isset(Cookie::get('likes')[$listing->id]) && Cookie::get('likes')[$listing->id] || $listing->like)
+					    	<a onclick="like()" style="z-index:1"><i style="position:absolute; top:5px; right:5px; z-index:1000" class="uk-icon-heart uk-icon-large uk-text-danger" id="like_button_image"></i></a>
 					    @else
-					    	<a onclick="like()"><i style="position:absolute; top:5px; right:5px" class="uk-icon-heart uk-icon-large uk-text-contrast" id="like_button_image"></i></a>
+					    	<a onclick="like()"><i style="position:absolute; top:5px; right:5px; z-index:1000" class="uk-icon-heart uk-icon-large uk-text-contrast" id="like_button_image"></i></a>
 					    @endif
+		            @else
+						<div class="uk-slidenav-position" data-uk-slideshow="{autoplay:true, autoplayInterval:7000}">
+						    <ul class="uk-slideshow">
+						    	@foreach($listing->images->sortBy('ordering') as $image)
+						    		<li>
+						    			<img src="{{ asset($image->image_path) }}" alt="{{ $listing->title }}" style="max-width:960px; max-height:540px">
+						    		</li>
+						    	@endforeach
+						    </ul>
 
-					    <a href="" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
-					    <a href="" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slideshow-item="next"></a>
-					</div>
+						    @if(isset(Cookie::get('likes')[$listing->id]) && Cookie::get('likes')[$listing->id] || $listing->like)
+						    	<a onclick="like()"><i style="position:absolute; top:5px; right:5px" class="uk-icon-heart uk-icon-large uk-text-danger" id="like_button_image"></i></a>
+						    @else
+						    	<a onclick="like()"><i style="position:absolute; top:5px; right:5px" class="uk-icon-heart uk-icon-large uk-text-contrast" id="like_button_image"></i></a>
+						    @endif
+
+						    <a href="" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
+						    <a href="" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slideshow-item="next"></a>
+						</div>
+					@endif
 				@else
 					<img src="{{ asset($listing->image_path()) }}" alt="{{ $listing->title }}" >
 				@endif
@@ -405,15 +438,39 @@
 @section('js')
 	@parent
 
-	<!-- CSS -->
-	<noscript><link href="{{ asset('/css/components/slideshow.almost-flat.min.css') }}" rel="stylesheet"></noscript>
+	@if(Agent::isMobile())
+	<noscript><link href="{{ asset('/css/swiper.min.css') }}" rel="stylesheet"></noscript>
+    <script src="{{ asset('/js/swiper.jquery.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var mySwiper = new Swiper ('.swiper-container', {
+                // Optional parameters
+                direction: 'horizontal',
+                loop: true,
+                
+                // If we need pagination
+                pagination: '.swiper-pagination',
+                
+                // Navigation arrows
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
+                
+                
+            });
+        });
+    </script>
+    @else
+    <script src="{{ asset('/js/components/slideshow.min.js') }}"></script>
+    <noscript><link href="{{ asset('/css/components/slideshow.almost-flat.min.css') }}" rel="stylesheet"></noscript>
 	<noscript><link href="{{ asset('/css/components/slidenav.almost-flat.min.css') }}" rel="stylesheet"></noscript>
+    @endif
+
+	<!-- CSS -->
 	<noscript><link href="{{ asset('/css/components/tooltip.almost-flat.min.css') }}" rel="stylesheet"></noscript>
 	<noscript><link href="{{ asset('/css/selectize.min.css') }}" rel="stylesheet"/></noscript>
 	<!-- CSS -->
 
 	<!-- JS -->
-    <script src="{{ asset('/js/components/slideshow.min.js') }}"></script>
     <script src="{{ asset('/js/components/tooltip.min.js') }}"></script>
 	<script src="{{ asset('/js/selectize.min.js') }}"></script>
 
