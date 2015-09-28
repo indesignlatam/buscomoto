@@ -376,11 +376,16 @@ class ListingFEController extends Controller {
 							 ->take(10)
 							 ->get();
 
-		return view('listings.show', [ 'listing' 	=> $listing,
-									   'related' 	=> $related,
-									   'features' 	=> $features,
-									   'compare'	=> $compare,
-									]);
+		$view = 'listings.show';
+		if(Agent::isMobile()){
+			$view = 'listings.mobile.show';
+		}
+
+		return view($view, ['listing' 	=> $listing,
+						    'related' 	=> $related,
+						    'features' 	=> $features,
+						    'compare'	=> $compare,
+						]);
 	}
 
 	/**

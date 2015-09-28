@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use Settings;
+use Agent;
 
 use App\Models\Listing;
 use App\Models\City;
@@ -55,12 +56,16 @@ class WelcomeController extends Controller {
 							];
 		$manufacturers 	= Manufacturer::selectRaw('id, name AS text')->orderBy('name', 'ASC')->remember(Settings::get('query_cache_time'))->get();
 
-		return view('welcome', ['priceRanges' 			=> $priceRanges,
-								'listingTypes' 			=> $listingTypes,
-								'manufacturers' 		=> $manufacturers,
-								'newBikes' 				=> $newBikes,
-								'featured'				=> $featured,
-								]);
+		$view = 'welcome';
+		if(Agent::isMobile()){
+			$view = 'welcome_mobile';
+		}
+		return view($view, ['priceRanges' 			=> $priceRanges,
+							'listingTypes' 			=> $listingTypes,
+							'manufacturers' 		=> $manufacturers,
+							'newBikes' 				=> $newBikes,
+							'featured'				=> $featured,
+							]);
 	}
 
 }
