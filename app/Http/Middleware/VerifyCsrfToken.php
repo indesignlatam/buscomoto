@@ -12,5 +12,6 @@ class VerifyCsrfToken extends BaseVerifier {
         //
     	'pagos/*',
     	'api/*',
+        'oauth/*',
     ];
 }

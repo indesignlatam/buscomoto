@@ -33,9 +33,9 @@ class Kernel extends HttpKernel {
         'throttle'                  => \App\Http\Middleware\ThrottleMiddleware::class,
         'throttle.auth'             => \App\Http\Middleware\AuthThrottleMiddleware::class,
         'file_max_upload_size'      => \App\Http\Middleware\MaxUploadFileSize::class,
-        'oauth'                     => LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware::class,
-        'oauth-user'                => LucaDegasperi\OAuth2Server\Middleware\OAuthUserOwnerMiddleware::class,
-        'oauth-client'              => LucaDegasperi\OAuth2Server\Middleware\OAuthClientOwnerMiddleware::class,
-        'check-authorization-params'=> LucaDegasperi\OAuth2Server\Middleware\CheckAuthCodeRequestMiddleware::class,
+        'oauth'                     => \LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware::class,
+        'oauth-user'                => \LucaDegasperi\OAuth2Server\Middleware\OAuthUserOwnerMiddleware::class,
+        'oauth-client'              => \LucaDegasperi\OAuth2Server\Middleware\OAuthClientOwnerMiddleware::class,
+        'check-authorization-params'=> \LucaDegasperi\OAuth2Server\Middleware\CheckAuthCodeRequestMiddleware::class,
     ];
 }

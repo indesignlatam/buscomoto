@@ -13,6 +13,44 @@
 
 /*
 |--------------------------------------------------------------------------
+| OAuth2 Routes
+|--------------------------------------------------------------------------
+|
+| Here are all the API routes for external consumption.
+|
+| 
+|
+*/
+Route::post('oauth/access_token', function() {
+    return Response::json(Authorizer::issueAccessToken());
+});
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here are all the API routes for external consumption.
+|
+| 
+|
+*/
+Route::group(['prefix' => 'api/v2', 'namespace' => 'API2'], function(){
+
+	// Litings Routes
+	Route::get('listings/liked', 'ListingController@liked');
+	Route::post('listings/{id}/like', 'ListingController@like');
+	Route::resource('listings', 'ListingController');
+
+	Route::resource('messages', 'MessageController');
+	Route::resource('search', 'SearchController');
+	Route::get('user/listings', 'ListingController@userListings');
+	Route::resource('user', 'UserController');
+	Route::get('user_email', 'UserController@getUserByEmail');
+});
+
+/*
+|--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
 |

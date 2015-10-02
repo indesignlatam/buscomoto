@@ -20,6 +20,13 @@ class Image extends IndesignModel {
 	 */
     protected $table = 'images';
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['image_url'];
+
 	/**
 	 * The rules to verify when creating.
 	 *
@@ -51,6 +58,17 @@ class Image extends IndesignModel {
 							'listing_id',
 							'ordering',
 							];
+
+
+
+	/**
+	 * Resolve the image path to show
+	 *
+	 * @var string
+	 */
+	public function getImageUrlAttribute(){
+		return url($this->image_path);
+	}
 
 
 	/**
