@@ -33,7 +33,9 @@
 
             <h3 class="uk-text-primary uk-text-bold uk-text-center">{{trans('frontend.search_intro')}}</h3>
             <form id="mobile_search_form" class="uk-form" method="GET" action="{{ url('/buscar') }}">
-                
+                <input type="hidden" name="engine_size_min" value id="engine_size_min">
+                <input type="hidden" name="engine_size_max" value id="engine_size_max">
+
                 <select class="uk-width-1-1 uk-margin-small-bottom uk-form-large" name="listing_type">
                     <option value>{{ trans('frontend.search_listing_type') }}</option>
                     @foreach($listingTypes as $type)
@@ -45,7 +47,7 @@
                     @endforeach
                 </select>
 
-                <select class="uk-width-1-1 uk-margin-small-bottom uk-form-large" id="engine_size" onchange="setEngineSize(this)">
+                <select class="uk-width-1-1 uk-margin-small-bottom uk-form-large" id="engine_size">
                     <option value>{{ trans('frontend.search_engine_size') }}</option>
                     <option value="1">0cc - 125cc</option>
                     <option value="2">125cc - 250cc</option>
@@ -235,6 +237,26 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+            $('#engine_size').change(function() {
+                sender = $('#engine_size');
+                if(sender.val() == 1){
+                    $('#engine_size_min').val(0);
+                    $('#engine_size_max').val(125);
+                }else if(sender.val() == 2){
+                    $('#engine_size_min').val(125);
+                    $('#engine_size_max').val(250);
+                }else if(sender.val() == 3){
+                    $('#engine_size_min').val(250);
+                    $('#engine_size_max').val(450);
+                }else if(sender.val() == 4){
+                    $('#engine_size_min').val(450);
+                    $('#engine_size_max').val(600);
+                }else if(sender.val() == 5){
+                    $('#engine_size_min').val(600);
+                    $('#engine_size_max').val(1000);
+                }
+            });
+
             var mySwiper = new Swiper ('.swiper-container', {
                 // Optional parameters
                 direction: 'horizontal',
@@ -255,24 +277,5 @@
                 prevButton: '.swiper-button-prev',                
             });
         });
-
-        function setEngineSize(sender){
-            if(sender.value == 1){
-                $('#engine_size_min').val(0);
-                $('#engine_size_max').val(125);
-            }else if(sender.value == 2){
-                $('#engine_size_min').val(125);
-                $('#engine_size_max').val(250);
-            }else if(sender.value == 3){
-                $('#engine_size_min').val(250);
-                $('#engine_size_max').val(450);
-            }else if(sender.value == 4){
-                $('#engine_size_min').val(450);
-                $('#engine_size_max').val(600);
-            }else if(sender.value == 5){
-                $('#engine_size_min').val(600);
-                $('#engine_size_max').val(1000);
-            }
-        }
     </script>
 @endsection
