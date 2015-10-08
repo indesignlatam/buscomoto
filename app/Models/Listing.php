@@ -283,6 +283,7 @@ class Listing extends IndesignModel {
 
 				$archived = $listing->toArray();
 				$archived['listing_type'] = $listing->listing_type;
+				array_forget($archived, 'image_path');
 				array_forget($archived, 'images');
 				array_forget($archived, 'features');
 				array_forget($archived, 'featured_type');
