@@ -274,7 +274,7 @@ class ImageController extends Controller {
 		}
 		
 		// Crop image, watermark
-		$img 			= Image::make('/images/temp/'.$name, ['width' => 1200, 'height' => 350, 'crop' => true]);
+		$img 			= Image::make('/images/temp/'.$name, ['width' => 1500, 'height' => 533, 'crop' => true]);
 		$watermark 		= Image::open(public_path().'/images/watermark_contrast.png');// Or use watermark.png for color watermark
 		$size      		= $img->getSize();
 		$wSize     		= $watermark->getSize();
