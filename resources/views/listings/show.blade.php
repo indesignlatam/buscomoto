@@ -179,7 +179,7 @@
 				            @if(!Auth::check())
 				                <!-- ReCaptcha -->
 				                <div class="uk-form-row uk-width-large-10-10 uk-margin-top uk-align-center uk-hidden" id="captcha">
-				                    <div class="g-recaptcha" data-sitekey="6Ldv5wgTAAAAALT3VR33Xq-9wDLXdHQSvue-JshE"></div>
+				                    <div class="g-recaptcha" data-sitekey="6Lc9XQwTAAAAAE7GXfLVOU_g3QcsodKReurbVRUp"></div>
 				                    <p class="uk-margin-remove uk-text-muted">{{ trans('admin.recaptcha_help') }}</p>
 				                </div>
 				                <!-- ReCaptcha -->
