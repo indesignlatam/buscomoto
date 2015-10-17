@@ -27,12 +27,12 @@
             @else
                 @if($listing->user->phone_1)
                     <div class="uk-h3">
-                        Tel 1: <b id="phone_1" class="uk-text-primary">{{ $listing->user->phone_1 }}</b>
+                        Tel 1: <b class="uk-text-primary">{{ $listing->user->phone_1 }}</b>
                     </div>
                 @endif
                 @if($listing->user->phone_2)
                     <div class="uk-h3">
-                        Tel 2: <b id="phone_2" class="uk-text-primary">{{ $listing->user->phone_2 }}</b>
+                        Tel 2: <b class="uk-text-primary">{{ $listing->user->phone_2 }}</b>
                     </div>
                 @endif
             @endif
