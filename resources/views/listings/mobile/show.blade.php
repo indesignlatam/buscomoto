@@ -81,7 +81,7 @@
 				<img src="{{ asset($listing->image_path()) }}" alt="{{ $listing->title }}" >
 			@endif
 
-			<button class="uk-button uk-button-large uk-margin-top uk-button-primary uk-width-1-1" data-uk-modal="{target:'#new_message_modal'}" onclick="trackContactVendor('mobile')">{{ trans('frontend.contact_vendor') }}</button>
+			<button class="uk-button uk-button-large uk-margin-top uk-button-primary uk-width-1-1" data-uk-modal="{target:'#new_message_modal'}">{{ trans('frontend.contact_vendor') }}</button>
 		</div>
 			
 		<hr>
@@ -122,7 +122,7 @@
     				<li><i class="uk-text-muted">{{ trans('admin.code') }}</i> <b>#{{ $listing->code }}</b></li>
     			</ul>
 
-				<button class="uk-button uk-button-large uk-button-primary uk-width-1-1" data-uk-modal="{target:'#new_message_modal'}" onclick="trackContactVendor('mobile')">{{ trans('frontend.contact_vendor') }}</button>
+				<button class="uk-button uk-button-large uk-button-primary uk-width-1-1" data-uk-modal="{target:'#new_message_modal'}">{{ trans('frontend.contact_vendor') }}</button>
     			<a href="{{ url($listing->user->path()) }}" class="uk-button uk-button-large uk-width-1-1 uk-margin-small-top uk-margin-bottom">{{ trans('frontend.other_user_listings') }}</a>
 	    	</div>
 
@@ -269,29 +269,6 @@
 
 	
 	<script type="text/javascript">
-		function phoneFormat(phone1) {
-			phone = ''+phone1;
-			if(phone.length == 0){
-				return '';
-			}
-			phone = phone.replace(/\D/g,'');
-			if(phone.length == 10){
-				phone = phone.replace(/[^0-9]/g, '');
-				phone = phone.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
-			}else if(phone.length == 9){
-				phone = phone.replace(/[^0-9]/g, '');
-				phone = phone.replace(/(\d{2})(\d{3})(\d{4})/, "($1) $2-$3");
-			}else if(phone.length == 8){
-				phone = phone.replace(/[^0-9]/g, '');
-				phone = phone.replace(/(\d{1})(\d{3})(\d{4})/, "(+$1) $2-$3");
-			}else if(phone.length == 7){
-				phone = phone.replace(/[^0-9]/g, '');
-				phone = phone.replace(/(\d{3})(\d{4})/, "$1-$2");
-			}
-			
-			return phone;
-		}
-
 		$(function (){
 			var mySwiper = new Swiper ('.swiper-container', {
                 // Optional parameters
@@ -305,9 +282,6 @@
                 nextButton: '.swiper-button-next',
                 prevButton: '.swiper-button-prev',
             });
-
-			$('#phone_1').html(phoneFormat($('#phone_1').html()));
-			$('#phone_2').html(phoneFormat($('#phone_2').html()));
 		});
 
 		@if(isset(Cookie::get('likes')[$listing->id]) && Cookie::get('likes')[$listing->id] || $listing->like)
@@ -349,12 +323,6 @@
 					}
 		    	}
 	        });
-		}
-
-		function trackContactVendor(label){
-			if("{{ env('APP_ENV') }}" == 'production'){
-				ga('send', 'contact_vendor', 'contact', 'button_click', label);
-			}
 		}
     </script>
 @endsection
