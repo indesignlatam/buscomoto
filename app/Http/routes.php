@@ -39,11 +39,11 @@ Route::post('oauth/access_token', function() {
 Route::group(['prefix' => 'api/v2', 'namespace' => 'APIV2'], function(){
 
 	// Litings Routes
+	Route::resource('listings', 'ListingController');
 	Route::resource('listings/image', 'ImageController');
 	Route::get('listings/liked', 'ListingController@liked');
 	Route::post('listings/{id}/like', 'ListingController@like');
 	Route::post('listings/{id}/renovate', 'ListingController@renovate');
-	Route::resource('listings', 'ListingController');
 
 	Route::resource('messages', 'MessageController');
 	Route::resource('search', 'SearchController');
