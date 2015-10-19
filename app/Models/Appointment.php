@@ -47,6 +47,7 @@ class Appointment extends IndesignModel {
      * @var array
      */
     protected $fillable = [ 'user_id', 
+                            'uuid',
                             'listing_id', 
                             'name', 
                             'email', 
