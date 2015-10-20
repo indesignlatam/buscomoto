@@ -238,7 +238,7 @@ class ListingAPIV2Controller extends Controller {
 
 		if($input['model_id']){
 			$model = Model::find($input['model_id']);
-			if($model){
+			if($model->listing_type){
 				$input['listing_type'] = $model->listing_type;// TODO edit
 			}
 		}
