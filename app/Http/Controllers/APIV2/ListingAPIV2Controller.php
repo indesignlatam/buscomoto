@@ -209,8 +209,16 @@ class ListingAPIV2Controller extends Controller {
 		if(!$user->is('admin')){
 			if(!$user->confirmed && $user->freeListingCount > 0){
 				// Return not confirmed error
+				return response()->json(['error' => ['code' => 403,
+													 'message' => ['User not confirmed'],
+													 ]
+										], 403);
 			}else if($user->confirmed && $user->freeListingCount >= 20){
 				// Return free listings limit error
+				return response()->json(['error' => ['code' => 406,
+													 'message' => ['Too many free listings'],
+													 ]
+										], 406);
 			}
 		}
 		
@@ -231,13 +239,16 @@ class ListingAPIV2Controller extends Controller {
 		if($input['model_id']){
 			$model = Model::find($input['model_id']);
 			if($model){
-				$input['listing_type'] 	= $model->listing_type;// TODO edit
+				$input['listing_type'] = $model->listing_type;// TODO edit
 			}
 		}
 
 		if (!$listing->validate($input)){
 			// Return validation errors
-	        // return redirect('admin/listings/create')->withErrors($listing->errors())->withInput();
+	        return response()->json(['error' => ['code' => 400,
+												 'message' => $listing->errors(),
+												 ]
+									], 400);
 	    }
 
 		$listing = $listing->create($input);
