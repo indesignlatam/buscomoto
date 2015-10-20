@@ -431,7 +431,7 @@ class ListingController extends Controller {
 	 */
 	public function userListings(){
 		$user 	= User::find(Authorizer::getResourceOwnerId());
-		$listings 	= $user->listings()->get();
+		$listings 	= Listing::where('user_id', $user->id)->get();
 
 		$listings->load('user', 'listingType', 'city', 'images', 'manufacturer', 'model', 'features');
 

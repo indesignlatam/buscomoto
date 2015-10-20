@@ -21,6 +21,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $errors;
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['image_url'];
+
+    /**
      * The rules to verify when creating.
      *
      * @var array
@@ -92,6 +99,18 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function errors(){
         return $this->errors;
+    }
+
+    /**
+     * Resolve the image path to show
+     *
+     * @var string
+     */
+    public function getImageUrlAttribute(){
+        if($this->image_path || $this->image_path != ''){
+            return url($this->image_path);
+        }
+        return url('/images/defaults/user_front.jpg');
     }
 
 
