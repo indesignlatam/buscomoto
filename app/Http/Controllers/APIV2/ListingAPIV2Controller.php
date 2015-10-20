@@ -16,7 +16,7 @@ use App\Models\Model;
 
 // use	App\Events\ListingViewed;
 
-class ListingController extends Controller {
+class ListingAPIV2Controller extends Controller {
 
 	/**
 	 * Create a new event instance.
@@ -431,7 +431,7 @@ class ListingController extends Controller {
 	 */
 	public function userListings(){
 		$user 	= User::find(Authorizer::getResourceOwnerId());
-		$listings 	= null;
+		$listings 	= Listing::where('user_id', $user->id)->with('user', 'listingType', 'city', 'images', 'manufacturer', 'model', 'features')->get();
 
 		return response()->json(['data' => $listings,
 								]);
