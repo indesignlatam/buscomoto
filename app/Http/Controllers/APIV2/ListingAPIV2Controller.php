@@ -433,7 +433,8 @@ class ListingAPIV2Controller extends Controller {
 		$user 	= User::find(Authorizer::getResourceOwnerId());
 		$listings 	= Listing::where('user_id', $user->id)->with('user', 'listingType', 'city', 'images', 'manufacturer', 'model', 'features')->get();
 
-		return response()->json('miaw');
+		return response()->json(['listings' => $listings,
+								]);
 	}
 
 	/**
