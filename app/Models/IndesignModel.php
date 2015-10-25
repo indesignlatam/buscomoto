@@ -59,15 +59,4 @@ class IndesignModel extends Model {
         return $this->errors;
     }
 
-
-    /**
-     * Convert the model instance to JSON.
-     *
-     * @param  int  $options
-     * @return string
-     */
-    public function toJson($options = JSON_NUMERIC_CHECK){
-        return json_encode($this->toArray(), $options);
-    }
-
 }
